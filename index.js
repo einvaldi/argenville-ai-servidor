@@ -79,7 +79,7 @@ app.post("/chat", async (req, res) => {
 
         exec(ttsCommand, (error) => {
             if (error) return res.json({ reply: replyText, audioUrl: null });
-            res.json({ reply: replyText, audioUrl: `http://localhost:5050/audios/${audioFileName}` });
+            res.json({ reply: replyText, audioUrl: `https://juan-ai-zq22.onrender.com/audios/${audioFileName}` });
         });
     } catch (err) {
         console.error("🔥 Error:", err.message);
@@ -87,6 +87,8 @@ app.post("/chat", async (req, res) => {
     }
 });
 
-app.listen(5050, "0.0.0.0", () => {
-    console.log("🚀 MOTOR ARGENVIL TENOR V4 - Juan ahora sabe que hay Dulce de Leche.");
+const PORT = process.env.PORT || 5050;
+
+app.listen(PORT, "0.0.0.0", () => {
+    console.log("🚀 MOTOR ARGENVIL TENOR V4 - Juan activo.");
 });
