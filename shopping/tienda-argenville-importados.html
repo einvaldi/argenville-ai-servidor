@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Argenville Tienda – Shopping Global de Importados | Profesional B2B & Packs</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+  <style>
+    /* =============== RESET BÁSICO Y VARIABLES =============== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg-white: #ffffff;
+      --neon-blue: #00D7FF;
+      --primary-blue: #0ea5e9;
+      --gold: #f5c56b;
+      --gold-deep: #D4A017;
+      --red-close: #ef4444;
+
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-price-blue: #22d3ee; 
+
+      --border-light: rgba(255, 255, 255, 0.12);
+      --nav-bg: rgba(255, 255, 255, 0.85);
+      
+      /* Fondos Oscuros Premium */
+      --grid-bg-dark: rgba(2, 6, 23, 0.95);
+      --card-bg-dark: rgba(15, 23, 42, 0.95);
+      --drawer-bg-dark: rgba(2, 6, 23, 0.98); 
+
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 26px;
+      
+      --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.15);
+      --shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.25);
+--sol: #f5c56b;
+--negro: #0f172a;
+--font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; 
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(56,189,248,.25) 0, rgba(56,189,248,0) 55%),
+        radial-gradient(circle at 82% 22%, rgba(250,204,107,.20) 0, rgba(250,204,107,0) 60%),
+        linear-gradient(180deg, #e0f2fe 0%, #ffffff 40%, #ffffff 100%);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { border: none; cursor: pointer; font-family: inherit; font-size: inherit; background: none; }
+
+    /* =============== TIPOGRAFÍA PRO =============== */
+    h1, h2, h3, h4, .brand .t { font-family: 'Fraunces', serif; letter-spacing: 0.02em; font-weight: 900; } 
+    .brand .s, .cat-btn, .btn-primary, .btn-gold, .p-title, .price, .totals .t2 { font-weight: 800; letter-spacing: -0.01em; } 
+
+    /* =============== EL HEAD DE LA JEFA (INTACTO) =============== */
+    .topbar {
+      text-align: center; font-size: 0.85rem; padding: 8px 10px;
+      background: linear-gradient(90deg, rgba(29, 78, 216, 0.95), rgba(56, 189, 248, 0.2));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25); color: #e0f2fe; font-weight: 600;
+    }
+    .topbar b { color: var(--gold); }
+
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      padding: 12px 20px; background: var(--nav-bg); backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .nav {
+      max-width: 1300px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;
+      padding: 10px 20px; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(255, 255, 255, 0.9); box-shadow: var(--shadow-md);
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { height: 55px; width: auto; filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.15)); }
+    .brand .txt { line-height: 1.1; }
+    .brand .txt .t { color: var(--text-main); font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .brand .txt .s { font-size: 0.8rem; color: var(--text-muted); }
+    .stars { display: flex; align-items: center; gap: 4px; margin-top: 2px; font-size: 0.75rem; color: var(--gold-deep); }
+
+    .navright { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .navright .pill {
+      font-size: 0.85rem; padding: 8px 16px; border-radius: 999px; font-weight: 700;
+      background: var(--bg-white); border: 1px solid #cbd5e1; color: var(--text-main);
+      display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
+    }
+    .navright .pill:hover { border-color: var(--gold-deep); box-shadow: 0 4px 10px rgba(212, 160, 23, 0.15); transform: translateY(-1px); }
+    .navright .pill i { color: var(--gold-deep); font-size: 1rem; }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+      color: #000; border: 1px solid rgba(212, 160, 23, 0.8); font-weight: 800; font-size: 0.9rem;
+      box-shadow: 0 8px 20px rgba(212, 160, 23, 0.25); transition: 0.3s;
+    }
+    .btn-gold:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+    /* =============== LAYOUT PRINCIPAL =============== */
+    .page {
+      max-width: 1300px; margin: 30px auto; padding: 0 20px 100px;
+      display: grid; grid-template-columns: 280px 1fr; gap: 30px; align-items: start;
+    }
+
+    /* =============== SIDEBAR (CATEGORÍAS PRO OSCURO) =============== */
+    .sidebar {
+      background: var(--grid-bg-dark); border-radius: var(--radius-lg); padding: 20px;
+      color: white; position: sticky; top: 100px; box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(250, 204, 21, 0.2);
+    }
+    .sidebar h3 { font-size: 1.1rem; margin-bottom: 15px; color: var(--gold); }
+    
+    .search-box {
+      display: flex; align-items: center; gap: 10px; background: white; padding: 10px 15px;
+      border-radius: 12px; margin-bottom: 20px; border: 2px solid rgba(250,204,21,0.5);
+    }
+    .search-box input { border: none; outline: none; width: 100%; font-weight: 600; color: #0f172a;}
+    
+    .cat-list { display: flex; flex-direction: column; gap: 8px; }
+    .cat-btn {
+      display: flex; justify-content: space-between; align-items: center; padding: 10px 15px;
+      border-radius: 10px; background: rgba(255,255,255,0.05); color: #e2e8f0;
+      font-weight: 700; font-size: 0.9rem; transition: 0.3s; border: 1px solid transparent;
+    }
+    .cat-btn i { color: var(--gold); margin-right: 8px; }
+    .cat-btn:hover, .cat-btn.active {
+      background: rgba(0, 215, 255, 0.1); border-color: rgba(0, 215, 255, 0.3); color: white; transform: translateX(5px);
+    }
+    .cat-btn.active { border-color: var(--gold); box-shadow: inset 0 0 10px rgba(250,204,21,0.2); }
+    .cat-count { background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 20px; font-size: 0.8rem; }
+
+    .side-actions { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+    .btn-soft {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px;
+      border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-light);
+      color: #e0f2fe; font-weight: 800; font-size: 0.85rem; transition: 0.3s;
+    }
+    .btn-soft i { color: var(--gold); }
+    .btn-soft:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--neon-blue); }
+
+    /* =============== CONTENT AREA =============== */
+    .content { display: flex; flex-direction: column; gap: 30px; }
+    
+    .hero {
+      background: var(--card-bg-dark); border-radius: var(--radius-lg); padding: 30px;
+      color: white; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      border: 1px solid var(--border-light); box-shadow: var(--shadow-lg);
+    }
+    .hero-text { flex: 1; }
+    .hero h1 { font-size: 2.2rem; line-height: 1.1; margin-bottom: 12px; }
+    .hero h1 span { color: var(--neon-blue); }
+    .hero p { color: #94a3b8; font-size: 1rem; margin-bottom: 20px; line-height: 1.5; max-width: 90%; }
+    .hero img { max-width: 320px; border-radius: var(--radius-md); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--border-light); }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--neon-blue), var(--primary-blue)); color: #000;
+      padding: 10px 20px; border-radius: 50px; font-weight: 900; font-size: 1rem; border: none; transition: 0.3s; box-shadow: 0 5px 15px rgba(0, 215, 255, 0.3); margin-right: 10px;
+    }
+    .btn-primary:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+    .catalog-section {
+      background: var(--grid-bg-dark); border-radius: var(--radius-lg); padding: 25px;
+      border: 1px solid var(--border-light); box-shadow: var(--shadow-lg);
+    }
+    .section-title { color: white; font-size: 1.5rem; margin-bottom: 20px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; }
+    .section-title span { color: var(--gold); }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+
+    /* =============== PRODUCT CARD (FONDO BLANCO Y ZOOM MODAL) =============== */
+    .product {
+      background: var(--card-bg-dark); border-radius: var(--radius-md); overflow: hidden;
+      border: 1px solid var(--border-light); display: flex; flex-direction: column;
+      transition: 0.3s; position: relative;
+    }
+    .product:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,215,255,0.15); border-color: rgba(0,215,255,0.3); }
+    
+    .p-media {
+      background: #ffffff; /* FONDO BLANCO COMO PIDIÓ LA JEFA */
+      height: 200px; display: flex; align-items: center; justify-content: center;
+      padding: 15px; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .p-media img { 
+      max-height: 100%; width: auto; object-fit: contain; 
+      transition: transform 0.4s ease; cursor: zoom-in; /* Cursor de lupa */
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+    }
+    .product:hover .p-media img { transform: scale(1.15); } /* Efecto hover zoom suave */
+
+    .p-chip {
+      position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.85);
+      color: var(--neon-blue); padding: 4px 10px; border-radius: 50px; font-size: 0.75rem;
+      font-weight: 800; border: 1px solid var(--neon-blue); z-index: 2;
+    }
+
+    .p-body { padding: 15px; display: flex; flex-direction: column; flex: 1; }
+    .p-title { color: white; font-weight: 800; font-size: 1.05rem; margin-bottom: 5px; line-height: 1.2; }
+    .p-desc { color: #94a3b8; font-size: 0.85rem; line-height: 1.4; margin-bottom: 10px; flex: 1; }
+    .price { color: var(--text-price-blue); font-size: 1.3rem; font-weight: 900; text-shadow: 0 0 10px rgba(0,215,255,0.2); }
+    .price small { font-size: 0.8rem; color: #64748b; text-shadow: none;}
+
+    .p-actions { display: flex; gap: 10px; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .btn-add {
+      flex: 1; background: linear-gradient(135deg, var(--gold), var(--gold-deep)); color: black; font-weight: 800; padding: 10px;
+      border-radius: 10px; transition: 0.2s; font-size: 0.9rem;
+    }
+    .btn-add:hover { filter: brightness(1.1); }
+    .btn-buy-card {
+      background: rgba(0, 215, 255, 0.1); border: 1px solid var(--neon-blue); color: var(--neon-blue);
+      font-weight: 800; padding: 10px 15px; border-radius: 10px; transition: 0.2s;
+    }
+    .btn-buy-card:hover { background: var(--neon-blue); color: black; }
+
+    /* =============== MODAL ZOOM (PANTALLA COMPLETA) =============== */
+    .zoom-modal {
+      display: none; position: fixed; z-index: 20000; left: 0; top: 0;
+      width: 100%; height: 100%; background-color: rgba(2, 6, 23, 0.95);
+      backdrop-filter: blur(8px); align-items: center; justify-content: center;
+    }
+    .zoom-content {
+      max-width: 90%; max-height: 85vh; border-radius: 20px; box-shadow: 0 0 50px rgba(0, 215, 255, 0.3);
+      animation: zoomIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); background: white; padding: 20px;
+    }
+    .close-zoom {
+      position: absolute; top: 20px; right: 35px; color: #f1f1f1;
+      font-size: 45px; font-weight: bold; cursor: pointer; transition: 0.3s;
+    }
+    .close-zoom:hover { color: var(--red-close); }
+    @keyframes zoomIn { from {transform:scale(0.8); opacity:0;} to {transform:scale(1); opacity:1;} }
+
+    /* =============== CARRITO DRAWER & FAB =============== */
+    .cart-fab { position: fixed; left: 20px; bottom: 20px; z-index: 10000; display: flex; align-items: flex-end; gap: 15px; }
+    .cart-btn-fab {
+      width: 65px; height: 65px; border-radius: 20px; background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+      color: black; font-size: 1.5rem; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4); cursor: pointer; border: 2px solid #ca8a04; transition: 0.3s;
+    }
+    .cart-btn-fab:hover { transform: scale(1.05); }
+    .cart-count {
+      position: absolute; top: -5px; right: -5px; background: black; color: white; width: 28px; height: 28px;
+      border-radius: 50%; font-size: 0.85rem; font-weight: 900; display: flex; align-items: center; justify-content: center; border: 2px solid var(--gold);
+    }
+    
+    /* CART HINT (CIERRE ARREGLADO) */
+    .cart-hint {
+      background: white; color: black; padding: 15px 35px 15px 15px; border-radius: 15px;
+      box-shadow: var(--shadow-lg); max-width: 280px; position: relative; font-size: 0.9rem; font-weight: 600; line-height: 1.4; border: 1px solid #e2e8f0;
+    }
+    .cart-hint b { color: var(--primary-blue); }
+    .hint-close {
+      position: absolute; top: 8px; right: 8px; background: #f1f5f9; border: 1px solid #cbd5e1;
+      width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 0.8rem; font-weight: bold; color: #475569; display: flex; align-items: center; justify-content: center; transition: 0.2s;
+    }
+    .hint-close:hover { background: var(--red-close); color: white; border-color: var(--red-close); }
+
+    .drawer {
+      position: fixed; top: 0; right: -100%; width: 420px; max-width: 100%; height: 100%;
+      background: var(--drawer-bg-dark); border-left: 1px solid var(--border-light);
+      box-shadow: -15px 0 50px rgba(0,0,0,0.6); z-index: 10020; transition: right 0.3s ease;
+      display: flex; flex-direction: column; color: white;
+    }
+    .drawer.open { right: 0; }
+    
+    .drawer-head { padding: 20px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); }
+    .drawer-head h3 { font-size: 1.2rem; margin: 0; color: white; display: flex; align-items: center; gap: 10px; }
+    .drawer-head h3 i { color: var(--gold); }
+    .btn-close-drawer { background: rgba(255,255,255,0.1); border: none; color: white; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; font-size: 1.2rem; transition: 0.2s; }
+    .btn-close-drawer:hover { background: var(--red-close); }
+
+    .drawer-body { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+    .empty { text-align: center; color: #94a3b8; padding: 30px 10px; border: 2px dashed rgba(255,255,255,0.1); border-radius: 15px; font-weight: 600; }
+    .cart-item { display: flex; gap: 15px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.08); }
+    .cart-item img { width: 60px; height: 60px; border-radius: 10px; background: white; object-fit: contain; padding: 5px; }
+    .cart-item-info { flex: 1; }
+    .cart-item-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 5px; }
+    .cart-item-price { color: var(--neon-blue); font-weight: 900; }
+    .qty-controls { display: flex; align-items: center; gap: 10px; margin-top: 8px; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 8px; width: fit-content; border: 1px solid rgba(255,255,255,0.1); }
+    .qty-btn { background: rgba(255,255,255,0.1); color: white; border: none; width: 26px; height: 26px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    
+    .drawer-foot { padding: 20px; border-top: 1px solid var(--border-light); background: var(--card-bg-dark); }
+    .cart-total { display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 900; margin-bottom: 15px; color: white; }
+    .cart-total span:last-child { color: var(--gold); }
+    
+    /* CODIGO REFERIDOS EN CAJA */
+    .referral-box { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 12px; border: 1px dashed var(--gold); margin-bottom: 15px; }
+    .referral-box label { font-size: 0.85rem; color: var(--gold); font-weight: 700; display: block; margin-bottom: 5px; }
+    .referral-box input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: white; outline: none; font-weight: bold; }
+    
+    /* BOTONES DE PAGO (WPP Y PAYPAL) */
+    .checkout-btns { display: flex; flex-direction: column; gap: 10px; }
+    .btn-wpp { background: #25D366; color: white; padding: 12px; border-radius: 10px; font-weight: 800; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s; border: none; cursor: pointer;}
+    .btn-wpp:hover { background: #1da851; }
+    
+    .btn-paypal { background: #FFC439; color: #003087; padding: 12px; border-radius: 10px; font-weight: 900; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s; border: none; cursor: pointer;}
+    .btn-paypal:hover { filter: brightness(1.05); }
+
+    /* =============== WIDGET JUAN PATRIOTA (CON CRUZ ROJA) =============== */
+    .juan-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: center; }
+    
+    /* LA CRUZ ROJA PARA CERRAR A JUAN (EN EL MUÑECO) */
+    .juan-close-btn {
+      position: absolute; top: -10px; left: -10px; width: 28px; height: 28px;
+      background: var(--red-close); color: white; border: 2px solid white;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: bold; cursor: pointer; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+    .juan-close-btn:hover { transform: scale(1.15); background: #dc2626; }
+
+    .juan-avatar { width: 160px; cursor: pointer; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); transition: 0.3s; }
+    .juan-avatar:hover { transform: translateY(-5px); }
+    .juan-bubble { background: white; color: black; font-weight: 700; padding: 8px 12px; border-radius: 15px; font-size: 0.85rem; margin-top: -10px; box-shadow: var(--shadow-md); border: 2px solid var(--gold); }
+
+    /* BOTON PARA TRAER A JUAN DE VUELTA */
+    .bring-juan-back {
+      position: fixed; bottom: 20px; right: 20px; background: var(--gold); color: black;
+      font-weight: 800; padding: 12px 20px; border-radius: 50px; cursor: pointer;
+      box-shadow: var(--shadow-md); z-index: 9998; display: none; /* Oculto por defecto */
+      border: 2px solid #ca8a04; transition: 0.3s; display: flex; align-items: center; gap: 8px;
+    }
+    .bring-juan-back:hover { transform: translateY(-3px); }
+
+    /* PANEL DE CHAT */
+    .chat-panel {
+      position: fixed; bottom: 100px; right: 20px; width: 320px; height: 450px;
+      background: var(--card-bg-dark); border-radius: 20px; border: 1px solid var(--border-light);
+      display: none; flex-direction: column; overflow: hidden; z-index: 10000; box-shadow: var(--shadow-lg);
+    }
+    .chat-header { background: linear-gradient(90deg, #1e3a8a, #0ea5e9); padding: 12px 15px; color: white; display: flex; justify-content: space-between; align-items: center; }
+    .chat-header h4 { font-size: 1rem; margin: 0; }
+    .chat-close-panel { background: rgba(0,0,0,0.3); border: none; color: white; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    .chat-close-panel:hover { background: var(--red-close); }
+    
+    .chat-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: white;}
+    .msg-bot { background: #f1f5f9; color: black; padding: 10px 15px; border-radius: 15px 15px 15px 0; align-self: flex-start; max-width: 85%; font-size: 0.9rem; font-weight: 600;}
+    .msg-user { background: var(--primary-blue); color: white; padding: 10px 15px; border-radius: 15px 15px 0 15px; align-self: flex-end; max-width: 85%; font-size: 0.9rem; font-weight: 600; }
+    
+    .chat-input-area { padding: 10px; display: flex; gap: 10px; background: rgba(0,0,0,0.8); border-top: 1px solid var(--border-light); }
+    .chat-input-area input { flex: 1; border-radius: 20px; border: none; padding: 10px 15px; outline: none; }
+    .chat-input-area button { background: var(--primary-blue); border: none; color: white; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; }
+
+   /* ======================================================= */
+    /* RESPONSIVE DEFINITIVO - ORDEN REAL SIN SUPERPOSICIÓN   */
+    /* ======================================================= */
+    @media (max-width: 900px) {
+      /* 1. EL HEADER: Simple, arriba y sin molestar */
+      header { 
+        position: relative !important; 
+        padding: 10px 5px !important; 
+        background: white !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+      }
+      .nav { 
+        flex-direction: row !important; 
+        justify-content: space-between !important; 
+        padding: 8px 12px !important; 
+        border-radius: 50px !important;
+        max-width: 98% !important;
+        margin: 0 auto !important;
+        border: 1px solid #eee !important;
+      }
+      .brand img { height: 28px !important; width: auto !important; }
+      .brand .txt, .stars, .topbar, .navlinks { display: none !important; }
+
+      /* Login y Carrito visibles y prolijos */
+      .navright { display: flex !important; gap: 5px !important; flex-wrap: nowrap !important; }
+      .navright .pill { padding: 6px 10px !important; font-size: 0.7rem !important; background: #f8fafc !important; }
+      .btn-gold { padding: 8px 12px !important; font-size: 0.75rem !important; }
+
+      /* 2. EL CUERPO: Se apila solo sin trucos de "order" */
+      .page { 
+        display: block !important; /* Desactivamos flex para evitar desorden */
+        padding: 10px !important; 
+        margin: 0 !important;
+      }
+      
+      /* EL HERO (Imagen y texto): Aparece SEGUNDO (naturalmente) */
+      .hero { 
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 15px !important; 
+        margin-bottom: 20px !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        text-align: center !important;
+      }
+      .hero-img { 
+        order: -1 !important; /* Imagen arriba de su propio texto en el Hero */
+        width: 100% !important; 
+        max-width: 350px !important; 
+        margin: 0 auto 15px !important; 
+        border-radius: 15px !important;
+      }
+
+      /* LAS CATEGORÍAS: Ensanchadas TERCERO (abajo del Hero) */
+      .sidebar { 
+        display: block !important; 
+        position: relative !important;
+        background: var(--negro) !important;
+        padding: 20px 10px !important;
+        margin-bottom: 30px !important;
+        border-radius: 20px !important;
+        width: 100% !important;
+        top: 0 !important; /* Aseguramos que no quede fija */
+      }
+      .sidebar h3, .search-box, .side-actions { display: none !important; }
+      .cat-list { 
+        display: grid !important; 
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 10px !important; 
+      }
+      .cat-btn { padding: 15px 5px !important; font-size: 0.8rem !important; justify-content: center !important; }
+
+      /* 3. PRODUCTOS: 2 columnas limpias */
+      .content { display: block !important; }
+      .grid { 
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 12px !important; 
+      }
+      .product { border-radius: 15px !important; }
+      .p-media { height: 140px !important; }
+      .p-title { font-size: 0.85rem !important; height: 35px !important; }
+      .p-desc { display: none !important; }
+
+      /* 4. FOOTER: Horizontal y prolijo */
+      .site-footer { padding: 30px 15px !important; border-top: 1px solid #eee !important; background: white !important; color: #0f172a !important; }
+      .footer-container { 
+        display: flex !important; 
+        flex-direction: row !important; 
+        flex-wrap: wrap !important;
+        justify-content: space-around !important;
+        gap: 20px !important;
+        text-align: left !important;
+      }
+      .footer-brand, .footer-links { flex: 1 !important; min-width: 130px !important; }
+
+      /* Widgets achicados */
+      .juan-container, .cart-fab { transform: scale(0.6) !important; z-index: 100 !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    Argenville Shopping • <b>Importados B2B & Packs Mayoristas</b> ⭐⭐⭐ Selección Premium
+  </div>
+
+  <header>
+    <div class="nav">
+      <a href="../index.html" class="brand">
+        <img src="../img/logo-argenville.png" alt="Argenville" onerror="this.src='https://placehold.co/120x50/transparent/0f172a?text=ARG'">
+        <div class="txt">
+          <div class="brand-t"></div>
+          <div class="brand-s">Shopping de Importados</div>
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Marca Argentina
+          </div>
+        </div>
+      </a>
+      <div class="navright">
+        <a href="../cuenta/index.html" class="pill"><i class="fa-solid fa-circle-user"></i> Ingresar</a>
+        <a href="../cuenta/index.html?provider=google" class="pill"><i class="fa-brands fa-google"></i> Google</a>
+                <button class="btn-gold" onclick="document.getElementById('cartDrawer').classList.add('open')">
+          <i class="fa-solid fa-cart-shopping"></i> Ver carrito
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page">
+    <aside class="sidebar">
+      <h3><i class="fa-solid fa-layer-group"></i> Filtrar Productos</h3>
+      <div class="search-box">
+        <i class="fa-solid fa-search" style="color: #94a3b8;"></i>
+        <input type="text" id="searchInput" placeholder="Buscar tecnología, ropa...">
+      </div>
+      <div class="cat-list" id="categoryList">
+        </div>
+      <div class="side-actions">
+        <button class="btn-soft" onclick="setCategory('packs')"><i class="fa-solid fa-box-open"></i> Ir a Packs Mayoristas</button>
+        <a class="btn-soft" href="../docs/lista-precios-argenville-2026.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i> Descargar Lista PDF</a>
+        <a class="btn-soft" href="https://wa.me/543516965911" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Humano</a>
+      </div>
+<aside class="sidebar">
+      <h3><i class="fa-solid fa-layer-group"></i> Filtrar Productos</h3>
+      <select id="mobile-category-select" onchange="setCategory(this.value)" style="display: none; width: 100%; margin-top: 5px; padding: 10px; border-radius: 8px; font-weight: 800; background: #f5c56b; color: #0f172a; border: none;">
+          <option value="todo">🔍 ELEGIR CATEGORÍA</option>
+          <option value="Celus y Tablet">📱 CELULARES</option>
+          <option value="Multimedia">🎧 AUDIO</option>
+          <option value="packs">📦 PACKS MAYORISTAS</option>
+      </select>
+    </aside>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <div class="hero-text">
+          <h1>Argenville <span>Importados</span><br>Oportunidad B2B</h1>
+          <p>Abastecimiento inteligente para comercios y resellers. Curaduría desde USA, China y Europa con margen real y logística integrada en solo 7 días. Armá tu pedido y finalizá por WhatsApp o PayPal.</p>
+          <div class="hero-cta">
+            <button class="btn-primary" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-basket-shopping"></i> Ver Ofertas</button>
+            <a class="btn-outline" href="../cuenta/index.html" style="color:white; border-color:white; margin-left: 10px;"><i class="fa-solid fa-store"></i> Quiero ser Reseller</a>
+          </div>
+        </div>
+        <img src="../img/china-argentina.png" class="hero-img" alt="B2B Importados" onerror="this.src='https://images.unsplash.com/photo-1553413766-4d2c8c68c16d?auto=format&fit=crop&w=500&q=80'">
+      </section>
+
+      <section class="catalog-section" id="packs">
+        <h2 class="section-title">Packs Mayoristas <span>Argenville</span></h2>
+        <div class="grid" id="packsGrid"></div>
+      </section>
+
+      <section class="catalog-section" id="productos">
+        <h2 class="section-title"> Ofertas Imperdibles <span> Hot Sale </span></h2>
+        <div class="grid" id="productsGrid"></div>
+      </section>
+    </main>
+  </div>
+
+  <aside class="drawer" id="cartDrawer">
+    <div class="drawer-head">
+      <h3><i class="fa-solid fa-bag-shopping"></i> Tu Pedido</h3>
+      <button class="btn-close-drawer" onclick="document.getElementById('cartDrawer').classList.remove('open')">✕</button>
+    </div>
+    <div class="drawer-body" id="cartBody">
+      </div>
+    <div class="drawer-foot">
+      <div class="cart-total">
+        <span style="color: white; font-size: 1rem; font-weight: 600;">Total estimado</span>
+        <span id="cartTotal">$0.00 USD</span>
+      </div>
+      
+      <div class="referral-box">
+        <label for="refCode"><i class="fa-solid fa-ticket"></i> Código de Referido (Vendedor)</label>
+        <input type="text" id="refCode" placeholder="Ej: JUAN100 o MARIA_B2B">
+      </div>
+
+      <div class="checkout-btns">
+        <button class="btn-wpp" onclick="checkout('whatsapp')"><i class="fa-brands fa-whatsapp"></i> Finalizar con Asesor</button>
+        <button class="btn-paypal" onclick="checkout('paypal')"><i class="fa-brands fa-paypal"></i> Pagar Seguro</button>
+      </div>
+    </div>
+  </aside>
+
+  <div id="imageZoomModal" class="zoom-modal">
+    <span class="close-zoom" id="closeZoomBtn">&times;</span>
+    <img class="zoom-content" id="imgZoomed">
+  </div>
+
+  <div class="juan-container" id="juanContainer">
+    <button class="juan-close-btn" id="closeJuanBtn" title="Ocultar a Juan">✕</button>
+    <img src="../img/juan-patriota.png" alt="Juan" class="juan-avatar" id="juanAvatar" onerror="this.src='https://placehold.co/150x250/transparent/000?text=Juan'">
+    <div class="juan-bubble">¡Hola Jefe! ¿Te asesoro?</div>
+  </div>
+
+  <button class="bring-juan-back" id="bringJuanBackBtn"><i class="fa-solid fa-robot"></i> Juan AI</button>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <h4>Juan Patriota AI 🇦🇷</h4>
+      <button class="chat-close-panel" id="closeChatPanelBtn">✕</button>
+    </div>
+    <div class="chat-body" id="chatMessages">
+      <div class="msg-bot">¡Hola! Soy tu asistente para importados B2B. ¿Buscás tecnología o packs armados?</div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="Escribí tu consulta..." onkeypress="if(event.key==='Enter') sendChat()">
+      <button onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <div class="cart-fab">
+    <button class="fab-btn" onclick="document.getElementById('cartDrawer').classList.add('open')">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <div class="fab-count" id="fabCount">0</div>
+    </button>
+    <div class="cart-hint" id="cartHint">
+      <button class="hint-close" id="closeHintBtn">✕</button>
+      <b>Tip Pro:</b> Agregá productos y tocá Finalizar. Pasá por WhatsApp o pagá con PayPal.
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // LÓGICA DE ZOOM EN IMÁGENES (PANTALLA COMPLETA)
+    // ==========================================
+    const zoomModal = document.getElementById("imageZoomModal");
+    const imgZoomed = document.getElementById("imgZoomed");
+    const closeZoomBtn = document.getElementById("closeZoomBtn");
+
+    function abrirZoom(src) {
+      zoomModal.style.display = "flex";
+      imgZoomed.src = src;
+    }
+
+    closeZoomBtn.onclick = function() {
+      zoomModal.style.display = "none";
+    }
+
+    // Cerrar si hace clic en lo oscuro afuera de la foto
+    zoomModal.onclick = function(e) {
+      if (e.target !== imgZoomed) {
+        zoomModal.style.display = "none";
+      }
+    }
+
+    // ==========================================
+    // GESTIÓN DEL WIDGET DE JUAN Y EL TIP (Con LocalStorage)
+    // ==========================================
+    const juanContainer = document.getElementById('juanContainer');
+    const closeJuanBtn = document.getElementById('closeJuanBtn');
+    const bringJuanBackBtn = document.getElementById('bringJuanBackBtn');
+    const juanAvatar = document.getElementById('juanAvatar');
+    
+    const chatPanel = document.getElementById('chatPanel');
+    const closeChatPanelBtn = document.getElementById('closeChatPanelBtn');
+    
+    const cartHint = document.getElementById('cartHint');
+    const closeHintBtn = document.getElementById('closeHintBtn');
+    const HINT_KEY = "argenville_cart_hint_closed";
+
+    // Revisar LocalStorage para el tip del carrito
+    if(localStorage.getItem(HINT_KEY) === 'true') {
+      cartHint.style.display = 'none';
+    }
+
+    // Cerrar Tip Carrito
+    closeHintBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cartHint.style.display = 'none';
+      localStorage.setItem(HINT_KEY, 'true'); // Persistente!
+    });
+
+    // Abrir Chat al tocar el muñeco
+    juanAvatar.addEventListener('click', () => {
+      juanContainer.style.display = 'none'; // Oculta el muñeco
+      chatPanel.style.display = 'flex'; // Abre el chat
+    });
+
+    // Cerrar Chat (Panel) y volver al muñeco
+    closeChatPanelBtn.addEventListener('click', () => {
+      chatPanel.style.display = 'none';
+      juanContainer.style.display = 'flex';
+    });
+
+    // Descartar a Juan por completo (Cruz Roja)
+    closeJuanBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Evita que se abra el chat
+      juanContainer.style.display = 'none';
+      bringJuanBackBtn.style.display = 'flex'; // Muestra el botón discreto
+    });
+
+    // Traer a Juan de vuelta
+    bringJuanBackBtn.addEventListener('click', () => {
+      bringJuanBackBtn.style.display = 'none';
+      juanContainer.style.display = 'flex';
+    });
+
+    // Chat básico
+    function sendChat() {
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if(!msg) return;
+      const chatBody = document.getElementById('chatMessages');
+      chatBody.innerHTML += `<div class="msg-user">${msg}</div>`;
+      input.value = '';
+      setTimeout(() => {
+        chatBody.innerHTML += `<div class="msg-bot">Entendido Jefe. El motor IA de Juan se conectará pronto para responder eso.</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 800);
+    }
+
+    // ==========================================
+    // DATOS DE PRODUCTOS Y CATEGORÍAS
+    // ==========================================
+    const CATEGORIES = [
+      { id: "todo", name: "Todos los productos", icon: "fa-layer-group" },
+      { id: "Celus y Tablet", name: "Celus y Tablet", icon: "fa-mobile-screen" },
+      { id: "Multimedia", name: "Multimedia", icon: "fa-compact-disc" },
+      { id: "e-Traslated", name: "e-Traslated", icon: "fa-language" },
+      { id: "Autos y Motos", name: "Autos y Motos", icon: "fa-car" },
+      { id: "Linea Electro", name: "Linea Electro", icon: "fa-plug" },
+      { id: "EERR", name: "EERR (Energía)", icon: "fa-solar-panel" },
+      { id: "Ropa y Moda", name: "Ropa y Moda", icon: "fa-shirt" },
+      { id: "Calzado", name: "Calzado", icon: "fa-shoe-prints" },
+      { id: "Tiny House", name: "Tiny House", icon: "fa-leaf" },
+      { id: "Micro Industria", name: "Micro Industria", icon: "fa-star" }
+    ];
+
+    // Productos de Demo para que la tienda se vea llena y profesional (Fondo blanco en img)
+    const MOCK_PRODUCTS = [
+      // Packs
+      { id: "pack1", name: "Pack Comercio Argenville", category: "packs", price: 1500, img: "../img/pack-emprendedor-digital.png", chip: "HOT Starter", desc: "Combo ideal Emprendedor Digital." },
+      { id: "pack2", name: "Pack Emprendedor Básico", category: "packs", price: 2500, img: "../img/pack-tecno-comercio.png", chip: "Hot Sale", desc: "Comenzá tu negocio con baja inversión." },
+      // Productos
+      { id: "p1", name: "iPhone 15 Pro Max 256GB", category: "Celus y Tablet", price: 1150, img: "../img/promax15.png", chip: "USA", desc: "Stock disponible para importación rápida B2B." },
+      { id: "p2", name: "Auriculares Bose QuietComfort", category: "Multimedia", price: 299, img: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=400&q=80", chip: "Audio Pro", desc: "Cancelación de ruido premium." },
+      { id: "p3", name: "Traductor WT2 Edge Real-Time", category: "e-Traslated", price: 249, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=400&q=80", chip: "IA", desc: "Traducción simultánea en 40 idiomas." },
+      { id: "p4", name: "Cargador Dual Coche Anker", category: "Autos y Motos", price: 25, img: "../img/cargador-anker.png", chip: "Accesorios", desc: "Carga rápida USB-C para vehículos." },
+      { id: "p5", name: "Zapatillas Adidas Ultraboost", category: "Calzado", price: 160, img: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=400&q=80", chip: "Euro", desc: "Comodidad extrema para uso diario." },
+      { id: "p6", name: "Solo Whell", category: "e-Traslated", price: 250, img: "../img/solowhell.png", chip: "Premium", desc: "Monociclo Electrico. Deja de gastar plata y movete" }
+    ];
+
+    let activeCategory = "todo";
+    let cart = [];
+
+    // ==========================================
+    // RENDERIZAR CATEGORÍAS
+    // ==========================================
+    const catListEl = document.getElementById('categoryList');
+    function renderCategories() {
+      catListEl.innerHTML = CATEGORIES.map(cat => {
+        let prods = (typeof window.PRODUCTOS !== 'undefined' && window.PRODUCTOS.length > 0) ? window.PRODUCTOS : MOCK_PRODUCTS;
+        const count = cat.id === 'todo' ? prods.length : prods.filter(p => p.category === cat.id || (cat.id === 'packs' && p.category === 'packs')).length;
+        
+        return `
+          <button class="cat-btn ${activeCategory === cat.id ? 'active' : ''}" onclick="setCategory('${cat.id}')">
+            <span><i class="fa-solid ${cat.icon}" style="color:var(--gold); margin-right:8px;"></i> ${cat.name}</span>
+            <span class="cat-count">${count}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function setCategory(id) {
+      activeCategory = id;
+      renderCategories();
+      renderProducts();
+      
+      // EL TRUCO: Salta al inicio de los productos automáticamente
+      document.getElementById('productos').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ==========================================
+    // RENDERIZAR PRODUCTOS
+    // ==========================================
+    const gridEl = document.getElementById('productsGrid');
+    const packsGrid = document.getElementById('packsGrid');
+    
+    function renderProducts() {
+      let sourceData = (typeof window.PRODUCTOS !== 'undefined' && window.PRODUCTOS.length > 0) ? window.PRODUCTOS : MOCK_PRODUCTS;
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      
+      // FILTRO DE PRECIO: Ordenamos de menor a mayor antes de filtrar
+      sourceData.sort((a, b) => a.price - b.price);
+
+      let filtered = sourceData.filter(p => {
+        const matchCat = activeCategory === 'todo' || p.category === activeCategory;
+        const matchSearch = p.name.toLowerCase().includes(search);
+        return matchCat && matchSearch;
+      });
+      // ... resto del código igual
+
+      // Separar Packs
+      const packs = filtered.filter(p => p.category === 'packs');
+      const prods = filtered.filter(p => p.category !== 'packs');
+
+      const buildCard = (p) => {
+        const imgSrc = p.img || p.image || p.foto || "https://placehold.co/400x400/fff/0f172a?text=Sin+Foto";
+        const price = p.price || p.valor || p.usd || 0;
+        const isPack = p.category === 'packs';
+        
+        return `
+          <article class="product ${isPack ? 'is-pack' : ''}">
+            <div class="p-media">
+              ${p.chip ? `<div class="p-chip">${p.chip}</div>` : ''}
+              <img src="${imgSrc}" alt="${p.name}" style="cursor: zoom-in;" onclick="abrirZoom('${imgSrc}')" onerror="this.src='https://placehold.co/400x400/fff/0f172a?text=Sin+Imagen'">
+            </div>
+            <div class="p-body">
+              <h3 class="p-title">${p.name}</h3>
+              <p class="p-desc">${p.desc || 'Producto de importación seleccionado.'}</p>
+              <div class="price">$${price.toFixed(2)} <small>USD</small></div>
+            </div>
+            <div class="p-actions">
+              <button class="btn-add" onclick="addToCart('${p.id}')"><i class="fa-solid fa-cart-plus"></i> Agregar</button>
+              <button class="btn-buy-card" onclick="addToCart('${p.id}'); document.getElementById('cartDrawer').classList.add('open');"><i class="fa-brands fa-whatsapp"></i> Comprar</button>
+            </div>
+          </article>
+        `;
+      };
+
+      packsGrid.innerHTML = packs.length ? packs.map(buildCard).join('') : '<p style="color:#94a3b8; padding: 20px;">No hay packs disponibles en esta búsqueda.</p>';
+      gridEl.innerHTML = prods.length ? prods.map(buildCard).join('') : '<p style="color:#94a3b8; padding: 20px;">No hay productos en esta categoría.</p>';
+    }
+
+    document.getElementById('searchInput').addEventListener('input', renderProducts);
+
+    // ==========================================
+    // LÓGICA CARRITO
+    // ==========================================
+    function addToCart(id) {
+      let sourceData = (typeof window.PRODUCTOS !== 'undefined' && window.PRODUCTOS.length > 0) ? window.PRODUCTOS : MOCK_PRODUCTS;
+      const prod = sourceData.find(p => p.id === id);
+      const existing = cart.find(i => i.id === id);
+      if(existing) existing.qty++; else cart.push({...prod, qty:1});
+      updateCartUI();
+      document.getElementById('cartDrawer').classList.add('open');
+    }
+
+    function updateCartUI() {
+      const body = document.getElementById('cartBody');
+      const totalEl = document.getElementById('cartTotal');
+      const countEl = document.getElementById('fabCount');
+      
+      let total = 0; let qtyTotal = 0;
+      
+      if(cart.length === 0) {
+        body.innerHTML = "<p class='empty'>Tu carrito está vacío Jefe.</p>";
+      } else {
+        body.innerHTML = cart.map(i => {
+          total += i.price * i.qty;
+          qtyTotal += i.qty;
+          return `
+            <div class="cart-item">
+              <img src="${i.img || i.image || i.foto}" alt="${i.name}">
+              <div class="cart-item-info">
+                <div class="cart-item-title">${i.name}</div>
+                <div class="cart-item-price">$${(i.price * i.qty).toFixed(2)} USD</div>
+                <div class="qty-controls">
+                  <button class="qty-btn" onclick="changeQty('${i.id}', -1)">-</button>
+                  <span>${i.qty}</span>
+                  <button class="qty-btn" onclick="changeQty('${i.id}', 1)">+</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+      
+      totalEl.innerText = `$${total.toFixed(2)} USD`;
+      countEl.innerText = qtyTotal;
+    }
+
+    function changeQty(id, delta) {
+      const item = cart.find(i => i.id === id);
+      if(item) {
+        item.qty += delta;
+        if(item.qty <= 0) cart = cart.filter(i => i.id !== id);
+        updateCartUI();
+      }
+    }
+
+    // CHECKOUT WPP / PAYPAL
+    function checkout(method) {
+      if(cart.length === 0) return alert("El carrito está vacío. Agregá algo primero.");
+      
+      const refCode = document.getElementById('refCode').value.trim() || "SIN REFERIDO";
+      let total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+      
+      let text = `📦 *Nuevo Pedido B2B Argenville*\n\n`;
+      cart.forEach(i => text += `- ${i.qty}x ${i.name} ($${i.price * i.qty})\n`);
+      text += `\n💰 *Total: $${total} USD*\n`;
+      text += `🎫 *Ref: ${refCode}*\n`;
+      text += `💳 Pago vía: ${method.toUpperCase()}`;
+
+      if(method === 'whatsapp') {
+        window.open(`https://wa.me/543516965911?text=${encodeURIComponent(text)}`);
+      } else if(method === 'paypal') {
+        alert("Integración PayPal en proceso.\nTotal a cobrar: $" + total.toFixed(2) + "\nCódigo vendedor: " + refCode);
+      }
+    }
+
+    // Iniciar
+    renderCategories();
+    renderProducts();
+
+  </script>
+<footer class="site-footer">
+  <div class="footer-container">
+    
+    <div class="footer-brand">
+      <h3>Argenville LLC</h3>
+      <p>Global Trade · Consulting · Brand Expansion</p>
+      <p style="font-size:0.85rem; opacity:0.8;">
+        United States<br>
+        Exclusive representation in Argentina by BIP (Banca de Inversiones Privadas)
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="../docs/terms.html">Terms of Service</a></li>
+        <li><a href="../docs/privacy.html">Privacy Policy</a></li>
+        <li><a href="../docs/cookies.html">Cookie Policy</a></li>
+        <li><a href="../docs/refunds.html">Refund Policy</a></li>
+        <li><a href="../docs/shipping.html">Shipping Policy</a></li>
+        <li><a href="../docs/ip.html">Intellectual Property</a></li>
+        <li><a href="../docs/compliance.html">Compliance & Legal</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Operations</h4>
+      <ul>
+        <li>Worldwide Shipping via DHL & Private Courier</li>
+        <li>B2B Wholesale Distribution</li>
+        <li>Import USA · China · Europe</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+<div style="margin-top:10px; font-size:0.75rem; opacity:0.5;">
+  All transactions subject to Terms of Service and applicable U.S. law.
+</div>
+    © 2026 Argenville LLC. All rights reserved.
+  </div>
+</footer>
+<script src="/juan/juan.js"></script>
+</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Argenville Regionales | Talabartería y Tradición</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;600;700;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================
+       1. IDENTIDAD REGIONAL BOUTIQUE
+       ========================================= */
+    :root {
+      --cuero-oscuro: #2D1B15;
+      --cuero-medio: #5C3A21;
+      --tierra: #F4EBE1;
+      --oro-viejo: #C5A059;
+      --verde-mate: #4A5D23;
+      --negro: #111111;
+      --blanco: #FFFFFF;
+      --text-muted: #8D6E63;
+      --border: rgba(92, 58, 33, 0.15);
+      
+      --shadow-soft: 0 10px 40px -10px rgba(45, 27, 21, 0.15);
+      --radius: 12px; 
+      
+      --font-heading: 'Fraunces', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: var(--font-body);
+      color: var(--cuero-oscuro);
+      background-color: var(--tierra);
+      background-image: radial-gradient(circle at top right, rgba(197, 160, 89, 0.05), transparent 40%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.2s; }
+    img { display: block; max-width: 100%; border-radius: var(--radius); }
+    button { font-family: inherit; cursor: pointer; transition: 0.2s; -webkit-tap-highlight-color: transparent; }
+
+    /* =========================================
+       2. HEADER BOUTIQUE Y LOGIN
+       ========================================= */
+    .topbar {
+      background: var(--cuero-oscuro);
+      color: var(--oro-viejo); text-align: center; font-size: 0.85rem; padding: 10px;
+      font-family: var(--font-heading); font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    }
+    
+    header {
+      position: sticky; top: 0; z-index: 100; padding: 15px 20px;
+      background: rgba(244, 235, 225, 0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .nav {
+      max-width: 1350px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .brand { display: flex; align-items: center; gap: 15px; }
+    .brand img { height: 45px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+    .brand-txt h1 { font-family: var(--font-heading); font-weight: 900; font-size: 1.8rem; color: var(--cuero-oscuro); margin: 0; line-height: 1; letter-spacing: 0.5px; }
+    .brand-txt span { font-size: 0.75rem; color: var(--oro-viejo); font-weight: 800; text-transform: uppercase; letter-spacing: 3px; }
+
+    .navlinks { display: flex; gap: 20px; }
+    .nav-link { 
+      font-family: var(--font-heading); font-weight: 600; color: var(--cuero-medio); font-size: 1.05rem; padding: 5px 10px; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--cuero-oscuro); border-bottom: 2px solid var(--oro-viejo); }
+
+    .navright { display: flex; gap: 10px; align-items: center; }
+    
+    /* FIX LOGIN / LOGOUT GOOGLE */
+    .btn-login-ghost {
+      font-weight: 800; font-size: 0.85rem; color: var(--cuero-oscuro); display: flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 50px; border: 1px solid var(--cuero-medio); background: transparent;
+    }
+    .btn-login-ghost:hover { border-color: var(--oro-viejo); background: rgba(197, 160, 89, 0.1); }
+    
+    .btn-logout { 
+      background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 30px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.3s;
+    }
+    .btn-logout:hover { background: #dc2626; }
+
+    .user-pill {
+        background: var(--blanco); padding: 5px 5px 5px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); box-shadow: var(--shadow-soft);
+    }
+    .user-name { font-weight: 800; font-size: 0.9rem; }
+    
+    .btn-cart-head {
+      background: var(--cuero-oscuro); color: var(--oro-viejo); border: none; padding: 10px 20px;
+      border-radius: 50px; font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-soft);
+    }
+    .btn-cart-head:hover { transform: scale(1.05); background: var(--cuero-medio); }
+
+    /* =========================================
+       3. SIDEBAR & FILTROS
+       ========================================= */
+    .container {
+      max-width: 1350px; margin: 0 auto 60px; padding: 0 25px;
+      display: grid; grid-template-columns: 260px 1fr; gap: 40px; align-items: start;
+    }
+
+    .sidebar { position: sticky; top: 120px; max-height: calc(100vh - 140px); overflow-y: auto; }
+    .side-title { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 25px; color: var(--cuero-oscuro); font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+    
+    .search-wrap { position: relative; margin-bottom: 30px; }
+    .search-wrap i { position: absolute; left: 18px; top: 16px; color: var(--text-muted); font-size: 1rem; }
+    .search-input {
+      width: 100%; padding: 14px 15px 14px 45px; border-radius: var(--radius); border: 1px solid var(--border);
+      background: var(--blanco); color: var(--cuero-oscuro); font-weight: 600; font-size: 0.9rem; transition: 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .search-input:focus { border-color: var(--oro-viejo); outline: none; }
+
+    .cat-list { display: flex; flex-direction: column; gap: 6px; }
+    .cat-btn {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 18px; border-radius: var(--radius); border: 1px solid transparent;
+      background: transparent; color: var(--cuero-medio); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; transition: 0.3s; cursor: pointer;
+    }
+    .cat-btn:hover { background: rgba(197, 160, 89, 0.1); color: var(--cuero-oscuro); }
+
+    .sub-cat-list { display: none; flex-direction: column; gap: 4px; margin-left: 20px; margin-top: 5px; margin-bottom: 15px; border-left: 1px solid var(--border); padding-left: 12px; }
+    .sub-cat-list.open { display: flex; }
+    .sub-btn { background: transparent; color: var(--text-muted); border: none; text-align: left; padding: 6px 10px; font-weight: 600; font-size: 0.85rem; cursor: pointer; border-radius: 6px; transition: 0.3s; text-transform: uppercase; }
+    .sub-btn:hover { color: var(--cuero-oscuro); background: rgba(0,0,0,0.03); }
+
+    /* =========================================
+       4. HERO Y PRODUCTOS BOUTIQUE
+       ========================================= */
+    .content{ display:flex; flex-direction: column; gap: 20px; }
+    
+   .hero {
+      /* ¡Acá está la magia! Reemplazamos la pizza por la gloriosa celeste y blanca 🇦🇷 */
+      background: linear-gradient(rgba(45, 27, 21, 0.8), rgba(45, 27, 21, 0.8)), url('../img/bandera-argentina-tienda-fondo.png') center/cover no-repeat;
+      border-radius: var(--radius); padding: 70px 50px; margin-bottom: 50px;
+      display: flex; align-items: center; position: relative; overflow: hidden; min-height: 380px; box-shadow: var(--shadow-soft);
+    }
+    .hero-text { position: relative; z-index: 2; max-width: 550px; }
+    .hero h2 { font-family: var(--font-heading); font-size: 3.5rem; line-height: 1.1; margin-bottom: 15px; color: var(--tierra); text-transform: uppercase; letter-spacing: -1px; }
+    .hero h2 span { color: var(--oro-viejo); display: block; font-style: italic;}
+    .hero p { color: rgba(244, 235, 225, 0.85); margin-bottom: 30px; font-size: 1.1rem; line-height: 1.5; font-weight: 400; }
+    
+    .btn-cta { 
+      background: var(--oro-viejo); color: var(--cuero-oscuro); padding: 15px 40px; border-radius: 50px; 
+      font-weight: 900; font-size: 1.1rem; border: none; text-transform: uppercase; letter-spacing: 1px;
+      display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+    }
+    .btn-cta:hover { background: var(--tierra); transform: scale(1.05); }
+
+    .section-header { margin-bottom: 25px; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+    .section-title { font-family: var(--font-heading); font-size: 2.2rem; color: var(--cuero-oscuro); margin: 0; text-transform: uppercase; }
+
+    /* GRILLA PROPORCIONADA */
+    .grid-packs { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 60px; }
+    .card-pack { background: var(--blanco); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); display: flex; flex-direction: column; transition: 0.4s; position: relative; box-shadow: var(--shadow-soft); }
+    .card-pack:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(45, 27, 21, 0.15); }
+    .pack-badge { position: absolute; top: 15px; left: 15px; background: var(--cuero-oscuro); color: var(--oro-viejo); padding: 5px 12px; font-family: var(--font-heading); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; z-index: 10; border-radius: 4px;}
+    .pack-img { height: 260px; background: var(--tierra); display: flex; align-items: center; justify-content: center; padding: 20px; cursor: zoom-in;}
+    .pack-img img { height: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 15px 20px rgba(0,0,0,0.3)); transition: 0.5s; }
+    .card-pack:hover .pack-img img { transform: scale(1.05); }
+    .pack-body { padding: 25px; flex: 1; display: flex; flex-direction: column; }
+    .pack-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; color: var(--cuero-oscuro); margin-bottom: 10px; line-height: 1.2; }
+    .pack-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
+    .pack-price { font-family: var(--font-heading); font-size: 2rem; font-weight: 900; color: var(--verde-mate); margin-bottom: 20px; }
+    .btn-buy-pack { width: 100%; padding: 15px; background: var(--cuero-oscuro); color: var(--oro-viejo); border: none; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; text-transform: uppercase; cursor: pointer; transition: 0.3s; border-radius: var(--radius);}
+    .btn-buy-pack:hover { background: var(--cuero-medio); }
+
+    .grid-prods { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+    .card-prod { background: var(--blanco); border-radius: var(--radius); padding: 18px; transition: 0.3s; display: flex; flex-direction: column; border: 1px solid var(--border); box-shadow: var(--shadow-soft); }
+    .card-prod:hover { border-color: var(--oro-viejo); transform: translateY(-4px); }
+    .prod-img { height: 200px; background: var(--tierra); border-radius: var(--radius); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; padding: 15px; position: relative; cursor: zoom-in; }
+    .prod-img img { max-height: 100%; width: auto; transition: 0.4s ease-out; mix-blend-mode: multiply; }
+    .card-prod:hover .prod-img img { transform: scale(1.08); }
+    .prod-title { font-weight: 700; font-size: 1rem; color: var(--cuero-oscuro); margin-bottom: 8px; line-height: 1.3; height: 40px; overflow: hidden; }
+    .prod-price { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 900; color: var(--verde-mate); margin-bottom: 15px; }
+    .btn-buy { background: var(--tierra); border: 1px solid var(--cuero-medio); color: var(--cuero-oscuro); padding: 12px; width: 100%; border-radius: var(--radius); font-weight: 800; font-size: 1rem; text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: auto;}
+    .btn-buy:hover { background: var(--cuero-oscuro); color: var(--oro-viejo); }
+
+    /* SELECTOR TALLES ELEGANTE */
+    .size-selector {
+      width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 6px;
+      background: var(--blanco); color: var(--cuero-oscuro); border: 1px solid var(--border);
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; outline: none; cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27292.4%27%20height%3D%27292.4%27%3E%3Cpath%20fill%3D%27%235C3A21%27%20d%3D%27M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%27%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat; background-position: right 10px center; background-size: 10px auto;
+    }
+    .size-selector:focus { border-color: var(--oro-viejo); }
+
+    /* =========================================
+       5. CARRITO Y EXTRAS
+       ========================================= */
+    .drawer { position: fixed; top: 0; right: 0; height: 100%; width: 420px; max-width: 95vw; background: var(--blanco); z-index: 2000; transform: translateX(100%); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1); display: flex; flex-direction: column; box-shadow: -10px 0 40px rgba(0,0,0,0.2); }
+    .drawer.open { transform: translateX(0); }
+    .drawer-head { padding: 25px; background: var(--cuero-oscuro); color: var(--tierra); display: flex; justify-content: space-between; align-items: center; }
+    .drawer-head h3 { margin: 0; font-family: var(--font-heading); color: var(--oro-viejo); font-size: 1.4rem; font-weight: 600;}
+    .close-drawer { background: rgba(255,255,255,0.1); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer;}
+    .drawer-body { flex: 1; overflow-y: auto; padding: 25px; background: #faf9f7; }
+    .cart-empty { text-align: center; color: var(--text-muted); margin-top: 50px; font-family: var(--font-heading); font-size: 1.2rem; }
+    .cart-item { display: flex; gap: 15px; margin-bottom: 15px; background: white; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); align-items: center; }
+    .cart-img { width: 55px; height: 55px; object-fit: contain; border-radius: 6px; padding: 5px; background: var(--tierra); }
+    .cart-info { flex: 1; }
+    .cart-info h4 { font-size: 0.9rem; margin: 0 0 5px 0; color: var(--cuero-oscuro); font-weight: 700; }
+    .cart-price { font-size: 1rem; color: var(--verde-mate); font-weight: 900; }
+    .cart-ctrl { display: flex; align-items: center; gap: 8px; }
+    .qty-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border); background: white; cursor: pointer; }
+    .cart-qty { font-weight: 800; font-size: 1rem; min-width: 20px; text-align: center; }
+    .drawer-foot { padding: 25px; background: white; border-top: 1px solid var(--border); }
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; color: var(--text-muted); font-weight: 600; }
+    .total-row { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 2px dashed var(--border); font-family: var(--font-heading); font-size: 1.6rem; font-weight: 900; color: var(--cuero-oscuro); }
+    .btn-checkout { width: 100%; padding: 16px; background: var(--verde-mate); color: white; border: none; border-radius: 50px; font-weight: 800; font-size: 1.1rem; cursor: pointer; margin-top: 20px; text-transform: uppercase;}
+    .btn-clear { width: 100%; margin-top: 12px; background: transparent; border: 1px solid var(--cuero-medio); color: var(--cuero-medio); padding: 10px; border-radius: 50px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; }
+
+    /* =========================================
+       JUAN PATRIOTA GAUCHO ORIGINAL
+       ========================================= */
+/* PANEL CHAT JUAN */
+.chat-panel{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  max-height: 420px;
+  background: #2D1B15;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  display: none;
+  flex-direction: column;
+  z-index: 3500;
+}
+
+.chat-panel.active{
+  display: flex;
+}
+    .juan-float { position: fixed; bottom: 0; right: 20px; z-index: 3000; display: flex; flex-direction: column; align-items: center; transform: scale(0.9); transform-origin: bottom right;}
+    .juan-img { height: 280px; width: auto; cursor: pointer; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.25)); transition: 0.3s; }
+    .juan-img:hover { transform: scale(1.03) translateY(-5px); }
+    .juan-dialog { background: var(--blanco); padding: 12px 20px; border-radius: 20px; border: 2px solid var(--oro-viejo); box-shadow: var(--shadow-soft); margin-top: -30px; font-weight: 700; color: var(--cuero-oscuro); font-size: 0.95rem; position: relative; text-align: center; font-family: var(--font-body);}
+    .btn-close-juan { position: absolute; top: -8px; left: -8px; background: #ef4444; color: white; width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+    #btnReopenJuan { position: fixed; bottom: 20px; right: 20px; z-index: 2900; display: none; background: var(--cuero-oscuro); color: var(--oro-viejo); border: none; padding: 12px 25px; border-radius: 50px; font-weight: 800; box-shadow: var(--shadow-soft); cursor: pointer; border: 1px solid var(--oro-viejo);}
+
+    /* MODAL ZOOM */
+    .modal { display: none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(45, 27, 21, 0.9); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
+    .modal-content { max-width: 85%; max-height: 85%; border-radius: var(--radius); box-shadow: 0 20px 50px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease; background: var(--tierra); padding: 5px; object-fit: contain; }
+    .modal-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; font-weight: bold; cursor: pointer; z-index: 100000; }
+    @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+   /* RESPONSIVE BOUTIQUE */
+    @media (max-width: 900px) {
+      .navlinks { display: none; }
+      .page { grid-template-columns: 1fr; gap: 20px; }
+      .sidebar { display: block; position: relative; top: 0; margin-bottom: 20px; }
+      .sidebar .side-title, .sidebar .search-wrap, .sidebar .cat-list { display: none; }
+      
+      #mobile-category-select {
+        display: block !important; width: 100%; padding: 14px 18px;
+        font-family: var(--font-heading); font-size: 1rem; font-weight: 700; text-transform: uppercase;
+        color: var(--oro-viejo); background: var(--cuero-oscuro); border: none; border-radius: var(--radius);
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27292.4%27%20height%3D%27292.4%27%3E%3Cpath%20fill%3D%27%23C5A059%27%20d%3D%27M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%27%2F%3E%3C%2Fsvg%3E");
+        background-repeat: no-repeat; background-position: right 18px center; background-size: 12px auto;
+      } 
+
+      /* Activa la bandera y el menú desplegable real */
+      .mobile-menu-btn { display: block !important; }
+      .navlinks { 
+        display: none; flex-direction: column; position: absolute; 
+        top: 80px; left: 0; width: 100%; background: var(--tierra); 
+        padding: 20px; box-shadow: var(--shadow-soft); z-index: 2000; 
+      }
+      .navlinks.active { display: flex; }
+      
+      /* Arreglo para que las categorías del catálogo no desaparezcan */
+      .sidebar .cat-list { display: flex !important; flex-wrap: wrap; background: var(--blanco); padding: 10px; border-radius: var(--radius); }
+      #mobile-category-select { display: none !important; } /* Chau selector con errores */
+
+      .hero { padding: 40px 25px; text-align: center; }
+      .hero h2 { font-size: 2.5rem; }
+      .grid-packs { grid-template-columns: 1fr; }
+      .grid-prods { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .drawer { width: 100%; border-radius: 15px 15px 0 0; }
+      
+      .prod-img { height: 130px; padding: 10px;}
+      .prod-title { font-size: 0.85rem; height: 36px; line-height: 1.2; }
+      .prod-price { font-size: 1.2rem; }
+      .juan-float { transform: scale(0.75); bottom: 10px; right: 10px;}
+    }
+
+    /* FOOTER */
+    .site-footer { background: var(--cuero-oscuro); color: var(--tierra); padding: 50px 25px 20px; margin-top: 60px; border-top: 4px solid var(--oro-viejo); font-family: var(--font-body);}
+    .footer-container { max-width: 1350px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
+    .footer-brand h3 { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 10px; color: var(--oro-viejo); }
+    .footer-links h4 { font-family: var(--font-heading); font-size: 1rem; margin-bottom: 12px; color: var(--tierra); text-transform: uppercase; }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 6px; font-size: 0.85rem; opacity: 0.8; }
+    .footer-bottom { text-align: center; margin-top: 40px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; opacity: 0.6; }
+  </style>
+</head>
+
+<body>
+  <div id="imgModal" class="modal">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="imgModalSrc">
+  </div>
+
+  <div class="topbar">🇦🇷 TRADICIÓN GAUCHA AL MUNDO · ENVÍOS INTERNACIONALES VÍA DHL 🇦🇷</div>
+  
+  <header>
+    <nav class="nav">
+      <div class="brand">
+        <a href="../index.html" class="logo">
+            <img src="../img/logo-argenville.png" alt="Argenville" onerror="this.src='https://placehold.co/120x60/transparent/5C3A21?text=ARG'">
+        </a>
+        <div class="brand-txt">
+          <h1>REGIONALES</h1>
+          <span>Talabartería & Platería</span>
+        </div>
+      </div>
+      
+      <button class="mobile-menu-btn" onclick="document.querySelector('.navlinks').classList.toggle('active')" style="background:none; border:none; font-size:2rem; cursor:pointer; display:none;">🇦🇷</button>
+      
+      <div class="navlinks">
+        <a href="#productos" class="nav-link active">Mates</a>
+        <a href="#productos" class="nav-link">Cuchillería</a>
+        <a href="#productos" class="nav-link">Cueros</a>
+      </div>
+      <div class="navright" id="auth-container"></div>
+    </nav>
+  </header>
+	<div class="container">
+    <aside class="sidebar">
+      <div class="side-title">El Fogón</div>
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar mates, facones...">
+      </div>
+      <div class="cat-list" id="categoryList"></div>
+      <select id="mobile-category-select" onchange="filterProducts(this.value)" style="display: none;">
+        <option value="all">🌟 VER TODO EL CATÁLOGO</option>
+        <option value="mates">🧉 MATES Y PLATERÍA</option>
+        <option value="talabarteria">🐎 TALABARTERÍA Y BOTAS</option>
+        <option value="cuchilleria">🔪 CUCHILLERÍA GAUCHA</option>
+        <option value="textil">🧣 PONCHOS Y TEXTIL</option>
+      </select>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <div class="hero-text">
+            <h2>LA TRADICIÓN<br><span>EN TUS MANOS.</span></h2>
+            <p>Piezas forjadas a mano, cueros seleccionados y el ritual del mate llevado a su máxima expresión. Catálogo exclusivo de exportación.</p>
+            <button class="btn-cta" onclick="renderProds('todo')">Ver Colección</button>
+        </div>
+      </section>
+
+      <div class="section-header" id="packs">
+         <h2 class="section-title">Regalos Empresariales</h2>
+      </div>
+      <div class="grid-packs" id="packsGrid"></div>
+
+      <div class="section-header" id="productos">
+         <h2 class="section-title">Piezas de Autor</h2>
+         <span id="resultCount" style="color: var(--text-muted); font-weight: 700;">Cargando...</span>
+      </div>
+      <div class="grid-prods" id="productsGrid"></div>
+    </main>
+  </div>
+
+  <aside class="drawer" id="cartDrawer">
+      <div class="drawer-head">
+          <h3>Tu Baúl</h3>
+          <button class="close-drawer" onclick="closeCart()">✕</button>
+      </div>
+      <div class="drawer-body" id="cartBody"></div>
+      <div class="drawer-foot">
+          <div class="summary-row"><span>Mercadería</span> <span id="subtotal">$0.00</span></div>
+          <div class="summary-row"><span>Peso Estimado</span> <span id="weight">0.00 Kg</span></div>
+          <div class="summary-row"><span>Envío Internacional ($8/Kg)</span> <span id="shipping">$0.00</span></div>
+          <div class="total-row"><span>Total Final</span> <span id="finalTotal">$0.00</span></div>
+          
+          <button class="btn-checkout" onclick="window.location.href='caja.html'">
+            💳 FINALIZAR COMPRA
+          </button>
+          <button class="btn-clear" onclick="clearCart()">VACIAR BAÚL</button>
+      </div>
+  </aside>
+<div class="chat-panel" id="chatPanel">
+    <div class="chat-header" style="padding:12px 15px; background:linear-gradient(90deg, #2D1B15, #5C3A21); color:white; display:flex; justify-content:space-between; align-items:center;">
+      <div>Juan Patriota AI<br><small>Tradición Argenville</small></div>
+      <button onclick="cerrarChatJuan()" style="background:none; border:none; color:white; font-size:20px; cursor:pointer;">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages" style="padding: 15px; font-size: 13px; color: #e5f3ff; flex: 1; overflow-y: auto; background: #2D1B15; min-height: 250px;"></div>
+    <div class="chat-input-row" style="display: flex; gap: 8px; padding: 10px; border-top: 1px solid rgba(148, 163, 184, 0.45); background-color: #2D1B15;">
+        <input type="text" id="chatInput" placeholder="Escribí acá, paisano..." style="flex: 1; border-radius: 999px; border: 1px solid #5C3A21; background: #F4EBE1; color: #2D1B15; padding: 8px 12px; outline: none;" />
+        <button type="button" id="chatSendBtn" style="border-radius: 999px; border: none; padding: 8px 15px; background: #C5A059; color: #2D1B15; font-weight: 800; cursor: pointer;">Enviar</button>
+    </div>
+  </div>
+  <div class="juan-float" id="juanMaster">
+    <img src="../img/juan-patriota-gaucho_sin_fondo.png" class="juan-img" onclick="event.stopPropagation(); abrirChatJuan()" alt="Juan Patriota" onerror="this.src='https://placehold.co/150x250?text=Juan'">
+    <div class="juan-dialog">
+        <button class="btn-close-juan" onclick="cerrarJuan()">✕</button>
+        ¡Amigo! ¿Buscás algún mate o facón especial?
+    </div>
+  </div>
+  <button id="btnReopenJuan" onclick="reabrirJuan()">Juan 🇦🇷</button>
+
+  <script>
+    function openModal(src) {
+      const modal = document.getElementById("imgModal");
+      const modalImg = document.getElementById("imgModalSrc");
+      if(modal && modalImg) { modal.style.display = "flex"; modalImg.src = src; }
+    }
+    function closeModal() {
+      const modal = document.getElementById("imgModal");
+      if(modal) modal.style.display = "none";
+    }
+    window.addEventListener('click', function(e) {
+      const modal = document.getElementById("imgModal");
+      if (e.target === modal) closeModal();
+      if (e.target.tagName === 'IMG' && (e.target.closest('.prod-img') || e.target.closest('.pack-img'))) {
+        openModal(e.target.src);
+      }
+    });
+  </script>
+
+  <script src="productos-regionales.js"></script>
+  <script src="tienda-regional.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    
+    const firebaseConfig = { apiKey: "AIzaSyDc6YfcxlszUYiCcuQK953Opojqz1mLCnQ", authDomain: "argenville.firebaseapp.com", projectId: "argenville", storageBucket: "argenville.firebasestorage.app", messagingSenderId: "1075243262634", appId: "1:1075243262634:web:c2d1d205bf8cd04ba5e6d3" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    const container = document.getElementById("auth-container");
+    
+    onAuthStateChanged(auth, (user) => {
+        if(!container) return;
+        if (user) {
+            container.innerHTML = `
+                <div class="user-pill">
+                    <img src="${user.photoURL}" style="width:24px; border-radius:50%;">
+                    <span class="user-name">${user.displayName.split(' ')[0]}</span>
+                    <button class="btn-logout" onclick="window.doLogout()">SALIR</button>
+                </div>
+                <button class="btn-cart-head" onclick="openCart()">
+                    <i class="fa-solid fa-cart-shopping"></i> <span id="cartCountHeader">0</span>
+                </button>
+            `;
+        } else {
+            container.innerHTML = `
+                <button class="btn-login-ghost" onclick="window.doLogin()">
+                    <i class="fa-regular fa-user"></i> MI CUENTA
+                </button>
+                <button class="btn-google" onclick="window.doLogin()" style="margin-left:5px; background:white; color:#333; border:1px solid #ddd; padding:8px 15px; border-radius:50px; font-size:0.85rem; font-weight:700; display:flex; align-items:center; gap:8px; cursor:pointer;">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" style="width:18px;">
+                    Google
+                </button>
+                <button class=\"btn-cart-head\" onclick=\"openCart()\">
+                    <i class=\"fa-solid fa-cart-shopping\"></i> <span id=\"cartCountHeader\">0</span>
+                </button>
+            `;
+        }
+        if(window.updateCartUI) window.updateCartUI();
+    });
+    window.doLogin = () => signInWithPopup(auth, provider).catch(e => console.error(e));
+    window.doLogout = () => signOut(auth).then(()=>alert("¡Hasta luego!")).catch(e => console.error(e));
+  </script>
+
+  <footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h3>Argenville Regionales</h3>
+      <p>Artesanía y Patrimonio Argentino</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <ul>
+        <li>Términos y Condiciones</li>
+        <li>Envíos B2B Globales</li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Contacto</h4>
+      <ul>
+        <li>📍 Argentina</li>
+        <li>📧 argenvillellc@gmail.com</li>
+        <li>🌎 https://argenville.web.app</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Argenville Regionales · Tradición Forjada a Mano
+  </div>
+</footer>
+
+<script>
+const jMaster = document.getElementById('juanMaster');
+const cPanel = document.getElementById('chatPanel');
+const bReopen = document.getElementById('btnReopenJuan');
+const cInput = document.getElementById('chatInput');
+const cMessages = document.getElementById('chatMessages');
+
+window.abrirChatJuan = () => {
+  cPanel.classList.add('active');
+  jMaster.style.display = 'none';
+};
+
+window.cerrarChatJuan = () => {
+  cPanel.classList.remove('active');
+  jMaster.style.display = 'flex';
+};
+
+window.cerrarJuan = (e) => {
+  if(e) e.stopPropagation();
+  jMaster.style.display = 'none';
+  bReopen.style.display = 'block';
+};
+
+window.reabrirJuan = () => {
+  jMaster.style.display = 'flex';
+  bReopen.style.display = 'none';
+};
+
+async function enviarAJuan() {
+  const txt = cInput.value.trim();
+  if(!txt) return;
+
+  const uMsg = document.createElement('div');
+  uMsg.style.textAlign = 'right';
+  uMsg.innerHTML =
+    '<div style="background:#C5A059;color:#2D1B15;padding:8px 12px;border-radius:14px;margin-left:auto;width:fit-content;margin-bottom:10px;font-weight:700;">'
+    + txt +
+    '</div>';
+
+  cMessages.appendChild(uMsg);
+  cInput.value = "";
+  cMessages.scrollTop = cMessages.scrollHeight;
+
+  if(window.procesarMensajeIA){
+    await window.procesarMensajeIA(txt, cMessages);
+  }
+}
+
+document.getElementById('chatSendBtn').onclick = enviarAJuan;
+
+cInput.onkeydown = (e) => {
+  if(e.key === 'Enter'){
+    enviarAJuan();
+  }
+};
+
+</script>
+<script src="/juan/juan.js"></script>
+</body>
+</html>

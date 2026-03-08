@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Argenville Shopping – Productos argentinos en tu país</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <style>
+    /* =============== VARIABLES & RESET =============== */
+    * , *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-main: #020617;
+      --bg-soft: #020b1b;
+      --primary: #0ea5e9;
+      --primary-soft: rgba(14, 165, 233, 0.16);
+      --accent-gold: #d4a017;
+      --text-main: #e5f3ff;
+      --text-soft: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.28);
+      --radius-lg: 18px;
+      --radius-xl: 28px;
+      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.7);
+      --shadow-subtle: 0 16px 40px rgba(15, 23, 42, 0.55);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: var(--text-main);
+      background: radial-gradient(circle at top left, #22c1f1 0, #020617 55%);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* =============== LAYOUT GLOBAL =============== */
+
+    .top-banner {
+      width: 100%;
+      text-align: center;
+      font-size: 0.85rem;
+      padding: 6px 10px;
+      background: linear-gradient(
+        90deg,
+        rgba(56, 189, 248, 0.9),
+        rgba(56, 189, 248, 0.2)
+      );
+      color: #e0f2fe;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .top-banner span {
+      font-weight: 500;
+      color: var(--accent-gold);
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 22px 18px 40px;
+    }
+
+    /* =============== NUEVO HEADER MALL =============== */
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      backdrop-filter: blur(22px);
+      background: radial-gradient(circle at top left, #082f49 0, #020617 65%);
+      box-shadow: var(--shadow-subtle);
+      margin-bottom: 26px;
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.7);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-title {
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .logo-subtitle {
+      font-size: 0.74rem;
+      color: var(--text-soft);
+    }
+
+    /* NUEVOS BOTONES DE NAVEGACIÓN */
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-oro-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      background: linear-gradient(
+        120deg,
+        var(--accent-gold),
+        #facc6b,
+        var(--accent-gold)
+      );
+      color: #111827;
+      box-shadow: 0 4px 12px rgba(212, 160, 23, 0.5);
+      border: 1px solid rgba(250, 204, 21, 0.6);
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .btn-oro-sm i {
+      font-size: 0.8rem;
+    }
+
+    .btn-oro-sm:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(212, 160, 23, 0.7);
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+    }
+
+
+    /* =============== HERO =============== */
+
+    .hero {
+      margin-bottom: 34px;
+      border-radius: 32px;
+      padding: 30px 30px 26px;
+      background: radial-gradient(circle at top left, #0b3b63 0, #020617 70%);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 20px;
+      align-items: center;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 560px;
+    }
+
+    .hero-kicker {
+      font-size: 0.82rem;
+      color: #bae6fd;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      width: fit-content;
+    }
+
+    .hero-kicker i {
+      color: var(--accent-gold);
+    }
+
+    .hero-title {
+      font-size: 2.1rem;
+      line-height: 1.08;
+      font-weight: 780;
+    }
+
+    .hero-title span {
+      color: var(--accent-gold);
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-soft);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: radial-gradient(
+        circle at top left,
+        #22d3ee 0,
+        #0ea5e9 40%,
+        #1d4ed8 100%
+      );
+      color: #e0f2fe;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 14px 32px rgba(14, 165, 233, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.8);
+    }
+
+    .btn-primary i {
+      font-size: 0.9rem;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #e0f2fe;
+      font-weight: 500;
+      font-size: 0.88rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .hero-pill i {
+      color: var(--accent-gold);
+    }
+
+    .hero-image-box {
+      justify-self: end;
+      max-width: 420px;
+      width: 100%;
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      position: relative;
+    }
+
+    .hero-image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-badge {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(212, 160, 23, 0.7);
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #fef3c7;
+    }
+
+    .hero-badge i {
+      color: var(--accent-gold);
+    }
+
+    /* =============== SECCIONES GENERALES =============== */
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 650;
+    }
+
+    .section-title span {
+      color: var(--accent-gold);
+    }
+
+    .section-subtitle {
+      font-size: 0.84rem;
+      color: var(--text-soft);
+      max-width: 520px;
+    }
+
+    /* =============== CATEGORÍAS =============== */
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .category-card {
+      background: radial-gradient(circle at top left, #020b18, #020617 70%);
+      border-radius: 18px;
+      padding: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-subtle);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease,
+        border-color 0.15s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
+      border-color: rgba(212, 160, 23, 0.8);
+    }
+
+    .category-icon {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+      color: var(--accent-gold);
+    }
+
+    .category-name {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .category-text {
+      color: var(--text-soft);
+      font-size: 0.78rem;
+    }
+
+    /* =============== PACKS =============== */
+
+    .packs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .pack-card {
+      background: radial-gradient(circle at top left, #020b18, #020617 70%);
+      border-radius: 22px;
+      padding: 14px 14px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pack-image {
+      border-radius: 16px;
+      overflow: hidden;
+      max-height: 180px;
+    }
+
+    .pack-tag {
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(212, 160, 23, 0.7);
+      color: #fef3c7;
+      width: fit-content;
+    }
+
+    .pack-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .pack-text {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .pack-meta {
+      font-size: 0.78rem;
+      color: #bfdbfe;
+    }
+
+    .pack-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pack-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+
+    .pack-btn-primary {
+      background: radial-gradient(
+        circle at top left,
+        #22d3ee 0,
+        #0ea5e9 40%,
+        #1d4ed8 100%
+      );
+      color: #e0f2fe;
+      border: 1px solid rgba(56, 189, 248, 0.9);
+    }
+
+    .pack-btn-secondary {
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+    }
+
+    /* =============== CÓMO FUNCIONA =============== */
+
+    .steps-card {
+      background: rgba(7, 16, 34, 0.96);
+      border-radius: 22px;
+      padding: 16px 18px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-subtle);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      font-size: 0.82rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: radial-gradient(
+        circle at top left,
+        var(--accent-gold),
+        #1d4ed8
+      );
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .step-title {
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .step-text {
+      color: var(--text-soft);
+    }
+
+    /* =============== CTA FINAL =============== */
+
+    .cta-final {
+      background: radial-gradient(circle at top left, #082f49, #020617 70%);
+      border-radius: 24px;
+      padding: 18px 20px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+
+    .cta-final-text {
+      max-width: 520px;
+    }
+
+    .cta-final-title {
+      font-size: 1.1rem;
+      font-weight: 650;
+      margin-bottom: 4px;
+    }
+
+    .cta-final-sub {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    .cta-final-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    /* Botón dorado genérico */
+    .btn-oro {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: linear-gradient(120deg, var(--accent-gold), #facc6b, var(--accent-gold));
+        color: #111827;
+        font-weight: 700;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 12px rgba(212, 160, 23, 0.5);
+        border: 1px solid rgba(250, 204, 21, 0.6);
+        transition: all 0.2s ease;
+    }
+    .btn-oro:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(212, 160, 23, 0.7);
+    }
+
+    /* ===== FOOTER ===== */
+
+.site-footer {
+  background: var(--bg-main);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 60px 20px 30px;
+  color: #ccc;
+  font-size: 14px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-brand h3 {
+  color: var(--accent-gold);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.footer-links h4 {
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #aaa;
+  transition: 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--accent-gold);
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+}
+
+    /* =============== WIDGET JUAN PATRIOTA =============== */
+
+    .juan-widget {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 9999;
+      font-size: 0.8rem;
+      /* Removemos cursor pointer del contenedor principal */
+    }
+
+    .juan-avatar {
+      width: 170px;
+      height: auto;
+      filter: drop-shadow(0 12px 22px rgba(15, 23, 42, 0.9));
+      transition: transform 0.18s ease, filter 0.18s ease;
+      cursor: pointer; /* El cursor va en la imagen */
+    }
+
+    .juan-avatar:hover {
+      transform: translateY(-3px) scale(1.05);
+      filter: drop-shadow(0 18px 28px rgba(15, 23, 42, 1));
+    }
+
+    .juan-bubble {
+      font-size: 13px;
+      background: #e0f2fe;
+      padding: 6px 12px;
+      border-radius: 12px;
+      color: #0f172a;
+      margin-top: -6px;
+      box-shadow: 0 6px 15px rgba(15, 23, 42, 0.7);
+      opacity: 0.97;
+      white-space: nowrap;
+    }
+    
+    /* NUEVO: Botón de cierre del widget flotante (la X roja) */
+    .btn-close-juan-widget {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        background: #ef4444;
+        color: white;
+        border: 2px solid #020617;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 10001;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    /* NUEVO: Botón para reabrir a Juan */
+    #btnReopenJuan {
+        position: fixed;
+        bottom: 22px;
+        right: 22px;
+        z-index: 9998;
+        display: none; /* Oculto por defecto */
+        background: var(--accent-gold);
+        color: #020617;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-weight: 800;
+        box-shadow: var(--shadow-soft);
+        transition: transform 0.2s;
+        border: 2px solid #020617;
+    }
+    #btnReopenJuan:hover {
+         transform: scale(1.05);
+    }
+
+
+    /* CHAT PANEL */
+    .chat-panel {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 320px;
+      max-height: 440px;
+      background-color: rgba(15, 23, 42, 0.98);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 10000;
+    }
+    .chat-header {
+      padding: 8px 10px;
+      background: linear-gradient(90deg, #0ea5e9, #1d4ed8);
+      color: white !important; /* ARREGLO: Texto blanco para contraste */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .chat-header small {
+      font-weight: 400;
+      font-size: 11px;
+      opacity: 0.9;
+      color: #e0f2fe;
+    }
+    .chat-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: white !important; /* ARREGLO: Icono blanco */
+    }
+    .chat-messages {
+      padding: 10px;
+      font-size: 12px;
+      color: #e5f3ff;
+      flex: 1;
+      overflow-y: auto;
+      background: radial-gradient(circle at top left, #020617, #020617);
+    }
+    .msg {
+      margin-bottom: 6px;
+      max-width: 90%;
+      line-height: 1.4;
+    }
+    .msg-user {
+      text-align: right;
+    }
+    .msg-user .bubble {
+      background: linear-gradient(90deg, #0ea5e9, #3b82f6);
+      color: #0b1220;
+      border-radius: 14px 14px 0 14px;
+      padding: 6px 9px;
+      display: inline-block;
+    }
+    .msg-bot .bubble {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 14px 14px 14px 0;
+      padding: 6px 9px;
+      display: inline-block;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+    .chat-input-row {
+      display: flex;
+      gap: 6px;
+      padding: 8px 8px 8px;
+      border-top: 1px solid rgba(148, 163, 184, 0.45);
+      background-color: #020617;
+    }
+    .chat-input-row input {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5f3ff;
+      font-size: 12px;
+      padding: 7px 9px;
+    }
+    .chat-input-row button {
+      border-radius: 999px;
+      border: none;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(90deg, #0ea5e9, #3b82f6);
+      color: #0b1220;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.9);
+      white-space: nowrap;
+    }
+    .chat-footer {
+      padding: 8px;
+      border-top: 1px solid rgba(148, 163, 184, 0.45);
+      background-color: #020617;
+      text-align: center;
+    }
+    .chat-whatsapp {
+      border-radius: 999px;
+      border: none;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #22c55e;
+      color: #0b1220;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chat-whatsapp i {
+      font-size: 14px;
+    }
+    .chat-typing {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    /* =============== RESPONSIVE =============== */
+
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      }
+
+      .packs-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .steps-card {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 820px) {
+      .navbar {
+        border-radius: 22px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .navbar-left {
+        margin-bottom: 10px;
+      }
+
+      .nav-buttons {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 22px 18px 18px;
+      }
+
+      .hero-image-box {
+        justify-self: center;
+        max-width: 360px;
+        margin-top: 14px;
+      }
+
+      .steps-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 18px 12px 30px;
+      }
+
+      .packs-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .categories-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .juan-widget {
+        right: 12px;
+        bottom: 14px;
+        transform: scale(0.92);
+        transform-origin: bottom right;
+      }
+      
+      /* Ajuste para el botón de reabrir en móvil */
+      #btnReopenJuan {
+        right: 12px;
+        bottom: 14px;
+        transform: scale(0.92);
+        transform-origin: bottom right;
+      }
+
+      .chat-panel {
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-height: 60vh;
+      }
+    }
+    
+    /* ================= IMPORTADOS (B2B) ================= */
+    .importados-wrap{
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      border: 1px solid rgba(56,189,248,.35);
+      background:
+        radial-gradient(1200px 460px at 12% 0%, rgba(56,189,248,.22), transparent 55%),
+        radial-gradient(900px 420px at 88% 10%, rgba(212,160,23,.14), transparent 55%),
+        rgba(2, 6, 23, .55);
+      box-shadow: 0 22px 70px rgba(0,0,0,.45);
+      position: relative;
+      overflow: hidden;
+    }
+    .importados-wrap::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: linear-gradient(90deg, rgba(56,189,248,.55), rgba(212,160,23,.35), rgba(56,189,248,.55));
+      filter: blur(26px);
+      opacity:.45;
+      pointer-events:none;
+    }
+    .importados-head{ position: relative; z-index:2; display:flex; gap:14px; justify-content:space-between; align-items:flex-start; margin-bottom: 14px; flex-wrap:wrap; }
+    .importados-kicker{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      font-size: 12px; letter-spacing:.08em; font-weight: 850;
+      color: #e0f2fe;
+      background: rgba(2,6,23,.55);
+      border: 1px solid rgba(56,189,248,.40);
+    }
+    .importados-kicker i{ color: rgba(56,189,248,.95); filter: drop-shadow(0 0 12px rgba(56,189,248,.45)); }
+    .importados-title{ font-size: 1.35rem; font-weight: 850; margin-top: 8px; }
+    .importados-title span{ color: var(--accent-gold); }
+    .importados-copy{ color: rgba(226,232,240,.84); font-size: .95rem; max-width: 72ch; line-height: 1.55; margin-top: 6px; }
+    .importados-promise{ margin-top: 10px; display:flex; flex-wrap:wrap; gap: 8px; }
+    .importados-pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 6px 10px; border-radius: 999px;
+      background: rgba(15,23,42,.70);
+      border: 1px solid rgba(148,163,184,.32);
+      color: rgba(226,232,240,.85);
+      font-size: 12px;
+    }
+    .importados-pill i{ color: var(--accent-gold); }
+
+    .importados-cta{ position: relative; z-index:2; display:flex; gap: 10px; flex-wrap: wrap; justify-content:flex-end; align-items:center; }
+    .btn-impo{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 850;
+      border: 1px solid rgba(212,160,23,.55);
+      background: linear-gradient(180deg, rgba(212,160,23,.98), rgba(212,160,23,.78));
+      color: #111827;
+      box-shadow: 0 16px 44px rgba(212,160,23,.20);
+      transition: transform .15s ease, filter .15s ease;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn-impo:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btn-impo.ghost{
+      background: rgba(2,6,23,.55);
+      color: rgba(226,232,240,.95);
+      border: 1px solid rgba(56,189,248,.35);
+      box-shadow: 0 16px 44px rgba(56,189,248,.10);
+    }
+
+    .importados-grid{ position: relative; z-index:2; }
+
+  </style>
+</head>
+<body>
+  <div class="top-banner">
+    Argenville Shopping • <span>Desde Córdoba al mundo</span> • Productos argentinos en tu país
+  </div>
+
+  <div class="page">
+    <header class="navbar">
+      <div class="navbar-left">
+        <a href="../index.html" class="logo">
+          <img src="../img/logo-argenville.png" alt="Argenville" />
+          <div class="logo-text">
+            <span class="logo-title"></span>
+            <span class="logo-subtitle">El shopping de los argentinos</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav-buttons">
+        <a href="tienda-argenville.html" class="btn-oro-sm">
+          <i class="fa-solid fa-cart-shopping"> SUPERMERCADO </i> 
+        </a>
+        <a href="tienda-argenville-importados.html" class="btn-oro-sm">
+          <i class="fa-solid fa-plane"></i> IMPOR-B2B
+        </a>
+        <a href="tienda-deportiva.html" class="btn-oro-sm">
+          <i class="fa-solid fa-futbol"></i> DEPORTIVOS
+        </a>
+        <a href="tienda-regionales.html" class="btn-oro-sm">
+          <i class="fa-solid fa-leaf"></i> REGIONALES
+        </a>
+        
+      </nav>
+
+      <div class="navbar-right">
+        <div id="auth-container" style="display:flex; gap:10px; align-items:center;"></div>
+      </div>
+    </header>
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <div class="hero-kicker">
+          <i class="fa-solid fa-earth-americas"></i>
+          El Shopping e-commerce global de productos argentinos, de Argentina al Mundo!
+        </div>
+
+        <h1 class="hero-title">
+          <span>Argenville Shopping</span> ·Defendamos la Industria Nacional.
+        </h1>
+
+        <p class="hero-subtitle">
+          Una sola vidriera para encontrar alfajores, yerbas, snacks, vinos,
+          mates y todo producto Made In Argentina. Entrás al shopping,
+          explorás categorías y finalizás tu compra en el <strong>Shopping Argentino</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <div class="hero-cta-row">
+            <a href="tienda-argenville.html" class="btn-primary">
+              <i class="fa-solid fa-cart-shopping"></i>
+              Entrar a la Tienda Argenville
+            </a>
+            <a href="#packs" class="btn-secondary">
+              <i class="fa-solid fa-box-open"></i>
+              Ver packs mayoristas y reseller
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <span class="hero-pill">
+              <i class="fa-solid fa-plane-departure"></i>
+              Exportamos desde Argentina a tu país
+            </span>
+            <span class="hero-pill">
+              <i class="fa-solid fa-credit-card"></i>
+              Cobros en USD / EUR / moneda local
+            </span>
+            <span class="hero-pill">
+              <i class="fa-solid fa-people-group"></i>
+              Resellers, comercios y comunidad argentina
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image-box">
+        <img src="../img/industria-nacional-teamargenville.png" alt="Argenville Shopping – vista general" />
+        <div class="hero-badge">
+          <i class="fa-solid fa-location-dot"></i>
+          Argentina conectada con el mundo
+        </div>
+      </div>
+    </section>
+
+    <section id="categorias" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            Categorías del <span>Shopping Argenville</span>
+          </h2>
+          <p class="section-subtitle">
+            Navegá por las categorías principales y luego seguís la compra en la Tienda Argenville,
+            con carrito y filtros por producto.
+          </p>
+        </div>
+      </div>
+
+      <div class="categories-grid">
+        <a href="tienda-argenville.html" class="category-card">
+          <div class="category-icon">
+            <i class="fa-solid fa-cookie-bite"></i>
+          </div>
+          <div class="category-name">Alfajores &amp; dulces</div>
+          <div class="category-text">
+            Clásicos argentinos, chocolates, golosinas y recuerdos de kiosco.
+          </div>
+        </a>
+
+        <a href="tienda-argenville.html" class="category-card">
+          <div class="category-icon">
+            <i class="fa-solid fa-mug-hot"></i>
+          </div>
+          <div class="category-name">Yerbas &amp; mates</div>
+          <div class="category-text">
+            Yerbas seleccionadas, mates, bombillas y kits materos completos.
+          </div>
+        </a>
+
+        <a href="tienda-argenville.html" class="category-card">
+          <div class="category-icon">
+            <i class="fa-solid fa-bag-shopping"></i>
+          </div>
+          <div class="category-name">Snacks &amp; picoteo</div>
+          <div class="category-text">
+            Papas, maníes, palitos y todo lo que acompaña la previa y el partido.
+          </div>
+        </a>
+
+        <a href="tienda-argenville.html" class="category-card">
+          <div class="category-icon">
+            <i class="fa-solid fa-wine-bottle"></i>
+          </div>
+          <div class="category-name">Bebidas</div>
+          <div class="category-text">
+            Fernet, vinos, aperitivos y bebidas típicas según normativa local.
+          </div>
+        </a>
+
+        <a href="tienda-argenville.html" class="category-card">
+          <div class="category-icon">
+            <i class="fa-solid fa-shirt"></i>
+          </div>
+          <div class="category-name">Merch &amp; accesorios</div>
+          <div class="category-text">
+            Indumentaria, accesorios, banderas y objetos con ADN argentino.
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="importados">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Importados seleccionados</h2>
+          <p class="section-subtitle">Compra inteligente para comercios: margen + rotación + reposición.</p>
+        </div>
+      </div>
+
+      <div class="importados-wrap">
+        <div class="importados-head">
+          <div>
+            <div class="importados-kicker"><i class="fa-solid fa-bolt"></i> OPORTUNIDAD B2B</div>
+            <h3 class="importados-title">No pagues de más: <span>importá con Argenville</span></h3>
+            <p class="importados-copy">
+              Esto no es B2C: es abastecimiento B2B para comercios y resellers. Catálogo curado desde
+              <strong>USA · China · Europa</strong> para que en <strong>7 días</strong> tengas productos listos en tu local
+              y hagas diferencia con margen real.
+            </p>
+            <div class="importados-promise">
+              <span class="importados-pill"><i class="fa-solid fa-chart-line"></i> Margen + rotación</span>
+              <span class="importados-pill"><i class="fa-solid fa-boxes-stacked"></i> Curaduría Argenville</span>
+              <span class="importados-pill"><i class="fa-solid fa-truck-fast"></i> Logística + tracking</span>
+              <span class="importados-pill"><i class="fa-solid fa-handshake"></i> B2B / Distribución</span>
+            </div>
+          </div>
+
+      <div class="importados-cta">
+  <a class="btn-impo" href="tienda-argenville-importados.html">
+    <i class="fa-solid fa-store"></i> Importados del Mundo
+  </a>
+
+  <a class="btn-impo ghost" href="tienda-argenville.html">
+    <i class="fa-solid fa-earth-americas"></i> El Super on-line
+  </a>
+</div>
+</div>
+
+        <div class="packs-grid importados-grid">
+          <article class="pack-card">
+            <div class="pack-image">
+              <img src="../img/flag/usa-flag.png" alt="Importados USA" />
+            </div>
+            <span class="pack-tag">USA</span>
+            <h3 class="pack-title">USA: tecnología + premium</h3>
+            <p class="pack-text">Productos de alto deseo y ticket para levantar margen sin perder rotación.</p>
+            <p class="pack-meta">Compra asistida · Validación · Abastecimiento</p>
+            <div class="pack-actions">
+              <a class="pack-btn pack-btn-primary" href="tienda-importados.html#usa">
+                <i class="fa-solid fa-flag-usa"></i> Ver USA
+              </a>
+              <a class="pack-btn pack-btn-secondary" target="_blank"
+                 href="https://wa.me/543516965911?text=Hola%20Argenville%2C%20quiero%20Importados%20USA%20(B2B)">
+                <i class="fa-brands fa-whatsapp"></i> Consultar
+              </a>
+            </div>
+          </article>
+
+          <article class="pack-card">
+            <div class="pack-image">
+              <img src="../img/flag/china-flag.png" alt="Importados China" />
+            </div>
+            <span class="pack-tag">CHINA</span>
+            <h3 class="pack-title">China: tendencia + alto margen</h3>
+            <p class="pack-text">OEM, novedades y productos “gana-gana” para emprendedores y comercios.</p>
+            <p class="pack-meta">Volumen · Costos optimizados · Reposición</p>
+            <div class="pack-actions">
+              <a class="pack-btn pack-btn-primary" href="tienda-importados.html#china">
+                <i class="fa-solid fa-boxes-stacked"></i> Ver China
+              </a>
+              <a class="pack-btn pack-btn-secondary" target="_blank"
+                 href="https://wa.me/543516965911?text=Hola%20Argenville%2C%20quiero%20Importados%20China%20(B2B)">
+                <i class="fa-brands fa-whatsapp"></i> Consultar
+              </a>
+            </div>
+          </article>
+
+          <article class="pack-card">
+            <div class="pack-image">
+              <img src="../img/flag/ue-flag.png" alt="Importados Europa" />
+            </div>
+            <span class="pack-tag">EUROPA</span>
+            <h3 class="pack-title">Europa: gourmet + lifestyle</h3>
+            <p class="pack-text">Línea premium para diferenciarte con marcas y categorías selectas.</p>
+            <p class="pack-meta">Calidad premium · Distribución selectiva</p>
+            <div class="pack-actions">
+              <a class="pack-btn pack-btn-primary" href="tienda-importados.html#europa">
+                <i class="fa-solid fa-flag"></i> Ver Europa
+              </a>
+              <a class="pack-btn pack-btn-secondary" target="_blank"
+                 href="https://wa.me/543516965911?text=Hola%20Argenville%2C%20quiero%20Importados%20Europa%20(B2B)">
+                <i class="fa-brands fa-whatsapp"></i> Consultar
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <p class="importados-copy" style="margin-top:14px;">
+          <strong>Bonus estratégico:</strong> si estás fuera de Argentina, también armamos la “vuelta”:
+          <strong>importar para Argentina</strong> lo que convenga según país, precio y disponibilidad.
+          Esto es <strong>red comercial</strong>.
+        </p>
+      </div>
+    </section>
+
+
+    <section id="packs" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            Packs <span>Argenville</span> para comercios y resellers
+          </h2>
+          <p class="section-subtitle">
+            Pensados para kioscos, tiendas físicas, emprendedores y mayoristas que
+            quieren sumar productos argentinos con una sola gestión.
+          </p>
+        </div>
+        <div>
+              <a href="/docs/lista-precios-argenville-2026.pdf" class="btn-secondary" target="_blank" rel="noopener">
+              <i class="fa-solid fa-file-pdf"></i>
+              Descargar lista de precios 2026 (PDF)
+            </a>
+        </div>
+      </div>
+
+      <div class="packs-grid">
+        <article class="pack-card">
+          <div class="pack-image">
+            <img src="../img/pack-comercio-argenville.png" alt="Pack Comercio Argenville" />
+          </div>
+          <span class="pack-tag">Pack Comercio</span>
+          <h3 class="pack-title">Pack Comercio Argenville</h3>
+          <p class="pack-text">
+            Ideal para kioscos, minimercados y tiendas físicas que quieren
+            una “esquina argentina” armada y lista para vender.
+          </p>
+          <p class="pack-meta">
+            Mix de alfajores, snacks, yerbas y golosinas. Volumen optimizado para reventa.
+          </p>
+          <div class="pack-actions">
+            <a href="tienda-argenville.html" class="pack-btn pack-btn-primary">
+              <i class="fa-solid fa-cart-shopping"></i>
+              Ver productos relacionados
+            </a>
+            <a
+              href="https://wa.me/543516965911?text=Hola%20Argenville%2C%20quiero%20m%C3%A1s%20info%20del%20Pack%20Comercio"
+              target="_blank"
+              class="pack-btn pack-btn-secondary"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              Consultar por WhatsApp
+            </a>
+          </div>
+        </article>
+
+        <article class="pack-card">
+          <div class="pack-image">
+            <img src="../img/pack-emprendedor-1.png" alt="Pack Emprendedor Argenville" />
+          </div>
+          <span class="pack-tag">Pack Emprendedor</span>
+          <h3 class="pack-title">Pack Emprendedor</h3>
+          <p class="pack-text">
+            Para quienes quieren arrancar como revendedores o embajadores
+            de productos argentinos en su ciudad con baja inversión inicial.
+          </p>
+          <p class="pack-meta">
+            Selección curada de productos de alto giro y margen atractivo.
+          </p>
+          <div class="pack-actions">
+            <a href="tienda-argenville.html" class="pack-btn pack-btn-primary">
+              <i class="fa-solid fa-shop"></i>
+              Ver mix sugerido
+            </a>
+            <a
+              href="https://wa.me/543516965911?text=Hola%20Argenville%2C%20quiero%20informaci%C3%B3n%20del%20Pack%20Emprendedor"
+              target="_blank"
+              class="pack-btn pack-btn-secondary"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              Hablar con un asesor
+            </a>
+          </div>
+        </article>
+
+        <article class="pack-card">
+          <div class="pack-image">
+            <img src="../img/pack-reseller-arg.png" alt="Pack Reseller Argenville" />
+          </div>
+          <span class="pack-tag">Pack Reseller</span>
+          <h3 class="pack-title">Pack Reseller / Mayorista</h3>
+          <p class="pack-text">
+            Volume para revendedores profesionales y distribuidores
+            que quieren manejar un catálogo amplio y estable.
+          </p>
+          <p class="pack-meta">
+            Ideal para crear una red propia de clientes locales con soporte Argenville.
+          </p>
+          <div class="pack-actions">
+            <a href="tienda-argenville.html" class="pack-btn pack-btn-primary">
+              <i class="fa-solid fa-box-open"></i>
+              Ver opciones mayoristas
+            </a>
+            <a
+              href="https://wa.me/543516965911?text=Hola%20Argenville%2C%20quiero%20conversar%20sobre%20el%20Pack%20Reseller%20o%20mayorista"
+              target="_blank"
+              class="pack-btn pack-btn-secondary"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              Coordinar una reunión
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">¿Cómo funciona <span>Argenville Shopping</span>?</h2>
+          <p class="section-subtitle">
+            Operás todo desde un solo ecosistema: Shopping, Tienda Argenville,
+            logística y contacto humano por WhatsApp.
+          </p>
+        </div>
+      </div>
+
+      <div class="steps-card">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div>
+            <div class="step-title">Explorás el Shopping</div>
+            <p class="step-text">
+              Navegá tranquilo y compra Seguro, Tenemos todo aca dentro, packs y opciones
+              pensadas para vos y tu tipo de negocio.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div>
+            <div class="step-title">Comprá en cualquier Tienda, Juan te cobra al Final</div>
+            <p class="step-text">
+              Cuando encontrás lo que buscás, seguís en la Tienda Argenville,
+              donde armás el carrito, filtrás por producto y definís cantidades.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div>
+            <div class="step-title">Paypal Pago Seguro o con un Asesor</div>
+            <p class="step-text">
+              Ante cualquier duda, Juan Patriota AI te guía y, si hace falta,
+              un humano de Argenville te responde por WhatsApp para cerrar la operación.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-final">
+      <div class="cta-final-text">
+        <h3 class="cta-final-title">¿Listo para entrar a la Tienda de Argenville?</h3>
+        <p class="cta-final-sub">
+          Podés arrancar con una compra pequeña, un pack piloto para tu comercio
+          o una propuesta mayorista. Lo importante es que el próximo paso no sea
+          un sueño, sino un plan.
+        </p>
+      </div>
+      <div class="cta-final-actions">
+        <a href="tienda-argenville.html" class="btn-oro">
+          <i class="fa-solid fa-cart-shopping"></i>
+          Entrar a la tienda ahora
+        </a>
+        <a
+          href="https://wa.me/543516965911?text=Hola%20Argenville%2C%20vengo%20del%20Shopping%20y%20quiero%20hablar%20sobre%20compras%20o%20packs"
+          target="_blank"
+          class="btn-secondary"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+          Hablar con alguien del equipo
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left">
+        © <span>Argenville</span> · El shopping de los argentinos en el mundo.
+      </div>
+      <div class="footer-links">
+        <a href="../index.html">Volver a la portada</a>
+        <a href="tienda-argenville.html">Ir a la Tienda Argenville</a>
+        <a href="../docs/precio-lista-argenville-2026.pdf" target="_blank">
+          Lista de precios 2026 (PDF)
+        </a>
+        <a href="/docs/privacidad.html" target="_blank" rel="noopener">Privacidad</a>
+        <a href="/docs/terminos.html" target="_blank" rel="noopener">Términos</a>
+      </div>
+    </footer>
+  </div>
+
+ <div class="juan-widget" id="juanWidgetMain" title="Chateá con Juan Patriota">
+    <button class="btn-close-juan-widget" id="closeJuanWidgetBtn">×</button>
+    <img src="../img/juan-patriota-colapinto-f1.png" alt="Juan Patriota" class="juan-avatar" onerror="this.src='https://placehold.co/150x250?text=Juan+Patriota'" />
+    <div class="juan-bubble">Soy Juan Patriota, ¿te doy una mano?</div>
+  </div>
+
+  <button id="btnReopenJuan">Juan 🇦🇷</button>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div>
+          Juan Patriota AI<br />
+          <small>Representante Comercial Argenville</small>
+      </div>
+      <div style="display: flex; gap: 15px; align-items: center;">
+          <i class="fa-solid fa-volume-xmark" id="stopAudioBtn" style="cursor:pointer; font-size: 16px; color:white;" title="Callar a Juan"></i>
+          <button class="chat-close" id="chatCloseBtn">&times;</button>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg msg-bot">
+        <div class="bubble">
+          Hola, soy Juan Patriota AI 👋<br />
+          Contame! Como te llamas antes que nada y desde qué país nos visitás! Sos cliente final, emprendedor o empresa?
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-row" style="display:flex; align-items:center;">
+        <input type="text" id="chatInput" placeholder="Escribí o hablá..." style="flex:1;" />
+        <button type="button" id="micBtn" style="background:none; border:none; color:#0ea5e9; font-size:1.2rem; cursor:pointer; padding:0 10px; box-shadow:none;">
+            <i class="fa-solid fa-microphone" id="micIcon"></i>
+        </button>
+        <button type="button" id="chatSendBtn">Enviar</button>
+    </div>
+
+    <div class="chat-footer">
+      <button type="button" id="whatsAppBtn" class="chat-whatsapp">
+        <i class="fab fa-whatsapp"></i> Hablar por WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=AZYnyzIFImHGGJnl4txtVhuxYiD59eITT-W1d7s4IUbLF3WC9oFdyear0IQZ-DRS9BFn9WxiAHYtVzgW&currency=USD&intent=capture"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    
+    const firebaseConfig = { apiKey: "AIzaSyDc6YfcxlszUYiCcuQK953Opojqz1mLCnQ", authDomain: "argenville.firebaseapp.com", projectId: "argenville", storageBucket: "argenville.firebasestorage.app", messagingSenderId: "1075243262634", appId: "1:1075243262634:web:c2d1d205bf8cd04ba5e6d3", measurementId: "G-M77409GSVT" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const container = document.getElementById("auth-container");
+    
+    onAuthStateChanged(auth, (user) => {
+        if(!container) return;
+        if (user) {
+            container.innerHTML = `
+                <div class="user-pill" style="display:flex; align-items:center; gap:5px; background:rgba(15,23,42,0.8); padding:4px 8px; border-radius:50px; border:1px solid var(--border-soft); font-size:0.8rem;">
+                    <img src="${user.photoURL}" style="width:24px; border-radius:50%;">
+                    <span class="user-name" style="color:var(--text-main);">${user.displayName.split(' ')[0]}</span>
+                    <button class="btn-logout" onclick="window.doLogout()" style="margin-left:5px; cursor:pointer; color:var(--text-soft); background:none; border:none;"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            `;
+        } else {
+            container.innerHTML = `
+                <button class="btn-login-ghost" onclick="window.doLogin()" style="background:none; border:1px solid var(--accent-gold); color:var(--accent-gold); padding:6px 12px; border-radius:50px; font-size:0.8rem; display:flex; align-items:center; gap:5px;">
+                    <i class="fa-regular fa-user"></i> MI CUENTA
+                </button>
+                <button class="btn-google" onclick="window.doLogin()" style="margin-left:5px; background:white; color:#333; border:none; padding:6px 12px; border-radius:50px; font-size:0.8rem; display:flex; align-items:center; gap:5px;">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" style="width:18px;">
+    Google
+</button>
+            `;
+        }
+    });
+
+    window.doLogin = () => signInWithPopup(auth, provider).catch(e => console.error(e));
+    window.doLogout = () => signOut(auth).then(()=>alert("¡Hasta luego!")).catch(e => console.error(e));
+  </script>
+
+  <script>
+    const WHATSAPP_NUMBER_JUAN = "543516965911";
+    let juanAudio = null;
+
+    function hablarJuan(texto) {
+        if (!texto) return;
+        const clean = texto.replace(/Argenville/gi, 'Argenvil').replace(/[*#]/g, '');
+        const lectura = new SpeechSynthesisUtterance(clean);
+        lectura.lang = "es-AR";
+        window.speechSynthesis.speak(lectura);
+    }
+
+    window.addEventListener('load', () => {
+        const panelChat = document.getElementById("chatPanel");
+        const areaMensajes = document.getElementById("chatMessages");
+        const inputTexto = document.getElementById("chatInput");
+        
+        // NUEVOS ELEMENTOS PARA CERRAR/REABRIR WIDGET
+        const juanWidgetMain = document.getElementById("juanWidgetMain");
+        const closeJuanWidgetBtn = document.getElementById("closeJuanWidgetBtn");
+        const btnReopenJuan = document.getElementById("btnReopenJuan");
+        
+        if(!panelChat || !areaMensajes || !inputTexto) return; 
+
+        async function enviarAJuan() {
+            const texto = inputTexto.value.trim();
+            if (!texto) return;
+
+            const msgDiv = document.createElement("div");
+            msgDiv.className = "msg msg-user";
+            msgDiv.innerHTML = `<div class="bubble">${texto}</div>`;
+            areaMensajes.appendChild(msgDiv);
+            inputTexto.value = "";
+            areaMensajes.scrollTop = areaMensajes.scrollHeight;
+
+            const juanDiv = document.createElement("div");
+            juanDiv.className = "msg msg-bot";
+            juanDiv.innerHTML = `<div class="bubble" id="juan-temp" style="background:#f0f2f5; color:#333; font-style:italic;">Juan está pensando...</div>`;
+            areaMensajes.appendChild(juanDiv);
+
+            try {
+                // CONEXIÓN AL MOTOR 5050
+                const res = await fetch('https://juan-ai-zq22.onrender.com/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: texto })
+                });
+
+                const data = await res.json();
+                const burbujaJuan = document.getElementById("juan-temp");
+                if(burbujaJuan) {
+                    burbujaJuan.innerHTML = `<b>Juan:</b> ${data.reply}`;
+                    burbujaJuan.removeAttribute("id");
+                    burbujaJuan.style.fontStyle = "normal";
+                }
+
+                if (data.audioUrl) {
+                    if (juanAudio) { juanAudio.pause(); juanAudio.currentTime = 0; }
+                    juanAudio = new Audio(data.audioUrl);
+                    juanAudio.crossOrigin = "anonymous";
+                    juanAudio.load();
+                    juanAudio.play().catch(e => hablarJuan(data.reply));
+                } else {
+                    hablarJuan(data.reply);
+                }
+            } catch (e) {
+                console.error("Error:", e);
+                const temp = document.getElementById("juan-temp");
+                if(temp) temp.innerHTML = "Jefe, el motor 5050 está apagado.";
+            }
+            areaMensajes.scrollTop = areaMensajes.scrollHeight;
+        }
+
+        // EVENTOS DEL CHAT Y WIDGET
+        
+        // Al hacer clic en el muñeco (pero no en la X), se abre el panel
+        juanWidgetMain.onclick = (e) => { 
+            if(e.target !== closeJuanWidgetBtn) {
+                 panelChat.style.display = "flex"; 
+            }
+        };
+
+        // Al hacer clic en la X roja del muñeco: se esconde y aparece el botón de reabrir
+        closeJuanWidgetBtn.onclick = (e) => {
+            e.stopPropagation(); // Evita que se abra el panel
+            juanWidgetMain.style.display = 'none';
+            btnReopenJuan.style.display = 'block';
+            panelChat.style.display = "none"; // Cierra el panel si estaba abierto
+        };
+
+        // Al hacer clic en el botón "Juan 🇦🇷": reaparece el muñeco
+        btnReopenJuan.onclick = () => {
+            juanWidgetMain.style.display = 'flex';
+            btnReopenJuan.style.display = 'none';
+        };
+
+        // Cerrar panel de chat (la X del panel azul)
+        document.getElementById("chatCloseBtn").onclick = () => {
+            if (juanAudio) { juanAudio.pause(); juanAudio.currentTime = 0; }
+            panelChat.style.display = "none";
+        };
+        
+        // Parar audio
+        document.getElementById("stopAudioBtn").onclick = () => {
+            if (juanAudio) { juanAudio.pause(); juanAudio.currentTime = 0; }
+        };
+        
+        document.getElementById("chatSendBtn").onclick = enviarAJuan;
+        inputTexto.onkeydown = (e) => { 
+            if(e.key === "Enter") { e.preventDefault(); enviarAJuan(); } 
+        };
+
+        // MICRÓFONO
+        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (Recognition) {
+            const rec = new Recognition();
+            rec.lang = "es-AR";
+            rec.continuous = true;
+            let micTimer;
+
+            document.getElementById("micBtn").onclick = () => {
+                rec.start();
+                document.getElementById("micIcon").style.color = "red";
+            };
+            rec.onresult = (e) => {
+                const transcript = Array.from(e.results).map(result => result[0].transcript).join('');
+                inputTexto.value = transcript;
+                clearTimeout(micTimer);
+                micTimer = setTimeout(() => { rec.stop(); enviarAJuan(); }, 2000);
+            };
+            rec.onend = () => { document.getElementById("micIcon").style.color = "#0ea5e9"; };
+            rec.onerror = () => { document.getElementById("micIcon").style.color = "#0ea5e9"; };
+        }
+        
+        // WHATSAPP
+        document.getElementById("whatsAppBtn").onclick = () => {
+            window.open(`https://wa.me/${WHATSAPP_NUMBER_JUAN}?text=Hola Argenville, vengo del Shopping...`, '_blank');
+        }
+    });
+  </script>
+<footer class="site-footer">
+  <div class="footer-container">
+    
+    <div class="footer-brand">
+      <h3>Argenville</h3>
+      <p>Global Trade · Consulting · Brand Expansion</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/cookies.html">Cookie Policy</a></li>
+        <li><a href="/refunds.html">Refund Policy</a></li>
+        <li><a href="/shipping.html">Shipping Policy</a></li>
+        <li><a href="/ip.html">Intellectual Property</a></li>
+        <li><a href="/compliance.html">Compliance & Legal</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Argenville. All rights reserved.
+  </div>
+</footer>
+<script src="/juan/juan.js"></script>
+</body>
+</html>

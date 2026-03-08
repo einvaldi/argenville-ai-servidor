@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Argenville News — Portal de Argentinos por el Mundo</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Fuentes portal (TV/Noticias) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Argentina portal */
+      --bg: #ffffff;
+      --ink: #0b1220;
+      --ink2:#2a3a56;
+
+      --sky: #35b8ff;          /* celeste argentino fuerte */
+      --sky-neon:#00d2ff;      /* celeste neon */
+      --sky-soft:#e9f7ff;
+
+      --coral:#ff4d6d;         /* breaking / último momento */
+      --gold:#d4a017;          /* premium */
+
+      --border: rgba(11,18,32,.12);
+      --border2: rgba(11,18,32,.08);
+      --shadow: 0 18px 45px rgba(11,18,32,.10);
+
+      --radius: 14px;
+      --radius2: 20px;
+      --container: 1180px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 380px at 15% 0%, rgba(53,184,255,.22), transparent 55%),
+        radial-gradient(820px 420px at 92% 5%, rgba(0,210,255,.18), transparent 55%),
+        linear-gradient(180deg, #ffffff, #ffffff);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .container{width:min(var(--container), 92%); margin:0 auto;}
+
+    /* ===== TOP STRIP (portal) ===== */
+    .topstrip{
+      background: linear-gradient(90deg, rgba(53,184,255,.95), rgba(0,210,255,.95));
+      color: #07101f;
+      border-bottom: 1px solid rgba(0,0,0,.10);
+    }
+    .topstrip .row{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding: 8px 0;
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+    .live{
+      display:inline-flex; align-items:center; gap:10px;
+      background: rgba(255,255,255,.35);
+      border: 1px solid rgba(255,255,255,.45);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 6px rgba(255,77,109,.22);
+    }
+    .mini-links{
+      display:flex; gap:10px; flex-wrap:wrap;
+      font-size: 12px;
+      opacity:.95;
+    }
+    .mini-links a{
+      background: rgba(255,255,255,.30);
+      border: 1px solid rgba(255,255,255,.40);
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition:.15s ease;
+    }
+    .mini-links a:hover{background: rgba(255,255,255,.42);}
+
+    /* ===== HEADER + NAV ===== */
+    .header{
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border2);
+    }
+    .header .row{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding: 12px 0;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight: 900;
+    }
+    .brand-badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(11,18,32,.06);
+    }
+    .brand-badge .tag{
+      font-family: "Roboto Condensed", Inter, sans-serif;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(53,184,255,.22), rgba(0,210,255,.18));
+      border: 1px solid rgba(53,184,255,.30);
+    }
+    .brand-badge .tag i{color: var(--gold);}
+    .brand-badge .sub{
+      font-size: 12px;
+      color: var(--ink2);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    nav{
+      display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    nav a{
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--ink2);
+      font-weight: 800;
+      font-size: 14px;
+      transition:.15s ease;
+    }
+    nav a:hover{
+      background: rgba(53,184,255,.12);
+      border-color: rgba(53,184,255,.22);
+      color: var(--ink);
+    }
+    .cta{
+      background: linear-gradient(180deg, rgba(212,160,23,.98), rgba(212,160,23,.78));
+      border: 1px solid rgba(212,160,23,.40);
+      color: #08101f;
+      font-weight: 900;
+      box-shadow: 0 14px 26px rgba(212,160,23,.14);
+    }
+
+    /* ===== LAYOUT ===== */
+    .hero{
+      padding: 16px 0 22px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns: 1fr;}
+      nav{display:none;}
+    }
+
+    /* ===== VIDEO MAIN ===== */
+    .panel{
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel-head{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border2);
+      background: linear-gradient(90deg, rgba(53,184,255,.14), rgba(0,210,255,.10));
+    }
+    .panel-head h1{
+      font-family: "Roboto Condensed", Inter, sans-serif;
+      font-size: 22px;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      font-weight: 900;
+      display:flex; align-items:center; gap:10px;
+    }
+    .panel-head h1 i{color: var(--gold);}
+    .panel-head .break{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,77,109,.12);
+      border: 1px solid rgba(255,77,109,.18);
+      color: #7a0f2a;
+      font-weight: 900;
+      letter-spacing: .12em;
+      font-size: 12px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .video-wrap{
+      position: relative;
+      padding-top: 56.25%; /* 16:9 */
+      background:
+        radial-gradient(800px 420px at 20% 20%, rgba(53,184,255,.22), transparent 58%),
+        radial-gradient(800px 420px at 80% 30%, rgba(0,210,255,.18), transparent 60%),
+        #0a1428;
+    }
+    .video-wrap iframe{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      border:0;
+    }
+
+    .panel-foot{
+      padding: 12px 14px 14px;
+      color: var(--ink2);
+      font-weight: 700;
+      line-height:1.35;
+    }
+    .quick{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-weight: 900;
+      box-shadow: 0 10px 20px rgba(11,18,32,.06);
+      transition:.15s ease;
+      font-size: 13px;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(53,184,255,.10);
+      border-color: rgba(53,184,255,.22);
+    }
+
+    /* ===== POSTALES (sidebar) ===== */
+    .side{
+      display:flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .side .panel-head h2{
+      font-family: "Roboto Condensed", Inter, sans-serif;
+      font-size: 18px;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing:.3px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .side .panel-head h2 i{color: var(--gold);}
+
+    .postales{
+      padding: 12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      background: #fff;
+    }
+    .postal{
+      border-radius: 12px;
+      overflow:hidden;
+      border: 1px solid var(--border2);
+      background: #fff;
+      box-shadow: 0 12px 22px rgba(11,18,32,.06);
+      transition:.15s ease;
+      cursor:pointer;
+    }
+    .postal:hover{transform: translateY(-2px); border-color: rgba(53,184,255,.22);}
+    .postal img{
+      width:100%; height:92px;
+      object-fit: cover;
+      display:block;
+    }
+    .postal p{
+      padding: 8px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink2);
+      line-height:1.2;
+    }
+    .side-note{
+      padding: 12px 14px 14px;
+      font-weight: 700;
+      color: var(--ink2);
+      border-top: 1px solid var(--border2);
+      background: rgba(53,184,255,.06);
+    }
+    .side-note a{color: #0a3d77; text-decoration: underline;}
+
+    /* ===== SECCIONES / CARDS ===== */
+    .section{padding: 10px 0 46px;}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 14px; margin: 18px 0 12px;
+    }
+    .section-title h2{
+      font-family: "Roboto Condensed", Inter, sans-serif;
+      font-size: 22px;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing:.3px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .section-title h2 i{color: var(--gold);}
+    .section-title p{color: var(--ink2); font-weight: 700; font-size: 14px;}
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 4;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.92);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: 0 18px 40px rgba(11,18,32,.08);
+      transition:.15s ease;
+    }
+    .card:hover{transform: translateY(-2px); border-color: rgba(0,210,255,.22);}
+    .thumb{
+      height: 160px;
+      background:
+        linear-gradient(135deg, rgba(53,184,255,.28), rgba(0,210,255,.18), rgba(212,160,23,.10));
+      position: relative;
+    }
+    .thumb img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .body{
+      padding: 12px 12px 14px;
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:8px;
+      font-family: "Roboto Condensed", Inter, sans-serif;
+      font-weight: 900;
+      letter-spacing:.14em;
+      text-transform: uppercase;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(53,184,255,.12);
+      border: 1px solid rgba(53,184,255,.18);
+      color: #0a3d77;
+      margin-bottom: 8px;
+    }
+    .body h3{font-size: 16px; font-weight: 900; margin-bottom: 8px; line-height:1.2;}
+    .body p{color: var(--ink2); font-weight: 650; font-size: 13.5px; line-height:1.35;}
+    .meta{
+      margin-top: 10px;
+      display:flex; gap:10px; flex-wrap:wrap;
+      color: rgba(11,18,32,.76);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .meta span{
+      display:inline-flex; align-items:center; gap:7px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border2);
+      background: #fff;
+    }
+    .meta i{color: var(--sky);}
+
+    /* Recetas (revista) */
+    .card.recipe .kicker{
+      background: rgba(212,160,23,.14);
+      border-color: rgba(212,160,23,.22);
+      color: #3a2a00;
+    }
+
+    @media (max-width: 980px){
+      .card{grid-column: span 6;}
+    }
+    @media (max-width: 620px){
+      .card{grid-column: span 12;}
+      .postales{grid-template-columns: 1fr;}
+      .postal img{height: 140px;}
+    }
+
+    /* Footer */
+    footer{
+      border-top: 1px solid var(--border2);
+      padding: 18px 0 26px;
+      background: rgba(255,255,255,.75);
+      color: var(--ink2);
+      font-weight: 700;
+    }
+    .foot{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px; flex-wrap:wrap;
+    }
+    .social{display:flex; gap:10px; flex-wrap:wrap;}
+    .social a{
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fff;
+      box-shadow: 0 10px 18px rgba(11,18,32,.06);
+    }
+    .social a:hover{background: rgba(53,184,255,.10); border-color: rgba(53,184,255,.22);}
+  </style>
+</head>
+
+<body>
+  <!-- TOP STRIP -->
+  <div class="topstrip">
+    <div class="container">
+      <div class="row">
+        <div class="live"><span class="dot"></span> Último momento</div>
+        <div class="mini-links">
+          <a href="#video"><i class="fa-brands fa-youtube"></i> Argenville TV</a>
+          <a href="#postales"><i class="fa-solid fa-globe"></i> Postales</a>
+          <a href="#recetas"><i class="fa-solid fa-utensils"></i> Recetas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER / NAV -->
+  <div class="header">
+    <div class="container">
+      <div class="row">
+        <div class="brand">
+          <div class="brand-badge">
+            <span class="tag"><i class="fa-solid fa-newspaper"></i> NEWS</span>
+            <span class="sub">Portal · Argentinos por el Mundo</span>
+          </div>
+        </div>
+
+        <nav aria-label="Navegación principal">
+          <a href="../index.html"><i class="fa-solid fa-house"></i> Inicio</a>
+          <a href="../shopping/index.html"><i class="fa-solid fa-cart-shopping"></i> Tienda</a>
+          <a href="#video"><i class="fa-brands fa-youtube"></i> Argenville TV</a>
+          <a href="#postales"><i class="fa-solid fa-image"></i> Postales</a>
+          <a href="#recetas"><i class="fa-solid fa-utensils"></i> Recetas</a>
+          <a class="cta" href="../shopping/index.html"><i class="fa-solid fa-bolt"></i> Comprar ahora</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO (VIDEO + POSTALES) -->
+  <main class="hero">
+    <div class="container">
+      <div class="grid">
+
+        <!-- VIDEO PRINCIPAL -->
+        <section class="panel" id="video">
+          <div class="panel-head">
+            <h1><i class="fa-brands fa-youtube"></i> ARGENVILLE TV</h1>
+            <div class="break"><i class="fa-solid fa-bolt"></i> Breaking</div>
+          </div>
+
+          <div class="video-wrap">
+            <!-- 🔥 Cambiá VIDEO_ID por el video o live de YouTube -->
+            <iframe
+              src="https://www.youtube.com/embed/aJkvNEGnWII"
+              title="Argenville TV"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <div class="panel-foot">
+            <strong>Argenville.shop dese Argentina al Mundo. Hay Esperanza, hay Argentina...
+            <div class="quick">
+              <a class="btn" href="#destacadas"><i class="fa-solid fa-fire"></i> Ir a Destacadas</a>
+              <a class="btn" href="#postales"><i class="fa-solid fa-image"></i> Ver Postales</a>
+              <a class="btn" href="#recetas"><i class="fa-solid fa-utensils"></i> Ver Recetas</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- SIDEBAR POSTALES -->
+        <aside class="side" id="postales">
+          <div class="panel">
+            <div class="panel-head">
+              <h2><i class="fa-solid fa-globe"></i> Postales del Mundo</h2>
+            </div>
+
+            <div class="postales">
+              <!-- Cambiá nombres según tus imágenes reales en news/media/img/ -->
+              <div class="postal" onclick="location.href='notas/madrid.html'">
+                <img src="https://res.cloudinary.com/davwfglui/image/upload/v1767812314/9e077db4f5cce1fbc443b1d9f5c29cb7_1_pxl5yk.jpg" alt="Postal 1">
+                <p>Madrid · “Te mando una postal”</p>
+              </div>
+
+              <div class="postal" onclick="location.href='notas/miami.html'">
+                <img src="https://res.cloudinary.com/davwfglui/image/upload/v1767812770/87b39f60a2864bd91194d9fbb598635f_1_euoz0n.jpg">
+                <p>Miami · “Argentina presente”</p>
+              </div>
+
+              <div class="postal" onclick="location.href='notas/malaga.html'">
+                <img src="https://res.cloudinary.com/davwfglui/image/upload/v1767813079/0720425b276da5b3d6ba025335fb4051_1_vnrfrr.jpg" alt="Postal 3">
+                <p>Málaga · “Mate al sol”</p>
+              </div>
+
+              <div class="postal" onclick="location.href='notas/chicago.html'">
+                <img src="https://i.pinimg.com/736x/ea/b6/8a/eab68aecd98e513cd607a5772db8dbeb.jpg" alt="Postal 4">
+                <p>Chicago · “Copa y bandera”</p>
+              </div>
+            </div>
+
+            <div class="side-note">
+              ¿Querés que tu postal salga acá? Mandala por WhatsApp/IG y la publicamos en <a href="notas/postales.html">Galería completa</a>.
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h2><i class="fa-solid fa-award"></i> Sello Argenville</h2>
+            </div>
+            <div class="panel-foot">
+              <strong>Esto es un medio.</strong> No solo noticias: comunidad, cultura, oportunidades y negocios para argentinos en todo el mundo.
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- DESTACADAS -->
+  <section class="section" id="destacadas">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2><i class="fa-solid fa-fire"></i> Destacadas</h2>
+          <p>Lo más importante del día/semana, estilo portal pro.</p>
+        </div>
+        <p>Actualizado: <strong>enero 2026</strong></p>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="notas/nota-ejemplo.html">
+          <div class="thumb"><!-- <img src="media/img/destacada-01.jpg" alt=""> --></div>
+          <div class="body">
+            <div class="kicker">Especial</div>
+            <h3>Argenville: el shopping + el medio que une argentinos</h3>
+            <p>La visión, el ecosistema y cómo participar como marca, reseller o partner.</p>
+            <div class="meta">
+              <span><i class="fa-regular fa-clock"></i> 4 min</span>
+              <span><i class="fa-solid fa-tag"></i> Comunidad</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="notas/eventos.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <div class="kicker">Eventos</div>
+            <h3>Exhibidores, ferias y oportunidades: lo que se viene</h3>
+            <p>Agenda internacional, lanzamientos y movimientos del ecosistema.</p>
+            <div class="meta">
+              <span><i class="fa-solid fa-location-dot"></i> Global</span>
+              <span><i class="fa-solid fa-bullhorn"></i> Novedades</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="notas/marca-y-negocios.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <div class="kicker">Negocios</div>
+            <h3>Marcas argentinas: cómo entrar al mercado exterior</h3>
+            <p>Paquetes, exhibidores, logística y estrategia para vender afuera.</p>
+            <div class="meta">
+              <span><i class="fa-solid fa-briefcase"></i> B2B</span>
+              <span><i class="fa-solid fa-arrow-up-right-from-square"></i> Leer</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RECETAS -->
+  <section class="section" id="recetas">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <h2><i class="fa-solid fa-utensils"></i> Recetas de Estefanía</h2>
+          <p>Revista digital: cocina argenta para el mundo (con fotos y pasos).</p>
+        </div>
+        <p><strong>Nuevo</strong></p>
+      </div>
+
+      <div class="cards">
+        <a class="card recipe" href="notas/receta-empanadas.html">
+          <div class="thumb"><!-- <img src="media/img/receta-empanadas.jpg" alt=""> --></div>
+          <div class="body">
+            <div class="kicker"><i class="fa-solid fa-star"></i> Receta</div>
+            <h3>Empanadas: masa, relleno y tips para que exploten</h3>
+            <p>Paso a paso, tiempos y secretos de Estefy para que salgan perfectas.</p>
+            <div class="meta">
+              <span><i class="fa-regular fa-clock"></i> 7 min</span>
+              <span><i class="fa-solid fa-kitchen-set"></i> Cocina</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card recipe" href="notas/receta-locro.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <div class="kicker"><i class="fa-solid fa-star"></i> Receta</div>
+            <h3>Locro bien argentino (sin humo, con método)</h3>
+            <p>Ingredientes, cocción y cómo adaptarlo según el país donde estés.</p>
+            <div class="meta">
+              <span><i class="fa-regular fa-clock"></i> 10 min</span>
+              <span><i class="fa-solid fa-bowl-food"></i> Tradición</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card recipe" href="notas/receta-milanesas.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <div class="kicker"><i class="fa-solid fa-star"></i> Receta</div>
+            <h3>Milanesas crocantes: truco de rebozado y aceite</h3>
+            <p>La receta que salva cualquier día. Con variantes y guarniciones.</p>
+            <div class="meta">
+              <span><i class="fa-regular fa-clock"></i> 6 min</span>
+              <span><i class="fa-solid fa-heart"></i> Comfort</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>
+          <strong>Argenville News</strong> — Portal de Argentinos por el Mundo.<br/>
+          <span>TV + Postales + Recetas + Comunidad + Negocios.</span>
+        </div>
+        <div class="social">
+          <a href="https://instagram.com/argenville.inc"><i class="fa-brands fa-instagram"></i> Instagram</a>
+          <a href="https://tiktok.com/argenville.inc"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+          <a href="https://facebook.com/argenville.inc"><i class="fa-brands fa-facebook"></i> Facebook</a>
+          <a href="https://youtube.com/@ARGENVILLE1"><i class="fa-brands fa-youtube"></i> YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

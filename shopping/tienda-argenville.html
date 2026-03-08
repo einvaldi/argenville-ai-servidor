@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Argenville | Tienda Global Argentina</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;700;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    
+    /* =========================================
+   1. VARIABLES & IDENTIDAD
+   ========================================= */
+:root {
+  --celeste: #75AADB; 
+  --celeste-neon: #00D7FF; 
+  --blanco: #FFFFFF;
+  --sol: #D4AF37;        
+  --negro: #0F172A; 
+  
+  --text-main: #1E293B;
+  --text-muted: #475569;
+  --border: rgba(117, 170, 219, 0.2);
+  
+  --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.1);
+  --shadow-gold: 0 5px 20px rgba(212, 175, 55, 0.4);
+
+  --radius: 20px;
+  --radius-sm: 10px;
+  --radius-md: 20px;
+  --radius-lg: 30px;
+
+  --font-heading: 'Fraunces', serif;
+}
+    
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      background: url('../img/bandera-argentina-tienda-fondo.png') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+        content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(240, 248, 255, 0.90);
+        z-index: -1;
+        backdrop-filter: blur(5px);
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.2s; }
+    img { display: block; max-width: 100%; border-radius: var(--radius); }
+    button { font-family: inherit; cursor: pointer; transition: 0.2s; -webkit-tap-highlight-color: transparent; }
+
+    /* =========================================
+       2. HEADER PRO
+       ========================================= */
+    .topbar {
+      background: linear-gradient(90deg, var(--negro), #1e293b);
+      color: var(--sol); text-align: center; font-size: 0.8rem; padding: 8px;
+      font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    }
+    
+    header {
+      position: sticky; top: 0; z-index: 100; padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .nav {
+      max-width: 1400px; /* ¡Un poquito más grande para que entre todo! */
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 15px; /* Un espacio prudente por las dudas */
+    }
+    
+
+    .brand { display: flex; align-items: center; gap: 15px; }
+    .brand img { height: 60px; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1)); border-radius: 0; }
+    .brand-txt h1 { font-family: var(--font-heading); font-weight: 900; font-size: 1.6rem; color: var(--negro); margin: 0; line-height: 1; letter-spacing: -0.5px; }
+    .brand-txt span { font-size: 0.75rem; color: var(--celeste-neon); font-weight: 800; text-transform: uppercase; letter-spacing: 3px; }
+
+    .navlinks { display: flex; gap: 10px; }
+    .nav-link { 
+      font-weight: 700; color: var(--negro); font-size: 0.95rem; padding: 10px 20px; border-radius: 50px; 
+    }
+    .nav-link:hover, .nav-link.active { background: #e0f2fe; color: var(--celeste-neon); box-shadow: 0 4px 15px rgba(0, 215, 255, 0.1); }
+
+    .navright { display: flex; gap: 12px; align-items: center; }
+    
+    /* BOTONES LOGIN & LOGOUT */
+    .auth-container { display: flex; gap: 10px; align-items: center; }
+    
+    .btn-login-ghost {
+      font-weight: 800; font-size: 0.85rem; color: var(--text-main); display: flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 50px; border: 2px solid #e2e8f0; background: white;
+    }
+    .btn-login-ghost:hover { border-color: var(--negro); background: #f8fafc; }
+
+    .btn-google {
+      background: white; border: 2px solid #e2e8f0; color: var(--text-main); padding: 10px 20px;
+      border-radius: 50px; display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.85rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .btn-google:hover { border-color: var(--celeste-neon); color: var(--celeste-neon); transform: translateY(-2px); }
+
+    /* Estado Logueado */
+    .user-pill {
+        background: #f1f5f9; padding: 5px 5px 5px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; border: 1px solid #cbd5e1;
+    }
+    .user-name { font-weight: 800; color: var(--negro); font-size: 0.9rem; }
+    .btn-logout { 
+        background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 30px; font-weight: 700; font-size: 0.8rem; cursor: pointer; 
+    }
+    .btn-logout:hover { background: #dc2626; }
+
+    .btn-cart-head {
+      background: linear-gradient(135deg, var(--sol), #eab308); color: var(--negro); border: none; padding: 10px 20px;
+      border-radius: 50px; font-weight: 900; font-size: 0.95rem;
+      display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-gold);
+    }
+    .btn-cart-head:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+    /* =========================================
+       3. SIDEBAR (SCROLL + DISEÑO)
+       ========================================= */
+    .container {
+      max-width: 1300px; margin: 0 auto 60px; padding: 0 25px;
+      display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: start;
+    }
+
+    .sidebar {
+      background: white; border-radius: var(--radius-md); padding: 25px;
+      border: 1px solid white; box-shadow: var(--shadow-soft);
+      position: sticky; top: 130px;
+      max-height: calc(100vh - 150px);
+      overflow-y: auto;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 6px; }
+    .sidebar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+    .sidebar::-webkit-scrollbar-thumb { background: linear-gradient(var(--celeste), var(--sol)); border-radius: 10px; }
+
+    .side-title { font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 25px; color: var(--negro); font-weight: 900; }
+    
+    .search-wrap { position: relative; margin-bottom: 30px; }
+    .search-wrap i { position: absolute; left: 18px; top: 16px; color: var(--celeste-neon); font-size: 1.1rem; }
+    .search-input {
+      width: 100%; padding: 15px 15px 15px 50px; border-radius: 50px; border: 2px solid #e2e8f0;
+      background: #f8fafc; font-weight: 700; font-family: inherit; font-size: 0.95rem; transition: 0.3s;
+    }
+    .search-input:focus { border-color: var(--celeste-neon); background: white; outline: none; box-shadow: 0 0 0 4px rgba(0, 215, 255, 0.1); }
+
+    .cat-list { display: flex; flex-direction: column; gap: 10px; }
+    .cat-btn {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 15px 20px; border-radius: var(--radius-sm); border: 2px solid transparent;
+      background: white; color: var(--text-main); font-weight: 800; font-size: 1rem;
+      transition: 0.3s; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+    .cat-btn i { width: 30px; text-align: center; margin-right: 12px; color: #94a3b8; transition: 0.3s; font-size: 1.2rem; }
+    .cat-btn:hover { background: #f0f9ff; color: var(--celeste-neon); border-color: #bae6fd; transform: translateX(8px); }
+    .cat-btn:hover i { color: var(--celeste-neon); }
+    .cat-btn.active {
+      background: linear-gradient(135deg, var(--negro), #334155);
+      color: var(--sol); border: 2px solid var(--negro); box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    .cat-btn.active i { color: var(--sol); }
+    .cat-count { background: #f1f5f9; color: var(--text-muted); padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 800; }
+    .cat-btn.active .cat-count { background: rgba(255,255,255,0.2); color: white; }
+
+    .side-footer { margin-top: 40px; border-top: 2px solid #f1f5f9; padding-top: 25px; display: flex; flex-direction: column; gap: 15px; }
+    .btn-action { 
+        width: 100%; padding: 15px; border-radius: var(--radius-sm); font-weight: 800; font-size: 1rem; 
+        display: flex; align-items: center; justify-content: center; gap: 12px; border: 2px solid transparent; transition: 0.3s;
+    }
+    .btn-pdf { background: #e0f2fe; color: var(--celeste-neon); border-color: #bae6fd; }
+    .btn-pdf:hover { background: #0ea5e9; color: white; border-color: #0ea5e9; }
+    .btn-help { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+    .btn-help:hover { background: #22c55e; color: white; border-color: #22c55e; }
+
+    /* =========================================
+       4. HERO Y CONTENIDO
+       ========================================= */
+    .content{ display:flex; flex-direction: column; gap: 14px; }
+    .hero {
+      background: white; border-radius: var(--radius-lg); padding: 50px; margin-bottom: 60px;
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px;
+      box-shadow: var(--shadow-soft); border: 1px solid white; position: relative; overflow: hidden;
+    }
+    .hero::before { content:''; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(255,255,255,0) 40%, rgba(255, 184, 28, 0.05) 100%); pointer-events: none; }
+    .hero-text { position: relative; z-index: 2; }
+    .hero h2 { font-family: var(--font-heading); font-size: 3.2rem; line-height: 1.05; margin-bottom: 15px; color: var(--negro); letter-spacing: -1px; }
+    .hero h2 span { color: var(--celeste-neon); background: linear-gradient(120deg, var(--celeste-neon), #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: var(--text-main); margin-bottom: 30px; font-size: 1.2rem; line-height: 1.6; opacity: 0.9; font-weight: 600; }
+    .btn-cta { 
+        background: var(--negro); color: var(--sol); padding: 15px 40px; border-radius: 50px; 
+        font-weight: 900; font-size: 1.1rem; border: none; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.4); 
+        display: inline-flex; align-items: center; gap: 10px; transition: 0.4s;
+    }
+    .btn-cta:hover { transform: translateY(-5px) scale(1.05); background: linear-gradient(135deg, #1e293b, #0f172a); box-shadow: 0 20px 40px rgba(15, 23, 42, 0.5); }
+    .hero-img-wrap { display: flex; justify-content: center; position: relative; }
+    .hero-img { width: 100%; max-width: 500px; height: auto; transform: rotate(-3deg); transition: 0.6s; filter: drop-shadow(0 25px 50px rgba(0,0,0,0.3)); border-radius: 30px; cursor: zoom-in; }
+    .hero:hover .hero-img { transform: rotate(0deg) scale(1.05) translateY(-10px); }
+
+    .section-header { margin-bottom: 35px; display: flex; flex-direction: column; gap: 5px; border-bottom: none; text-align: center; }
+    .section-title { font-family: var(--font-heading); font-size: 2.2rem; color: var(--negro); margin: 0; letter-spacing: -0.5px; }
+    .section-subtitle { color: var(--text-muted); font-size: 1.1rem; font-weight: 600; }
+
+    /* =========================================
+       5. PACKS ARMONIZADOS (4 BLOQUES)
+       ========================================= */
+    .grid-packs { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+        gap: 30px; margin-bottom: 70px; align-items: stretch; 
+    }
+    
+    .card-pack {
+        background: white; border-radius: var(--radius-md); overflow: hidden; border: 3px solid var(--sol);
+        box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15); display: flex; flex-direction: column; transition: 0.4s;
+        position: relative; height: 100%;
+    }
+    .card-pack:hover { transform: translateY(-12px); box-shadow: 0 30px 60px rgba(212, 175, 55, 0.35); }
+    
+    .pack-badge { position: absolute; top: 20px; left: 20px; background: linear-gradient(135deg, var(--sol), #fdb931); color: var(--negro); padding: 8px 18px; border-radius: 50px; font-weight: 900; font-size: 0.85rem; z-index: 10; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .pack-img { height: 250px; background: radial-gradient(circle at center, #fffbeb 0%, #ffffff 70%); display: flex; align-items: center; justify-content: center; padding: 20px; cursor: zoom-in; }
+    .pack-img img { height: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15)); border-radius: 10px; }
+    .pack-body { padding: 30px; flex: 1; display: flex; flex-direction: column; text-align: center; }
+    .pack-title { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 900; color: var(--negro); margin-bottom: 10px; }
+    .pack-desc { font-size: 1rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; flex-grow: 1; }
+    .pack-price { font-size: 2rem; font-weight: 900; color: var(--celeste-neon); margin-bottom: 20px; text-shadow: 0 0 2px rgba(0,0,0,0.1); }
+    .btn-buy-pack { width: 100%; padding: 15px; background: var(--negro); color: var(--sol); border: none; border-radius: 12px; font-weight: 800; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: center; gap: 10px; transition: 0.3s; }
+    .btn-buy-pack:hover { background: #1e293b; color: white; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+
+    /* PRODUCTOS */
+    .grid-prods { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 30px; }
+    .card-prod { background: white; border-radius: var(--radius-md); border: 2px solid #f1f5f9; padding: 15px; box-shadow: var(--shadow-card); transition: 0.3s; display: flex; flex-direction: column; }
+    .card-prod:hover { transform: translateY(-8px); border-color: var(--celeste-neon); box-shadow: 0 25px 50px rgba(0, 215, 255, 0.15); }
+    .prod-img { height: 180px; background: #f8fafc; border-radius: var(--radius-sm); margin-bottom: 15px; display: flex; align-items: center; justify-content: center; padding: 15px; cursor: zoom-in; }
+    .prod-img img { max-height: 100%; width: auto; mix-blend-mode: multiply; filter: saturate(1.1); transition: 0.3s; }
+    .card-prod:hover .prod-img img { transform: scale(1.15); }
+    .prod-title { font-weight: 800; font-size: 1.05rem; color: var(--text-main); margin-bottom: 6px; line-height: 1.3; height: 44px; overflow: hidden; }
+    .prod-price { font-size: 1.3rem; font-weight: 900; color: var(--negro); margin-bottom: 15px; display: flex; align-items: baseline; gap: 5px; }
+    .prod-price small { font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+    .prod-actions { display: flex; gap: 10px; margin-top: auto; }
+    .btn-add { flex: 1; background: white; border: 2px solid var(--sol); color: var(--negro); padding: 10px; border-radius: 12px; font-weight: 900; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; cursor: pointer;}
+    .btn-add:hover { background: var(--sol); }
+    .btn-buy { flex: 2; background: var(--celeste-neon); border: none; color: white; padding: 10px; border-radius: 12px; font-weight: 900; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; text-shadow: 0 1px 2px rgba(0,0,0,0.1); cursor:pointer;}
+    .btn-buy:hover { background: #00bfff; }
+
+    /* =========================================
+       6. CARRITO (CEREBRO MASTER)
+       ========================================= */
+    .drawer { position: fixed; top: 0; right: 0; height: 100%; width: 450px; max-width: 95vw; background: white; z-index: 2000; transform: translateX(100%); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.3); border-top-left-radius: 30px; border-bottom-left-radius: 30px; }
+    .drawer.open { transform: translateX(0); }
+    .drawer-head { padding: 25px; background: var(--negro); color: white; display: flex; justify-content: space-between; align-items: center; border-top-left-radius: 30px; }
+    .drawer-head h3 { margin: 0; font-family: var(--font-heading); color: var(--sol); font-size: 1.5rem; }
+    .close-drawer { background: rgba(255,255,255,0.1); border: none; color: white; width: 42px; height: 42px; border-radius: 50%; font-size: 1.4rem; display: flex; align-items: center; justify-content: center; transition: 0.3s; cursor:pointer;}
+    .close-drawer:hover { background: var(--sol); color: var(--negro); transform: rotate(90deg); }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 25px; background: #f8fafc; }
+    .cart-empty { text-align: center; color: var(--text-muted); margin-top: 60px; font-weight: 700; font-size: 1.2rem; }
+    .cart-item { display: flex; gap: 15px; margin-bottom: 15px; background: white; padding: 15px; border-radius: 16px; border: 1px solid #e2e8f0; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+    .cart-img { width: 60px; height: 60px; object-fit: contain; border-radius: 8px; padding: 5px; background: #f8fafc; }
+    .cart-info { flex: 1; }
+    .cart-info h4 { font-size: 0.95rem; margin: 0 0 6px 0; color: var(--negro); font-weight: 800; }
+    .cart-price { font-size: 1rem; color: var(--celeste-neon); font-weight: 900; }
+    .cart-ctrl { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    .qty-btn { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #e2e8f0; background: white; color: var(--negro); font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .qty-btn:hover { border-color: var(--celeste-neon); color: var(--celeste-neon); background: #f0f9ff; }
+    .cart-qty { font-weight: 900; font-size: 1.1rem; min-width: 25px; text-align: center; color: var(--negro); }
+    .btn-trash { background: none; border: none; color: #ef4444; font-size: 1.1rem; cursor: pointer; margin-left: 5px; }
+    .drawer-foot { padding: 25px; background: white; border-top: 2px solid #f1f5f9; }
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1rem; color: var(--text-muted); font-weight: 600; }
+    .total-row { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 2px dashed #cbd5e1; font-size: 1.8rem; font-weight: 900; color: var(--negro); }
+    .btn-checkout { width: 100%; padding: 18px; background: #22c55e; color: white; border: none; border-radius: 50px; font-weight: 900; font-size: 1.2rem; cursor: pointer; margin-top: 20px; display: flex; justify-content: center; gap: 10px; align-items: center; box-shadow: 0 10px 25px rgba(34, 197, 94, 0.25); }
+    .btn-checkout:hover { background: #16a34a; transform: translateY(-2px); }
+    .btn-clear { width: 100%; margin-top: 15px; background: white; border: 2px solid var(--celeste-neon); color: var(--celeste-neon); padding: 12px; border-radius: 50px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+    .btn-clear:hover { background: #f0f9ff; box-shadow: 0 0 15px rgba(0, 215, 255, 0.2); }
+
+    /* ======================================================= */
+    /* INICIO JUAN PATRIOTA MASTER (CSS)                       */
+    /* ======================================================= */
+    .juan-float { position: fixed; bottom: 0; right: 30px; z-index: 3000; display: flex; flex-direction: column; align-items: center; }
+    .juan-img { height: 320px; width: auto; cursor: pointer; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.35)); transition: 0.3s; margin-right: 0; }
+    .juan-img:hover { transform: scale(1.03) translateY(-10px); }
+    
+    .juan-dialog { background: white; padding: 15px 25px; border-radius: 30px; border: 3px solid #d4a017; box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin-top: -20px; font-weight: 800; color: #020617; font-size: 1rem; position: relative; text-align: center; }
+    .btn-close-juan { position: absolute; top: -10px; left: -10px; background: #ef4444; color: white; width: 28px; height: 28px; border-radius: 50%; border: 3px solid white; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); font-size: 14px; }
+    
+    #btnReopenJuan { position: fixed; bottom: 30px; right: 30px; z-index: 2900; display: none; background: #d4a017; color: #020617; border: none; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); transition: 0.3s; cursor: pointer; }
+    
+    .chat-panel { position: fixed; bottom: 100px; right: 20px; width: 320px; max-height: 440px; background-color: rgba(15, 23, 42, 0.98); border-radius: 18px; border: 1px solid rgba(148, 163, 184, 0.5); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9); display: none; flex-direction: column; overflow: hidden; z-index: 10000; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .chat-panel.active { display: flex; }
+    
+    .chat-header { padding: 12px 15px; background: linear-gradient(90deg, #0ea5e9, #1d4ed8); color: white; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 600; }
+    .chat-close { background: none; border: none; cursor: pointer; font-size: 20px; color: white; transition: 0.2s;}
+    .chat-close:hover { color: #d4a017; transform: scale(1.1); }
+    
+    .chat-messages { padding: 15px; font-size: 13px; color: #e5f3ff; flex: 1; overflow-y: auto; background: #020617; min-height: 250px; }
+    .msg { margin-bottom: 8px; max-width: 90%; line-height: 1.4; }
+    .msg-user { text-align: right; margin-left: auto; }
+    .msg-user .bubble { background: linear-gradient(90deg, #0ea5e9, #3b82f6); color: white; border-radius: 14px 14px 0 14px; padding: 8px 12px; display: inline-block; font-weight: 600;}
+    .msg-bot .bubble { background: rgba(30, 41, 59, 0.95); border-radius: 14px 14px 14px 0; padding: 8px 12px; display: inline-block; border: 1px solid rgba(148, 163, 184, 0.5); }
+    
+    .chat-input-row { display: flex; gap: 8px; padding: 10px; border-top: 1px solid rgba(148, 163, 184, 0.45); background-color: #020617; }
+    .chat-input-row input { flex: 1; border-radius: 999px; border: 1px solid #4b5563; background: #0f172a; color: white; font-size: 13px; padding: 8px 12px; outline: none;}
+    .chat-input-row button { border-radius: 999px; border: none; padding: 8px 15px; font-size: 13px; font-weight: 600; cursor: pointer; background: linear-gradient(90deg, #0ea5e9, #3b82f6); color: white; }
+    .chat-footer { padding: 10px; border-top: 1px solid rgba(148, 163, 184, 0.45); background-color: #020617; text-align: center; }
+    .chat-whatsapp { border-radius: 999px; border: none; padding: 8px 15px; font-size: 13px; font-weight: 600; cursor: pointer; background: #22c55e; color: white; display: inline-flex; align-items: center; gap: 8px; }
+    @media (max-width: 640px) { .juan-float { transform: scale(0.85); transform-origin: bottom right; } .chat-panel { right: 10px; left: 10px; width: auto; } }
+    /* ======================================================= */
+
+    /* MODAL IMAGENES */
+    .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center; }
+    .modal-content { max-width: 90%; max-height: 90%; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease; background: white; padding: 10px; }
+    .modal-close { position: absolute; top: 30px; right: 40px; color: white; font-size: 50px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+    .modal-close:hover { color: var(--sol); transform: scale(1.1); }
+    @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* RESPONSIVE */
+@media (max-width: 900px) {
+  /* Escondemos los links de escritorio */
+  .navlinks { display: none; }
+
+  /* 1. ACOMODAMOS EL HEADER: Le damos espacio al logo y bajamos los botones */
+  .nav { flex-wrap: wrap; justify-content: center; gap: 15px; }
+  .brand { justify-content: center; width: 100%; margin-bottom: 5px; }
+  .navright { width: 100%; justify-content: center; flex-wrap: wrap; gap: 10px; }
+
+  /* El diseño principal pasa a una sola columna */
+  .page { grid-template-columns: 1fr; gap: 20px; padding-top: 10px; }
+
+  /* 2. ARREGLO DE SUPERPOSICIÓN: Le sacamos el "sticky" a la barra en celular */
+  .sidebar {
+    display: block;
+    background: transparent;
+    padding: 0;
+    border: none;
+    margin-bottom: 10px;
+    position: relative !important; /* Despega la barra para que suba al scrollear */
+    top: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Ocultamos los títulos y listas que no van en móvil */
+  .side-title { display: none; }
+  .cat-list { display: none; }
+
+  /* El botón de categorías dorado */
+  #mobile-category-select {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--negro);
+    background: var(--sol);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27292.4%27%20height%3D%27292.4%27%3E%3Cpath%20fill%3D%27%230F172A%27%20d%3D%27M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%27%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 15px auto;
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+  }
+
+  /* 3. ACOMODAMOS LOS PRODUCTOS Y PACKS */
+  .hero { grid-template-columns: 1fr; text-align: center; padding: 30px 20px; }
+  .grid-packs { grid-template-columns: 1fr; gap: 20px; }
+  .grid-prods { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+  
+  /* El carrito ocupa toda la pantalla en el celu */
+  .drawer { width: 100%; border-radius: 0; }
+}
+/* ===== FOOTER ===== */
+
+.site-footer {
+  background: var(--negro);
+  padding: 60px 20px 30px;
+  color: #ccc;
+  font-size: 14px;
+  margin-top: 80px;
+}
+
+.footer-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-brand h3 {
+  color: var(--sol);
+  font-weight: 900;
+  margin-bottom: 10px;
+  font-family: var(--font-heading);
+}
+
+.footer-links h4 {
+  margin-bottom: 15px;
+  color: white;
+  font-weight: 800;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #aaa;
+  transition: 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--sol);
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+}
+  </style>
+</head>
+
+<body>
+
+  <div id="imgModal" class="modal">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="imgModalSrc">
+  </div>
+
+  <div class="topbar">🇦🇷 ENVÍOS INTERNACIONALES A TODO EL MUNDO ✈️</div>
+  
+  <header>
+    <nav class="nav">
+      <div class="brand">
+        <a href="../index.html" class="logo">
+        <img src="../img/logo-argenville.png" alt="Argenville" onerror="this.src='https://placehold.co/120x60/transparent/0f172a?text=ARG'">
+        </a> <div class="brand-txt">
+          <h1></h1>
+          <span>GLOBAL STORE ★ ★ ★ </span>
+        </div>
+      </div>
+      <div class="navlinks">
+        <a href="tienda-deportiva.html" class="nav-link">DEPORTES</a>
+        <a href="tienda-regionales.html" class="nav-link">REGIONALES</a>
+        <a href="../cuenta/index.html" class="nav-link">QUIERO ESTAR EN LA TIENDA</a>
+      </div>
+      
+      <div class="navright" id="auth-container">
+          </div>
+    </nav>
+  </header>
+
+  <div class="container page">
+    <aside class="sidebar">
+      <div class="side-title">Categorías <i class="fa-solid fa-layer-group"></i></div>
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos...">
+      </div>
+      <div class="cat-list" id="categoryList">
+<select id="mobile-category-select" onchange="changeCat(this.value)" style="display: none; width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 12px; border: 2px solid var(--negro); font-weight: 800; background: white;">
+    <option value="todo">📂 Ver Todas las Categorías</option>
+    <option value="Mates y Yerba">🧉 Mates y Yerba</option>
+    <option value="Kiosco Argento">🍬 Kiosco Argento</option>
+    <option value="Super Argento">🛒 Almacén</option>
+    <option value="Vinos">🍷 Vinos</option>
+    <option value="Aperitivos">🍹 Aperitivos</option>
+    <option value="packs">📦 Packs Mayoristas</option>
+</select>
+        </div>
+      <div class="side-footer">
+        <button class="btn-action btn-pdf" onclick="window.open('../docs/lista-precios-argenville-2026.pdf', '_blank')">
+             <i class="fa-solid fa-file-pdf"></i> Lista Precios PDF
+        </button>
+        <button class="btn-action btn-help" onclick="window.open('https://wa.me/543516965911', '_blank')">
+             <i class="fa-brands fa-whatsapp"></i> Ayuda Humana
+        </button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <div class="hero-text">
+            <h2>Sentite cerca,<br>estés donde estés.</h2>
+            <p>La mejor selección de productos argentinos con envío directo y seguro a la puerta de tu casa.</p>
+            <button class="btn-cta" onclick="renderProds('todo')">Ver Catálogo Completo</button>
+        </div>
+        <div class="hero-img-wrap">
+            <img src="../img/publicidad-branca.png" alt="Promo" class="hero-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/500x300?text=Promo+Argentina'">
+        </div>
+      </section>
+
+      <div class="section-header">
+         <h2 class="section-title">Packs Mayoristas</h2>
+         <p class="section-subtitle">Soluciones listas para tu negocio.</p>
+      </div>
+      <div class="grid-packs" id="packsGrid"></div>
+
+     <div class="section-header" id="packs" style="margin-top: 60px;">
+         <h2 class="section-title">Almacén Argentino</h2>
+         <p class="section-subtitle">Tus favoritos por unidad.</p>
+      </div>
+      <div class="pill" id="resultCount" style="margin-bottom: 20px; font-weight:bold; color:var(--text-muted);">Cargando...</div>
+      <div class="grid-prods" id="productsGrid"></div>
+    </main>
+  </div>
+
+  <aside class="drawer" id="cartDrawer">
+      <div class="drawer-head">
+          <h3>Mi Pedido</h3>
+          <button class="close-drawer" onclick="closeCart()">✕</button>
+      </div>
+      <div class="drawer-body" id="cartBody"></div>
+      <div class="drawer-foot">
+          <div class="summary-row"><span>Mercadería</span> <span id="subtotal">$0.00</span></div>
+          <div class="summary-row"><span>Peso Estimado</span> <span id="weight">0.00 Kg</span></div>
+          <div class="summary-row"><span>Envío Internacional ($8/Kg)</span> <span id="shipping">$0.00</span></div>
+          <div class="total-row"><span>Total Final</span> <span id="finalTotal">$0.00</span></div>
+          
+          
+          
+          <button class="btn-checkout" onclick="window.location.href='caja.html'">
+    💳 IR A PAGAR
+</button>
+                    <button class="btn-clear" onclick="clearCart()">VACIAR CARRITO</button>
+      </div>
+  </aside>
+
+  <div class="juan-float" id="juanMaster">
+    <img src="../img/juan-colapinto-con-carrito.png" class="juan-img" onclick="abrirChatJuan()" alt="Juan Patriota" onerror="this.src='https://placehold.co/150x250?text=Juan'">
+    <div class="juan-dialog">
+        <button class="btn-close-juan" onclick="cerrarJuan()">✕</button>
+        ¡Hola!! ¿Que andás buuuuscando?
+    </div>
+  </div>
+  
+  <button id="btnReopenJuan" onclick="reabrirJuan()">Juan 🇦🇷</button>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div>
+          Juan Patriota AI<br />
+          <small style="font-weight:400; font-size:11px; color:#e0f2fe;">Representante Comercial</small>
+      </div>
+      <div style="display: flex; gap: 15px; align-items: center;">
+          <i class="fa-solid fa-volume-xmark" id="stopAudioBtn" style="cursor:pointer;" title="Callar a Juan"></i>
+          <button class="chat-close" onclick="cerrarChatJuan()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="msg msg-bot">
+        <div class="bubble">
+          Hola, soy Juan Patriota AI 👋<br />
+          Contame, ¿qué estás buscando en el Almacén Argentino?
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Escribí o hablá..." />
+        <button type="button" id="micBtn" style="background:none; box-shadow:none; color:#0ea5e9; font-size:1.2rem; padding:0 5px; cursor:pointer;">
+            <i class="fa-solid fa-microphone" id="micIcon"></i>
+        </button>
+        <button type="button" id="chatSendBtn">Enviar</button>
+    </div>
+
+    <div class="chat-footer">
+      <button type="button" id="whatsAppBtn" class="chat-whatsapp">
+        <i class="fab fa-whatsapp"></i> Hablar por WhatsApp
+      </button>
+    </div>
+  </div>
+  <script src="./productos.js"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AZYnyzIFImHGGJnl4txtVhuxYiD59eITT-W1d7s4IUbLF3WC9oFdyear0IQZ-DRS9BFn9WxiAHYtVzgW&currency=USD&intent=capture"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    
+    const firebaseConfig = { apiKey: "AIzaSyDc6YfcxlszUYiCcuQK953Opojqz1mLCnQ", authDomain: "argenville.firebaseapp.com", projectId: "argenville", storageBucket: "argenville.firebasestorage.app", messagingSenderId: "1075243262634", appId: "1:1075243262634:web:c2d1d205bf8cd04ba5e6d3", measurementId: "G-M77409GSVT" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const container = document.getElementById("auth-container");
+    
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            container.innerHTML = `
+                <div class="user-pill">
+                    <img src="${user.photoURL}" style="width:24px; border-radius:50%;">
+                    <span class="user-name">${user.displayName.split(' ')[0]}</span>
+                    <button class="btn-logout" onclick="window.doLogout()">SALIR</button>
+                </div>
+                <button class="btn-cart-head" onclick="openCart()">
+                    <i class="fa-solid fa-cart-shopping"></i> <span id="cartCountHeader">0</span>
+                </button>
+            `;
+        } else {
+            container.innerHTML = `
+                <a href="../cuenta/index.html" class="btn-login-ghost">Ingresar</a>
+                <button class="btn-google" onclick="window.doLogin()" style="margin-left:5px; background:white; color:#333; border:none; padding:6px 12px; border-radius:50px; font-size:0.8rem; display:flex; align-items:center; gap:5px;">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" style="width:18px;">
+    Google
+</button>
+                <button class="btn-cart-head" onclick="openCart()">
+                    <i class="fa-solid fa-cart-shopping"></i> <span id="cartCountHeader">0</span>
+                </button>
+            `;
+        }
+        window.updateCartUI();
+    });
+
+    window.doLogin = () => signInWithPopup(auth, provider).catch(e => console.error(e));
+    window.doLogout = () => signOut(auth).then(()=>alert("¡Hasta luego!")).catch(e => console.error(e));
+  </script>
+
+  <script>
+    const COSTO_POR_KG = 8;
+    const WHATSAPP = "543516965911";
+
+    const PACKS_LOCAL = [
+      { id: "pack-emprendedor", name: "Pack Emprendedor", price: 750, desc: "Inversión inicial. Exhibidores chicos. Ideal para empezar.", category: "packs", image: "../img/pack-emprendedor-1.png" },
+      { id: "pack-comercio", name: "Pack Comercio", price: 1250, desc: "1 Totem + 2 Chicos. Perfecto para Kioscos.", category: "packs", image: "../img/pack-comercio-argenville.png" },
+      { id: "pack-reseller", name: "Pack Reseller", price: 2500, desc: "2 Chicos + 2 Grandes. Distribución profesional.", category: "packs", image: "../img/pack-reseller-arg.png" },
+      { id: "exhibidores-1", name: "Exhibidores Oficiales", price: 0, desc: "Equipamiento comercial para tu punto de venta. Consultar.", category: "promo", image: "../img/exibidores-argenville-chicos.png", isPromo: true },
+      { id: "exhibidores-2", name: "Exhibidores en Súper", price: 0, desc: "Llevate las miradas de toda la góndola. ¡Preguntanos!", category: "promo", image: "../img/ARgenville en Supermercados 2 con promotora.jpg", isPromo: true },
+      { id: "exhibidores-3", name: "Diseño Gaucho", price: 0, desc: "Armados a medida para que Argenville brille en tu local.", category: "promo", image: "../img/exibi 4.jpg", isPromo: true }
+    ];
+
+    const CATEGORIES = [
+        {id: "todo", name: "Ver Todos", icon: "fa-border-all"},
+        {id: "Mates y Yerba", name: "Mates y Yerba", icon: "fa-mug-hot"},
+        {id: "Kiosco Argento", name: "Kiosco", icon: "fa-candy-cane"},
+        {id: "Super Argento", name: "Almacén", icon: "fa-shopping-basket"},
+        {id: "Vinos", name: "Vinos", icon: "fa-wine-glass"},
+        {id: "Aperitivos", name: "Aperitivos", icon: "fa-cocktail"}
+    ];
+
+    let activeCat = "todo";
+
+    function getCart() { return JSON.parse(localStorage.getItem('argenville_global_cart')) || {}; }
+    function saveCart(cart) { localStorage.setItem('argenville_global_cart', JSON.stringify(cart)); }
+
+    window.onload = () => {
+        renderCategories();
+        renderPacks();
+        renderProds("todo");
+        updateCartUI();
+        
+        const inputTexto = document.getElementById("chatInput");
+        if(inputTexto) {
+            inputTexto.onkeydown = (e) => { 
+                if(e.key === "Enter") { e.preventDefault(); document.getElementById("chatSendBtn").click(); } 
+            };
+        }
+
+        document.getElementById("searchInput").addEventListener("input", (e) => {
+            const term = e.target.value.toLowerCase();
+            const all = (window.PRODUCTOS || []).filter(p => p.name.toLowerCase().includes(term));
+            renderGrid(all, "productsGrid");
+        });
+    };
+
+    function openModal(src) {
+        document.getElementById("imgModal").style.display = "flex";
+        document.getElementById("imgModalSrc").src = src;
+    }
+    function closeModal() { document.getElementById("imgModal").style.display = "none"; }
+
+    function renderCategories() {
+        document.getElementById("categoryList").innerHTML = CATEGORIES.map(c => `
+            <button class="cat-btn ${activeCat===c.id ? 'active' : ''}" onclick="changeCat('${c.id}')">
+                <div class="cat-left"><i class="fa-solid ${c.icon}"></i> ${c.name}</div>
+                <span class="cat-count">${getCount(c.id)}</span>
+            </button>
+        `).join("");
+    }
+
+    function getCount(key) {
+        if(key==='todo') return (window.PRODUCTOS||[]).length;
+        return (window.PRODUCTOS||[]).filter(p => p.category === key).length;
+    }
+
+    function changeCat(id) {
+        activeCat = id;
+        renderCategories();
+        if(id === 'packs') document.getElementById('packs').scrollIntoView({behavior: 'smooth'});
+        else renderProds(id);
+    }
+
+    function renderPacks() {
+        document.getElementById("packsGrid").innerHTML = PACKS_LOCAL.map(p => makeCardPack(p)).join("");
+    }
+
+    function renderProds(cat) {
+        let list = window.PRODUCTOS || [];
+        if(list.length === 0 && cat !== 'packs') list = [{id:"demo", name:"Yerba Demo", price:2.5, category:"Mates y Yerba"}];
+        if(cat !== 'todo') list = list.filter(p => p.category === cat);
+        renderGrid(list, "productsGrid");
+        document.getElementById("resultCount").innerText = list.length + " Productos";
+    }
+
+    function renderGrid(list, containerId) {
+        const div = document.getElementById(containerId);
+        div.innerHTML = list.map(p => makeCardProd(p)).join("");
+    }
+
+    function makeCardProd(p) {
+        const imgUrl = p.image || '';
+        return `
+        <div class="card-prod">
+            <div class="prod-img" onclick="openModal('${imgUrl}')" title="Click para Zoom">
+                <img src="${imgUrl}" alt="${p.name}" onerror="this.src='https://placehold.co/300x300/f1f5f9/1e293b?text=${encodeURIComponent(p.name)}'">
+            </div>
+            <div class="prod-title">${p.name}</div>
+            <div class="prod-price">$${p.price} <small>USD</small></div>
+            <div class="prod-actions">
+                <button class="btn-add" onclick="addToCart('${p.id}', '${p.name}', ${p.price})"><i class="fa-solid fa-plus"></i></button>
+                <button class="btn-buy" onclick="addToCart('${p.id}', '${p.name}', ${p.price}); openCart()">Comprar</button>
+            </div>
+        </div>`;
+    }
+
+    function makeCardPack(p) {
+        const imgUrl = p.image || '';
+        const btnAction = p.isPromo 
+            ? `<button class="btn-buy-pack" onclick="window.open('https://wa.me/543516965911', '_blank')">CONSULTAR EXHIBIDORES</button>`
+            : `<button class="btn-buy-pack" onclick="addToCart('${p.id}', '${p.name}', ${p.price}); openCart()">AGREGAR AL CARRITO</button>`;
+        const priceDisplay = p.price > 0 ? `$${p.price} USD` : "Consultar";
+
+        return `
+        <div class="card-pack">
+            ${!p.isPromo ? '<div class="pack-badge">MAYORISTA</div>' : ''}
+            <div class="pack-img" onclick="openModal('${imgUrl}')" title="Click para Zoom">
+                <img src="${imgUrl}" alt="${p.name}" onerror="this.src='https://placehold.co/500x400/fffbeb/0f172a?text=PACK'">
+            </div>
+            <div class="pack-body">
+                <div class="pack-title">${p.name}</div>
+                <div class="pack-desc">${p.desc}</div>
+                <div class="pack-price">${priceDisplay}</div>
+                ${btnAction}
+            </div>
+        </div>`;
+    }
+
+    // CARRITO GLOBAL
+    function openCart() { 
+        updateCartUI();
+        document.getElementById("cartDrawer").classList.add("open"); 
+    }
+    function closeCart() { document.getElementById("cartDrawer").classList.remove("open"); }
+
+    function addToCart(id, name, price) {
+        let cart = getCart();
+        if(!cart[id]) cart[id] = {qty:0, name:name, price:price, image:""};
+        cart[id].qty++;
+        saveCart(cart);
+        updateCartUI();
+    }
+
+    function modQty(id, delta) {
+        let cart = getCart();
+        if(cart[id]) {
+            cart[id].qty += delta;
+            if(cart[id].qty <= 0) delete cart[id];
+            saveCart(cart);
+            updateCartUI();
+        }
+    }
+    
+    function clearCart() { saveCart({}); updateCartUI(); }
+
+    window.updateCartUI = function() {
+        let cart = getCart();
+        const body = document.getElementById("cartBody");
+        const countHeader = document.getElementById("cartCountHeader");
+        
+        let total = 0;
+        let count = 0;
+        let peso = 0;
+
+        if(Object.keys(cart).length === 0) {
+            if(body) body.innerHTML = "<div class='cart-empty'>Carrito vacío 🛒</div>";
+        } else {
+            let htmlStr = "";
+            for(let id in cart) {
+                let it = cart[id];
+                total += it.price * it.qty;
+                count += it.qty;
+                peso += (0.250 * it.qty);
+
+                htmlStr += `
+                <div class="cart-item">
+                    <div class="cart-info">
+                        <h4>${it.name}</h4>
+                        <p class="cart-price">$${it.price.toFixed(2)}</p>
+                    </div>
+                    <div class="cart-ctrl">
+                        <button class="qty-btn" onclick="modQty('${id}', -1)">-</button>
+                        <span class="cart-qty">${it.qty}</span>
+                        <button class="qty-btn" onclick="modQty('${id}', 1)">+</button>
+                        <button class="btn-trash" onclick="modQty('${id}', -1000)"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>`;
+            }
+            if(body) body.innerHTML = htmlStr;
+        }
+
+        let envio = peso * COSTO_POR_KG;
+        let final = total + envio;
+
+        if(document.getElementById("subtotal")) document.getElementById("subtotal").innerText = `$${total.toFixed(2)}`;
+        if(document.getElementById("weight")) document.getElementById("weight").innerText = `${peso.toFixed(2)} Kg`;
+        if(document.getElementById("shipping")) document.getElementById("shipping").innerText = `$${envio.toFixed(2)}`;
+        if(document.getElementById("finalTotal")) document.getElementById("finalTotal").innerText = `$${final.toFixed(2)}`;
+        if(countHeader) countHeader.innerText = count;
+
+        const pBox = document.getElementById("paypalBox");
+        if(pBox) {
+            if(total > 0) {
+                 pBox.style.display = 'block';
+                 if(window.paypal) {
+                     document.getElementById("paypal-button-container").innerHTML = "";
+                     paypal.Buttons({
+                        createOrder: (data, actions) => actions.order.create({purchase_units:[{amount:{value:final.toFixed(2)}}]}),
+                        onApprove: () => { alert("Pago OK"); clearCart(); }
+                     }).render('#paypal-button-container');
+                 }
+            } else { pBox.style.display = 'none'; }
+        }
+    }
+
+    function checkoutWhatsApp() {
+        let cart = getCart();
+        let text = "Hola Argenville, pedido web:\n";
+        for(let id in cart) text += `- ${cart[id].name} (x${cart[id].qty})\n`;
+        text += `Total final (con envío): ${document.getElementById("finalTotal").innerText}`;
+        window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    // =======================================================
+    // INICIO JUAN PATRIOTA MASTER (JAVASCRIPT)
+    // =======================================================
+    let juanAudio = null;
+
+    function cerrarJuan() {
+        document.getElementById("juanMaster").style.display = "none";
+        document.getElementById("btnReopenJuan").style.display = "block";
+        document.getElementById("chatPanel").classList.remove("active");
+    }
+    function reabrirJuan() {
+        document.getElementById("juanMaster").style.display = "flex";
+        document.getElementById("btnReopenJuan").style.display = "none";
+    }
+    function abrirChatJuan() {
+        document.getElementById("chatPanel").classList.toggle("active");
+    }
+    function cerrarChatJuan() {
+        if (juanAudio) { juanAudio.pause(); juanAudio.currentTime = 0; }
+        document.getElementById("chatPanel").classList.remove("active");
+    }
+
+    function hablarJuan(texto) {
+        if (!texto) return;
+        const clean = texto.replace(/Argenville/gi, 'Argenvil').replace(/[*#]/g, '');
+        const lectura = new SpeechSynthesisUtterance(clean);
+        lectura.lang = "es-AR";
+        window.speechSynthesis.speak(lectura);
+    }
+
+    // AL CARGAR LA PÁGINA (SOLO PARA JUAN)
+    window.addEventListener('load', () => {
+        const areaMensajes = document.getElementById("chatMessages");
+        const inputTexto = document.getElementById("chatInput");
+        
+        if(!areaMensajes || !inputTexto) return; 
+
+       async function enviarAJuan() {
+            const texto = inputTexto.value.trim();
+            if (!texto) return;
+
+            const msgDiv = document.createElement("div");
+            msgDiv.className = "msg msg-user";
+            msgDiv.innerHTML = `<div class="bubble">${texto}</div>`;
+            areaMensajes.appendChild(msgDiv);
+            inputTexto.value = "";
+            areaMensajes.scrollTop = areaMensajes.scrollHeight;
+
+            const juanDiv = document.createElement("div");
+            juanDiv.className = "msg msg-bot";
+            juanDiv.innerHTML = `<div class="bubble" id="juan-temp" style="background:#1e293b; color:#94a3b8; font-style:italic;">Juan está buscando...</div>`;
+            areaMensajes.appendChild(juanDiv);
+
+            try {
+                const res = await fetch('https://juan-ai-zq22.onrender.com/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: texto })
+                });
+
+                const data = await res.json();
+                let textoRespuesta = data.reply || "No entendí, fiera.";
+
+                // ===============================================================
+                // 🪄 LA MAGIA EN LAS TIENDAS: AGREGAR Y ABRIR CARRITO
+                // ===============================================================
+                const cartRegex = /\[AGREGAR_CARRITO:(.*?)\]/g;
+                let match;
+                let abrioCarrito = false;
+
+                while ((match = cartRegex.exec(textoRespuesta)) !== null) {
+                    let datos = match[1].split('|'); 
+                    if(datos.length >= 3) {
+                        let id = datos[0].trim();
+                        let name = datos[1].trim();
+                        let price = parseFloat(datos[2].trim());
+                        
+                        // Agrega a la memoria global
+                        addToCart(id, name, price); 
+                        abrioCarrito = true;
+                    }
+                }
+                textoRespuesta = textoRespuesta.replace(/\[AGREGAR_CARRITO:.*?\]/g, '').trim();
+
+                // Si agregó algo, le abrimos el carrito en la cara al cliente
+                if(abrioCarrito) {
+                    openCart();
+                }
+
+                // COMANDOS DE NAVEGACIÓN (Rutas relativas a la carpeta shopping)
+                if (textoRespuesta.includes("[IR_A_CAJA]")) {
+                    textoRespuesta = textoRespuesta.replace(/\[IR_A_CAJA\]/g, '').trim();
+                    setTimeout(() => { window.location.href = '../caja.html'; }, 3000);
+                }
+                if (textoRespuesta.includes("[IR_A_DEPORTES]")) {
+                    textoRespuesta = textoRespuesta.replace(/\[IR_A_DEPORTES\]/g, '').trim();
+                    setTimeout(() => { window.location.href = 'tienda-deportiva.html'; }, 2500);
+                }
+                if (textoRespuesta.includes("[IR_A_REGIONALES]")) {
+                    textoRespuesta = textoRespuesta.replace(/\[IR_A_REGIONALES\]/g, '').trim();
+                    setTimeout(() => { window.location.href = 'tienda-regionales.html'; }, 2500);
+                }
+                if (textoRespuesta.includes("[IR_A_OFICIAL]")) {
+                    textoRespuesta = textoRespuesta.replace(/\[IR_A_OFICIAL\]/g, '').trim();
+                    setTimeout(() => { window.location.href = 'tienda-argenville.html'; }, 2500);
+                }
+                // ===============================================================
+
+                const burbujaJuan = document.getElementById("juan-temp");
+                if(burbujaJuan) {
+                    burbujaJuan.innerHTML = `<b>Juan:</b> ${textoRespuesta}`;
+                    burbujaJuan.removeAttribute("id");
+                    burbujaJuan.style.fontStyle = "normal";
+                    burbujaJuan.style.color = "white";
+                }
+
+                if (data.audioUrl) {
+                    if (juanAudio) { juanAudio.pause(); juanAudio.currentTime = 0; }
+                    juanAudio = new Audio(data.audioUrl);
+                    juanAudio.crossOrigin = "anonymous";
+                    juanAudio.load();
+                    juanAudio.play().catch(e => hablarJuan(textoRespuesta));
+                } else {
+                    hablarJuan(textoRespuesta);
+                }
+            } catch (e) {
+                console.error("Error:", e);
+                const temp = document.getElementById("juan-temp");
+                if(temp) temp.innerHTML = "Jefe, el motor 5050 está apagado.";
+            }
+            areaMensajes.scrollTop = areaMensajes.scrollHeight;
+        }
+
+        document.getElementById("stopAudioBtn").onclick = () => {
+            if (juanAudio) { juanAudio.pause(); juanAudio.currentTime = 0; }
+        };
+        
+        const btnSend = document.getElementById("chatSendBtn");
+        if(btnSend) btnSend.onclick = enviarAJuan;
+
+        // MICRÓFONO
+        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (Recognition) {
+            const rec = new Recognition();
+            rec.lang = "es-AR";
+            rec.continuous = true;
+            let micTimer;
+
+            document.getElementById("micBtn").onclick = () => {
+                rec.start();
+                document.getElementById("micIcon").style.color = "red";
+            };
+            rec.onresult = (e) => {
+                const transcript = Array.from(e.results).map(result => result[0].transcript).join('');
+                inputTexto.value = transcript;
+                clearTimeout(micTimer);
+                micTimer = setTimeout(() => { rec.stop(); enviarAJuan(); }, 2000);
+            };
+            rec.onend = () => { document.getElementById("micIcon").style.color = "#0ea5e9"; };
+            rec.onerror = () => { document.getElementById("micIcon").style.color = "#0ea5e9"; };
+        }
+        
+        document.getElementById("whatsAppBtn").onclick = () => {
+            window.open(`https://wa.me/${WHATSAPP}?text=Hola Argenville, vengo de la tienda oficial...`, '_blank');
+        }
+    });
+    // =======================================================
+  </script>
+
+<footer class="site-footer">
+  <div class="footer-container">    
+
+    <div class="footer-brand">
+      <h3>Argenville</h3>
+      <p>Global Trade · Consulting · Brand Expansion</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="../docs/terms.html">Terms of Service</a></li>
+        <li><a href="../docs/privacy.html">Privacy Policy</a></li>
+        <li><a href="../docs/cookies.html">Cookie Policy</a></li>
+        <li><a href="../docs/refunds.html">Refund Policy</a></li>
+        <li><a href="../docs/shipping.html">Shipping Policy</a></li>
+        <li><a href="../docs/ip.html">Intellectual Property</a></li>
+        <li><a href="../docs/compliance.html">Compliance & Legal</a></li>
+      </ul>
+    </div>
+
+  </div> <!-- CIERRE footer-container -->
+
+  <div class="footer-bottom">
+    Argenville LLC – United States<br>
+    With exclusive representation in Argentina by BIP (Banca de Inversiones Privadas)
+  </div>
+
+</footer>
+<script src="/juan/juan.js"></script>
+</body>
+</html>

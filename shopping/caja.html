@@ -1,0 +1,551 @@
+<<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Argenville | Caja Unificada</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================= VARIABLES & RESET ================= */
+    :root {
+      --celeste: #75AADB; --celeste-neon: #00D7FF; --blanco: #FFFFFF;
+      --sol: #D4AF37; --negro: #0F172A; --bg-dark: #020617;
+      --text-main: #F8FAFC; --text-muted: #94A3B8;
+      --border: rgba(148, 163, 184, 0.2);
+      --radius: 16px;
+      --font-heading: 'Oswald', sans-serif; --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body); color: var(--text-main);
+      background: radial-gradient(circle at top left, #082f49 0%, var(--bg-dark) 60%);
+      min-height: 100vh; overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; transition: 0.2s; }
+    img { display: block; max-width: 100%; border-radius: 8px; }
+    button { font-family: inherit; cursor: pointer; transition: 0.2s; border: none; outline: none; }
+
+    /* ================= HEADER ================= */
+    header {
+      position: sticky; top: 0; z-index: 100; padding: 15px 20px;
+      background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 15px; }
+    .brand img { height: 50px; }
+    .brand-txt h1 { font-family: var(--font-heading); font-weight: 900; font-size: 1.8rem; margin: 0; line-height: 1; letter-spacing: 1px;}
+    .brand-txt span { font-size: 0.8rem; color: var(--sol); font-weight: 800; letter-spacing: 2px; text-transform: uppercase;}
+    .navlinks { display: flex; gap: 15px; }
+    .nav-link { font-weight: 700; font-size: 0.9rem; color: var(--text-muted); padding: 8px 15px; border-radius: 50px; border: 1px solid var(--border); transition: 0.3s; }
+    .nav-link:hover { color: var(--blanco); border-color: var(--celeste-neon); background: rgba(0, 215, 255, 0.1); }
+    .nav-link i { margin-right: 5px; color: var(--celeste-neon); }
+
+    /* ================= LAYOUT PRINCIPAL ================= */
+    .container {
+      max-width: 1200px; margin: 40px auto 80px; padding: 0 20px;
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: start;
+    }
+    .section-title { font-family: var(--font-heading); font-size: 2rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ================= COLUMNA IZQ: CARRITO ================= */
+    .cart-box { background: rgba(15, 23, 42, 0.6); border-radius: var(--radius); padding: 30px; border: 1px solid var(--border); }
+    .cart-empty { text-align: center; color: var(--text-muted); padding: 40px 0; font-weight: 700; font-size: 1.2rem; }
+    .item-row { display: flex; align-items: center; gap: 20px; padding: 15px 0; border-bottom: 1px solid var(--border); }
+    .item-img { width: 80px; height: 80px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 5px; }
+    .item-img img { max-height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+    .item-info { flex: 1; }
+    .item-title { font-weight: 800; font-size: 1.1rem; margin-bottom: 5px; }
+    .item-price { color: var(--celeste-neon); font-weight: 900; font-size: 1.2rem; }
+    .item-ctrl { display: flex; align-items: center; gap: 12px; background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 50px; border: 1px solid var(--border); }
+    .btn-qty { background: transparent; color: var(--blanco); font-size: 1.2rem; font-weight: 900; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+    .btn-qty:hover { background: var(--celeste-neon); color: var(--negro); }
+    .item-qty { font-weight: 800; font-size: 1.1rem; min-width: 20px; text-align: center; }
+    .btn-del { color: #ef4444; background: transparent; font-size: 1.1rem; margin-left: 10px; }
+    .btn-del:hover { color: #f87171; transform: scale(1.1); }
+
+    /* ================= COLUMNA DER: CHECKOUT ================= */
+    .summary-box { background: rgba(15, 23, 42, 0.95); border-radius: var(--radius); padding: 30px; border: 1px solid var(--celeste-neon); position: sticky; top: 110px; box-shadow: 0 20px 50px rgba(0, 215, 255, 0.1); }
+    
+    /* LOGIN PROMPT */
+    #login-prompt { text-align: center; padding: 20px 0; }
+    .btn-login-caja { background: var(--sol); color: var(--negro); width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); }
+    .btn-login-caja:hover { transform: translateY(-3px); background: #e5c357; }
+
+    /* USER INFO LOGUEADO (NUEVO) */
+    #user-logged-info { display: none; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border); }
+    .btn-logout-caja { background: none; border: 1px solid var(--celeste-neon); color: var(--celeste-neon); padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; }
+    .btn-logout-caja:hover { background: rgba(0, 215, 255, 0.1); }
+
+    /* FORMULARIO DHL */
+    #checkout-form-container { display: none; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .form-grid .full-width { grid-column: 1 / -1; }
+    .form-group { margin-bottom: 15px; }
+    .form-label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;}
+    .form-input { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: var(--blanco); padding: 12px 15px; border-radius: 8px; font-family: inherit; font-size: 0.95rem; transition: 0.3s; }
+    .form-input:focus { outline: none; border-color: var(--sol); background: rgba(0,0,0,0.6); }
+    .form-input::placeholder { color: rgba(148, 163, 184, 0.5); }
+
+    .divider { height: 1px; background: var(--border); margin: 25px 0; }
+    .sum-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; color: var(--text-muted); }
+    .sum-row span:last-child { color: var(--blanco); }
+    .total-row { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 2px dashed var(--border); font-size: 2rem; font-family: var(--font-heading); font-weight: 900; color: var(--sol); }
+    
+    /* Botones de Pago */
+    #payment-buttons-container { margin-top: 25px; pointer-events: none; opacity: 0.5; transition: 0.3s; }
+    #payment-buttons-container.active { pointer-events: all; opacity: 1; }
+    #paypalBox, #googlePayBox { margin-bottom: 15px; }
+    #googlePayButtonContainer { width: 100%; display: flex; justify-content: center; }
+    .btn-wa-checkout { width: 100%; background: #22c55e; color: white; padding: 18px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3); }
+    .btn-wa-checkout:hover { background: #16a34a; transform: translateY(-2px); }
+    .fill-data-alert { color: var(--sol); text-align: center; font-size: 0.9rem; margin-bottom: 15px; font-weight: 700; display: block; }
+
+
+    /* ================= JUAN WIDGET & RESPONSIVE ================= */
+    .juan-float { position: fixed; bottom: 0; right: 30px; z-index: 3000; display: flex; flex-direction: column; align-items: center; }
+    .juan-img { height: 320px; width: auto; cursor: pointer; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.35)); transition: 0.3s; }
+    .juan-img:hover { transform: scale(1.03) translateY(-10px); }
+    .juan-dialog { background: white; padding: 15px 25px; border-radius: 30px; border: 3px solid #d4a017; box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin-top: 15px; font-weight: 800; color: #020617; font-size: 1rem; position: relative; text-align: center; }
+    .btn-close-juan { position: absolute; top: -10px; left: -10px; background: #ef4444; color: white; width: 28px; height: 28px; border-radius: 50%; border: 3px solid white; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    
+    /* BOTÓN REABRIR JUAN */
+    #btnReopenJuan { position: fixed; bottom: 30px; right: 30px; z-index: 2900; display: none; background: #d4a017; color: #020617; border: none; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); transition: 0.3s; cursor: pointer; }
+    #btnReopenJuan:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(212, 175, 55, 0.7); }
+
+
+    @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .navlinks { display: none; } .summary-box { position: relative; top: 0; } }
+    @media (max-width: 640px) { .juan-float { transform: scale(0.85); transform-origin: bottom right; } .form-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="nav">
+      <div class="brand">
+        <img src="../img/logo-argenville.png" alt="Argenville" onerror="this.src='https://placehold.co/120x60/transparent/ffffff?text=ARG'">
+        <div class="brand-txt"><h1>CAJA CENTRAL</h1><span>Pago Seguro</span></div>
+      </div>
+      <div class="navlinks">
+        <a href="tienda-argenville.html" class="nav-link"><i class="fa-solid fa-store"></i> Oficial</a>
+        <a href="tienda-deportiva.html" class="nav-link"><i class="fa-solid fa-futbol"></i> Deportes</a>
+        <a href="tienda-regionales.html" class="nav-link"><i class="fa-solid fa-leaf"></i> Regionales</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div>
+        <h2 class="section-title">Tu Pedido Global</h2>
+        <div class="cart-box" id="checkoutItems">
+            <div class="cart-empty">Cargando tu carrito...</div>
+        </div>
+    </div>
+
+    <div class="summary-box" id="checkoutSummary" style="display:none;">
+        <h2 class="section-title" style="font-size:1.5rem; color:var(--sol);">Finalizar Compra</h2>
+        
+        <div id="login-prompt">
+            <p style="color:var(--text-muted); margin-bottom:20px;">Necesitamos tus datos para el envío internacional.</p>
+            <button class="btn-login-caja" onclick="window.doLoginCaja()">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" style="width:24px;">
+                Iniciá sesión con Google
+            </button>
+        </div>
+
+        <div id="user-logged-info">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img id="user-photo" src="" alt="User" style="width:32px; height:32px; border-radius:50%; border:1px solid var(--celeste);">
+                <div>
+                    <small style="color:var(--text-muted); display:block; line-height:1;">Hola,</small>
+                    <span id="user-name-display" style="font-weight:700; color:var(--blanco);"></span>
+                </div>
+            </div>
+            <button class="btn-logout-caja" onclick="window.doLogoutCaja()">
+                Cerrar Sesión
+            </button>
+        </div>
+
+        <div id="checkout-form-container">
+            <div class="form-group">
+                <label class="form-label">Nombre Completo (Recibe)</label>
+                <input type="text" id="dhlName" class="form-input required-field" placeholder="Nombre y Apellido">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Dirección de Entrega</label>
+                <input type="text" id="dhlAddress" class="form-input required-field" placeholder="Calle y número">
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Apartamento / Unidad</label>
+                    <input type="text" id="dhlApt" class="form-input" placeholder="Opcional">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ciudad</label>
+                    <input type="text" id="dhlCity" class="form-input required-field" placeholder="Ej: Miami">
+                </div>
+            </div>
+
+            <div class="form-grid">
+                 <div class="form-group">
+                    <label class="form-label">Estado / Provincia</label>
+                    <input type="text" id="dhlState" class="form-input required-field" placeholder="Ej: Florida">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Código Postal / ZIP</label>
+                    <input type="text" id="dhlZip" class="form-input required-field" placeholder="Ej: 33101">
+                </div>
+            </div>
+
+             <div class="form-grid">
+                 <div class="form-group">
+                    <label class="form-label">País</label>
+                     <input type="text" id="dhlCountry" class="form-input required-field" placeholder="Ej: USA">
+                </div>
+                 <div class="form-group">
+                    <label class="form-label">Teléfono Principal (DHL)</label>
+                    <input type="tel" id="dhlPhone" class="form-input required-field" placeholder="+ Código de área">
+                </div>
+            </div>
+
+             <div class="form-grid">
+                <div class="form-group">
+                     <label class="form-label">Teléfono Alternativo</label>
+                     <input type="tel" id="dhlPhoneAlt" class="form-input" placeholder="Opcional, por las dudas">
+                </div>
+            </div>
+            
+            <div class="form-group full-width">
+                 <label class="form-label" style="color:var(--celeste-neon);">Link Exacto Google Maps (Obligatorio)</label>
+                 <input type="url" id="dhlMapsLink" class="form-input required-field" placeholder="Pegá acá el link de tu ubicación exacta">
+                 <small style="color:var(--text-muted); font-size:0.75rem;">Esto asegura que DHL llegue a la puerta correcta.</small>
+            </div>
+<div class="form-group full-width">
+                 <label class="form-label" style="color:var(--sol);"><i class="fa-solid fa-star"></i> Código de Vendedor / Referido</label>
+                 <input type="text" id="vendedorCode" class="form-input" placeholder="Si tenés un código de descuento, ponelo acá (Opcional)">
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="sum-row"><span>Mercadería</span> <span id="chk-subtotal">$0.00</span></div>
+            <div class="sum-row"><span>Peso Total Est.</span> <span id="chk-weight">0.00 Kg</span></div>
+            <div class="sum-row"><span>Envío Aéreo DHL</span> <span id="chk-shipping">$0.00</span></div>
+            <div class="total-row"><span>TOTAL</span> <span id="chk-total">$0.00</span></div>
+
+            <div id="payment-buttons-container">
+                <span class="fill-data-alert" id="fillDataAlert">Completá los datos obligatorios (incluyendo Maps) para pagar.</span>
+                <div id="paypalBox"><div id="paypal-button-container"></div></div>
+                
+                <button class="btn-wa-checkout" onclick="checkoutCajaWA()">
+                    <i class="fa-brands fa-whatsapp"></i> Acordar Pago con Asesor
+                </button>
+            </div>
+
+        </div> </div>
+  </div>
+
+  <div class="juan-float" id="juanMaster">
+    <img src="../img/juan-cajero.png" class="juan-img" onclick="alert('¡Jefe, estoy operando la caja! Si tenés dudas, usá el WhatsApp.')" alt="Juan Patriota" onerror="this.src='https://placehold.co/150x250?text=Juan'">
+    <div class="juan-dialog">
+        <button class="btn-close-juan" onclick="cerrarJuanCaja()">✕</button>
+        ¡Jefe! Iniciá sesión y completá los datos para que DHL no nos rebote el paquete.
+    </div>
+  </div>
+  
+  <button id="btnReopenJuan" onclick="reabrirJuanCaja()">Juan 🇦🇷</button>
+  
+  <script src="https://www.paypal.com/sdk/js?client-id=AZYnyzIFImHGGJnl4txtVhuxYiD59eITT-W1d7s4IUbLF3WC9oFdyear0IQZ-DRS9BFn9WxiAHYtVzgW&currency=USD&intent=capture"></script>
+  <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    // AGREGADO "signOut" a los imports
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    
+    const firebaseConfig = { apiKey: "AIzaSyDc6YfcxlszUYiCcuQK953Opojqz1mLCnQ", authDomain: "argenville.firebaseapp.com", projectId: "argenville", storageBucket: "argenville.firebasestorage.app", messagingSenderId: "1075243262634", appId: "1:1075243262634:web:c2d1d205bf8cd04ba5e6d3", measurementId: "G-M77409GSVT" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // Funciones globales de Login y Logout
+    window.doLoginCaja = () => signInWithPopup(auth, provider).catch(e => console.error(e));
+    
+    // NUEVA FUNCIÓN DE LOGOUT
+    window.doLogoutCaja = () => signOut(auth).then(() => {
+        alert("Sesión cerrada correctamente.");
+        // Opcional: redirigir al home al cerrar sesión en caja
+        // window.location.href = "../index.html"; 
+    }).catch(e => console.error(e));
+
+    onAuthStateChanged(auth, (user) => {
+        const loginPrompt = document.getElementById("login-prompt");
+        const formContainer = document.getElementById("checkout-form-container");
+        const userInfoBox = document.getElementById("user-logged-info"); // NUEVO CONTAINER
+        const userNameDisp = document.getElementById("user-name-display"); // NUEVO SPAN NOMBRE
+        const userPhoto = document.getElementById("user-photo"); // NUEVA IMG FOTO
+        const nameInput = document.getElementById("dhlName");
+
+        if (user) {
+            // ESTÁ LOGUEADO
+            if(loginPrompt) loginPrompt.style.display = "none";
+            if(formContainer) formContainer.style.display = "block";
+            
+            // Mostrar info de usuario y botón logout
+            if(userInfoBox) userInfoBox.style.display = "flex";
+            if(userNameDisp) userNameDisp.innerText = user.displayName || "Usuario";
+            if(userPhoto) userPhoto.src = user.photoURL || "https://placehold.co/32x32?text=U";
+            
+            if(nameInput && user.displayName) nameInput.value = user.displayName;
+            window.initCajaLogic(true);
+        } else {
+            // NO ESTÁ LOGUEADO
+            if(loginPrompt) loginPrompt.style.display = "block";
+            if(formContainer) formContainer.style.display = "none";
+            
+            // Ocultar info de usuario
+            if(userInfoBox) userInfoBox.style.display = "none";
+
+            window.initCajaLogic(false);
+        }
+    });
+  </script>
+
+
+  <script>
+    const COSTO_POR_KG = 8;
+    const WHATSAPP = "543516965911";
+    let finalTotalCaja = 0;
+    let isUserLoggedIn = false;
+
+    // --- Configuración Google Pay (BASE) ---
+    const baseRequest = { apiVersion: 2, apiVersionMinor: 0 };
+    const allowedCardNetworks = ["AMEX", "DISCOVER", "JCB", "MASTERCARD", "VISA"];
+    const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
+    const baseCardPaymentMethod = { type: 'CARD', parameters: { allowedAuthMethods: allowedCardAuthMethods, allowedCardNetworks: allowedCardNetworks } };
+    const tokenizationSpecification = { type: 'PAYMENT_GATEWAY', parameters: { 'gateway': 'example', 'gatewayMerchantId': 'exampleGatewayMerchantId' } };
+    const cardPaymentMethod = Object.assign({}, baseCardPaymentMethod, { tokenizationSpecification: tokenizationSpecification });
+    let paymentsClient = null;
+    // ---------------------------------------
+
+    // Funciones para Juan flotante en caja
+    function cerrarJuanCaja() {
+        document.getElementById("juanMaster").style.display = "none";
+        document.getElementById("btnReopenJuan").style.display = "block";
+    }
+    function reabrirJuanCaja() {
+        document.getElementById("juanMaster").style.display = "flex";
+        document.getElementById("btnReopenJuan").style.display = "none";
+    }
+
+    function getCart() { return JSON.parse(localStorage.getItem('argenville_global_cart')) || {}; }
+    function saveCart(cart) { localStorage.setItem('argenville_global_cart', JSON.stringify(cart)); }
+
+    window.initCajaLogic = (loggedInState) => {
+        isUserLoggedIn = loggedInState;
+        renderCheckout();
+    };
+
+    function renderCheckout() {
+        let cart = getCart();
+        const container = document.getElementById("checkoutItems");
+        const summary = document.getElementById("checkoutSummary");
+        
+        let total = 0, count = 0, peso = 0;
+        let htmlStr = "";
+
+        if(Object.keys(cart).length === 0) {
+            container.innerHTML = "<div class='cart-empty'>Tu caja está vacía.<br><br>¡Volvé a nuestras tiendas a sumar productos argentinos!</div>";
+            summary.style.display = "none";
+            return;
+        }
+
+        summary.style.display = "block";
+
+        for(let id in cart) {
+            let it = cart[id];
+            total += it.price * it.qty;
+            count += it.qty;
+            peso += (0.250 * it.qty);
+            let imgSrc = it.image ? '../' + it.image : 'https://placehold.co/80x80/222/fff?text=Argenville';
+
+            htmlStr += `
+            <div class="item-row">
+                <div class="item-img"><img src="${imgSrc}" onerror="this.src='https://placehold.co/80x80/222/fff?text=Item'"></div>
+                <div class="item-info">
+                    <div class="item-title">${it.name}</div>
+                    <div class="item-price">$${it.price.toFixed(2)}</div>
+                </div>
+                <div class="item-ctrl">
+                    <button class="btn-qty" onclick="modQtyCaja('${id}', -1)">-</button>
+                    <span class="item-qty">${it.qty}</span>
+                    <button class="btn-qty" onclick="modQtyCaja('${id}', 1)">+</button>
+                </div>
+                <button class="btn-del" onclick="modQtyCaja('${id}', -1000)"><i class="fa-solid fa-trash"></i></button>
+            </div>`;
+        }
+        
+        container.innerHTML = htmlStr;
+
+        let envio = peso * COSTO_POR_KG;
+        finalTotalCaja = total + envio;
+
+        document.getElementById("chk-subtotal").innerText = `$${total.toFixed(2)}`;
+        document.getElementById("chk-weight").innerText = `${peso.toFixed(2)} Kg`;
+        document.getElementById("chk-shipping").innerText = `$${envio.toFixed(2)}`;
+        document.getElementById("chk-total").innerText = `$${finalTotalCaja.toFixed(2)}`;
+
+        if(isUserLoggedIn && finalTotalCaja > 0) {
+            renderPaymentButtons();
+            setupFormValidation();
+        }
+    }
+
+    function modQtyCaja(id, delta) {
+        let cart = getCart();
+        if(cart[id]) {
+            cart[id].qty += delta;
+            if(cart[id].qty <= 0) delete cart[id];
+            saveCart(cart);
+            renderCheckout();
+        }
+    }
+
+    function setupFormValidation() {
+        const requiredFields = document.querySelectorAll('.required-field');
+        const paymentContainer = document.getElementById('payment-buttons-container');
+        const alertMsg = document.getElementById('fillDataAlert');
+
+        function checkFields() {
+            let allFilled = true;
+            requiredFields.forEach(field => {
+                if(field.value.trim() === '') allFilled = false;
+            });
+
+            if(allFilled) {
+                paymentContainer.classList.add('active');
+                alertMsg.style.display = 'none';
+            } else {
+                paymentContainer.classList.remove('active');
+                alertMsg.style.display = 'block';
+            }
+        }
+        
+        requiredFields.forEach(field => {
+            field.addEventListener('input', checkFields);
+        });
+        checkFields();
+    }
+
+
+    function renderPaymentButtons() {
+        document.getElementById("paypal-button-container").innerHTML = "";
+        if(window.paypal) {
+            paypal.Buttons({
+                createOrder: (data, actions) => {
+                    // Leemos el código que puso el cliente justo al hacer click
+                    let codigo = document.getElementById("vendedorCode") ? document.getElementById("vendedorCode").value.trim().toUpperCase() : "";
+                    
+                    let cart = getCart();
+                    let totalMercaderia = 0;
+                    for(let id in cart) totalMercaderia += (cart[id].price * cart[id].qty);
+
+                    let totalAPagar = finalTotalCaja;
+                    
+                    // Si el código existe, aplicamos la magia
+                    if(codigo && CODIGOS_VENDEDORES[codigo]) {
+                        let montoDescuento = totalMercaderia * CODIGOS_VENDEDORES[codigo].descuento;
+                        totalAPagar = finalTotalCaja - montoDescuento;
+                    }
+
+                    // Le pasamos el total con descuento a PayPal
+                    return actions.order.create({
+                        purchase_units:[{ amount:{ value: totalAPagar.toFixed(2) } }]
+                    });
+                },
+                onApprove: (data, actions) => actions.order.capture().then(details => handlePaymentSuccess(details.payer.name.given_name, 'PayPal'))
+            }).render('#paypal-button-container');
+        }
+    }
+// Mis vendedores estrella y sus descuentos (Ej: 0.10 es 10%)
+    const CODIGOS_VENDEDORES = {
+        "FV.AR010": { nombre: "F.Vargas", descuento: 0.10 },
+        "EDU010": { nombre: "Edu", descuento: 0.10 },
+        "PIRU010": { nombre: "Luis Pala", descuento: 0.10 }
+    };
+
+    function checkoutCajaWA() {
+        const data = {
+            name: document.getElementById("dhlName").value,
+            address: document.getElementById("dhlAddress").value,
+            apt: document.getElementById("dhlApt").value,
+            city: document.getElementById("dhlCity").value,
+            state: document.getElementById("dhlState").value,
+            zip: document.getElementById("dhlZip").value,
+            country: document.getElementById("dhlCountry").value,
+            phone: document.getElementById("dhlPhone").value,
+            phoneAlt: document.getElementById("dhlPhoneAlt").value,
+            mapsLink: document.getElementById("dhlMapsLink").value,
+            // Acá agarramos el código del HTML que agregaste antes
+            codigo: document.getElementById("vendedorCode") ? document.getElementById("vendedorCode").value.trim().toUpperCase() : ""
+        };
+
+        if(!data.name || !data.address || !data.city || !data.country || !data.phone || !data.mapsLink) {
+            alert("Por favor, completá los datos obligatorios (incluyendo el link de Maps) para DHL.");
+            return;
+        }
+
+        let cart = getCart();
+        let totalMercaderia = 0;
+        let text = `Hola Argenville, soy ${data.name}. Quiero cerrar mi pedido con envío a ${data.city}, ${data.country}.\n\n*Datos de Envío:*\nDirección: ${data.address} ${data.apt}\nCP: ${data.zip} - Prov: ${data.state}\nTel Principal: ${data.phone}\nTel Alt: ${data.phoneAlt}\nUbicación Maps: ${data.mapsLink}\n\n*Pedido:*\n`;
+        
+        for(let id in cart) {
+            text += `▪ ${cart[id].name} (x${cart[id].qty})\n`;
+            totalMercaderia += (cart[id].price * cart[id].qty);
+        }
+
+        let totalAPagar = finalTotalCaja;
+        let descuentoStr = "";
+        let vendedorAviso = "";
+
+        // ¡Acá pasa la magia del descuento!
+        if(data.codigo && CODIGOS_VENDEDORES[data.codigo]) {
+            let infoVendedor = CODIGOS_VENDEDORES[data.codigo];
+            let montoDescuento = totalMercaderia * infoVendedor.descuento; // Descuento sobre los productos
+            totalAPagar = finalTotalCaja - montoDescuento;
+            descuentoStr = `\n🎁 *Descuento aplicado:* -$${montoDescuento.toFixed(2)} USD (Código: ${data.codigo})`;
+            vendedorAviso = `\n🤝 *Atendido por:* ${infoVendedor.nombre}`;
+        }
+
+        text += `\n*Total Original:* $${finalTotalCaja.toFixed(2)} USD`;
+        text += descuentoStr;
+        text += vendedorAviso;
+        text += `\n*TOTAL A PAGAR:* $${totalAPagar.toFixed(2)} USD`;
+        
+        window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+    function addGooglePayButton() {
+      const button = getGooglePaymentsClient().createButton({onClick: onGooglePaymentButtonClicked, allowedPaymentMethods: [baseCardPaymentMethod]});
+      document.getElementById('googlePayButtonContainer').innerHTML = "";
+      document.getElementById('googlePayButtonContainer').appendChild(button);
+    }
+    function getGoogleTransactionInfo() {
+      return { displayItems: [{ label: "Total Pedido", type: "SUBTOTAL", price: finalTotalCaja.toFixed(2) }], countryCode: 'US', currencyCode: "USD", totalPriceStatus: "FINAL", totalPrice: finalTotalCaja.toFixed(2), totalPriceLabel: "Total" };
+    }
+    
+    // ---------------------------------
+
+    function handlePaymentSuccess(payerName, method) {
+        alert(`¡Pago Exitoso con ${method}! 🎉\n\nGracias ${payerName}. Preparamos tu envío DHL.`);
+        saveCart({});
+        window.location.href = "../index.html";
+    }
+  </script>
+</body>
+</html>

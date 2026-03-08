@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear mi tienda Argenville</title>
+
+  <!-- Iconos -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <style>
+    * , *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-main: #020617;
+      --card-bg: #020b1b;
+      --card-inner: #020617;
+      --primary: #0ea5e9;
+      --primary-soft: rgba(14, 165, 233, 0.16);
+      --accent: #22d3ee;
+      --text-main: #e5f3ff;
+      --text-soft: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.35);
+      --shadow-soft: 0 28px 70px rgba(15, 23, 42, 0.9);
+      --radius-xl: 26px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #22c1f1 0, #020617 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1180px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* TOP ROW / NAV SIMPLE */
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-wrap img {
+      height: 46px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .top-btn {
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .top-btn-primary {
+      background: radial-gradient(circle at top left, #22d3ee 0, #0f74d6 42%, #1d4ed8 100%);
+      color: #e0f2fe;
+      border-color: rgba(59, 130, 246, 0.8);
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.9);
+      font-weight: 600;
+    }
+
+    .top-btn i {
+      font-size: 0.8rem;
+    }
+
+    /* CARD PRINCIPAL */
+
+    .card {
+      background: radial-gradient(circle at top left, #020b1b 0, #020617 70%);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 28px 26px 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      gap: 26px;
+    }
+
+    /* LADO IZQUIERDO */
+
+    .left-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.78rem;
+      color: #bfdbfe;
+      width: fit-content;
+    }
+
+    .badge i {
+      font-size: 0.8rem;
+    }
+
+    .title-main {
+      font-size: 1.9rem;
+      font-weight: 750;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      max-width: 460px;
+    }
+
+    .highlight-box {
+      margin-top: 4px;
+      border-radius: 18px;
+      padding: 12px 12px 11px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      font-size: 0.82rem;
+      color: #dbeafe;
+    }
+
+    .highlight-box strong {
+      color: #e0f2fe;
+    }
+
+    .list {
+      margin-top: 6px;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .list li {
+      list-style: none;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .list li i {
+      margin-top: 2px;
+      font-size: 0.78rem;
+      color: var(--accent);
+    }
+
+    /* STEPS / FORM */
+
+    .right-col {
+      background: radial-gradient(circle at top, #020617, #020617 65%);
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 18px 18px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .steps-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .steps-title {
+      font-size: 1.05rem;
+      font-weight: 650;
+    }
+
+    .steps-sub {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: #bfdbfe;
+    }
+
+    .step-indicator-pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .progress-bar-fill {
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, #22d3ee, #0ea5e9, #1d4ed8);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .field {
+      flex: 1;
+      min-width: 160px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    label {
+      font-size: 0.78rem;
+      color: #cbd5f5;
+    }
+
+    .hint {
+      font-size: 0.72rem;
+      color: var(--text-soft);
+    }
+
+    input, select, textarea {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.98);
+      color: var(--text-main);
+      font-size: 0.84rem;
+      padding: 8px 12px;
+      outline: none;
+      width: 100%;
+    }
+
+    textarea {
+      border-radius: 14px;
+      min-height: 70px;
+      resize: vertical;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #6b7280;
+    }
+
+    .field-inline-note {
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    .fieldset-title {
+      margin-top: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #e5f3ff;
+    }
+
+    .pill-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill-option {
+      font-size: 0.78rem;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      cursor: pointer;
+    }
+
+    .pill-option--active {
+      border-color: rgba(56, 189, 248, 0.9);
+      background: var(--primary-soft);
+      color: #e0f2fe;
+      font-weight: 500;
+    }
+
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      flex-wrap: wrap;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      border: none;
+      background: radial-gradient(circle at top left, #22d3ee 0, #0ea5e9 40%, #1d4ed8 100%);
+      color: #e0f2fe;
+      box-shadow: 0 12px 30px rgba(14, 165, 233, 0.9);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary {
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      color: #e5f3ff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary i,
+    .btn-primary i {
+      font-size: 0.8rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-top: 10px;
+    }
+
+    .back-link i {
+      font-size: 0.78rem;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 960px) {
+      .card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 20px 10px;
+      }
+
+      .card {
+        padding: 20px 16px 16px;
+      }
+
+      .title-main {
+        font-size: 1.6rem;
+      }
+
+      .top-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- TOP SIMPLE -->
+    <div class="top-row">
+      <div class="logo-wrap">
+        <img src="../img/logo-argenville.png" alt="Argenville" />
+      </div>
+      <div class="top-actions">
+        <a href="../index.html" class="top-btn">
+          <i class="fa-solid fa-house"></i>
+          Volver al sitio
+        </a>
+        <a href="../shopping/index.html" class="top-btn">
+          <i class="fa-solid fa-cart-shopping"></i>
+          Ir al shopping
+        </a>
+        <a href="index.html" class="top-btn top-btn-primary">
+          <i class="fa-solid fa-user"></i>
+          Volver a mi cuenta
+        </a>
+      </div>
+    </div>
+
+    <!-- CARD PRINCIPAL -->
+    <div class="card">
+      <!-- IZQUIERDA -->
+      <div class="left-col">
+        <div class="badge">
+          <i class="fa-solid fa-store"></i>
+          Alta de tienda Argenville
+        </div>
+
+        <h1 class="title-main">Armá tu tienda Argenville para vender al mundo.</h1>
+
+        <p class="subtitle">
+          Con estos datos vamos a diseñar junto a vos la mejor forma de entrar al
+          shopping: corner shop, tienda online, packs para revender o combinación
+          de todo.
+        </p>
+
+        <div class="highlight-box">
+          <strong>Importante:</strong> esto no genera nada automático. Es una
+          ficha de alta para que el equipo de Argenville analice tu caso, te
+          contacte y termine el onboarding con vos.
+        </div>
+
+        <ul class="list">
+          <li>
+            <i class="fa-solid fa-check-circle"></i>
+            <span>Podés ser fabricante, distribuidor o emprendedor con marca propia.</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-check-circle"></i>
+            <span>Podés empezar con un solo país objetivo e ir sumando después.</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-check-circle"></i>
+            <span>Cuanto más claro completes esta ficha, más rápido vamos a poder avanzar.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- DERECHA / FORM -->
+      <div class="right-col">
+        <div class="steps-header">
+          <div>
+            <div class="steps-title">Datos para crear tu tienda</div>
+            <div class="steps-sub">
+              Paso 1 de 3: contanos quién sos y cómo querés vender.
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill"></div>
+            </div>
+          </div>
+          <div class="step-indicator">
+            <span class="step-indicator-pill">Ficha inicial</span>
+          </div>
+        </div>
+
+        <form>
+          <!-- Datos básicos -->
+          <div class="form-row">
+            <div class="field">
+              <label for="marca">Nombre de la marca o empresa</label>
+              <input id="marca" type="text" placeholder="Ej: Alfa-Hor, Yerba del Valle, Quesos Don Pepe..." />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="contacto">Persona de contacto</label>
+              <input id="contacto" type="text" placeholder="Nombre y apellido" />
+            </div>
+            <div class="field">
+              <label for="email">Correo electrónico</label>
+              <input id="email" type="email" placeholder="tuemail@tuempresa.com" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="whatsapp">WhatsApp de contacto</label>
+              <input id="whatsapp" type="text" placeholder="+54 9 351 ..." />
+              <div class="field-inline-note">
+                Solo para coordinaciones comerciales, no se muestra públicamente.
+              </div>
+            </div>
+          </div>
+
+          <!-- Tipo de tienda -->
+          <div class="fieldset-title">¿Qué tipo de tienda querés armar?</div>
+          <div class="pill-options">
+            <span class="pill-option pill-option--active">Kiosco Argento</span>
+            <span class="pill-option">Yerba &amp; Mate Club</span>
+            <span class="pill-option">Vinos &amp; bebidas</span>
+            <span class="pill-option">Mix general</span>
+            <span class="pill-option">Solo packs para revender</span>
+            <span class="pill-option">Otro formato</span>
+          </div>
+
+          <!-- Países destino -->
+          <div class="form-row">
+            <div class="field">
+              <label for="paises">¿A qué país o países querés llegar primero?</label>
+              <input id="paises" type="text" placeholder="Ej: España, Brasil, USA, UE..." />
+              <div class="field-inline-note">
+                Podés nombrar ciudades o regiones (Ej: Barcelona, Miami, San Pablo).
+              </div>
+            </div>
+          </div>
+
+          <!-- Info logística/comercial -->
+          <div class="fieldset-title">Información comercial y logística básica</div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="origen">¿Dónde está físicamente tu stock?</label>
+              <input id="origen" type="text" placeholder="Ciudad y provincia / estado" />
+            </div>
+            <div class="field">
+              <label for="capacidad">Capacidad aproximada de producción / stock mensual</label>
+              <input id="capacidad" type="text" placeholder="Ej: 500 cajas/mes, 2 pallets, etc." />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="catalogo">¿Qué productos querés ofrecer primero?</label>
+              <textarea id="catalogo" placeholder="Ej: alfajores de maicena, quesos, vinos, yerba, snacks, combos para kioscos..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="redes">Sitio web y/o redes principales</label>
+              <input id="redes" type="text" placeholder="Ej: www.tumarca.com / @tumarca en Instagram" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="comentarios">Comentarios o aclaraciones</label>
+              <textarea id="comentarios" placeholder="Contanos si ya exportás, si trabajás con otro operador, si tenés urgencias de fechas, etc."></textarea>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="form-footer">
+            <div>
+              Esta ficha no confirma nada todavía. Es el punto de partida para que
+              el equipo de Argenville te contacte y arme una propuesta concreta.
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" onclick="location.href='mailto:argenvillellc@gmail.com'">
+                <i class="fa-solid fa-envelope"></i>
+                Hablar con el equipo comercial
+              </button>
+              <button type="submit" class="btn-primary">
+                <i class="fa-solid fa-paper-plane"></i>
+                Guardar y enviar a Argenville
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <a href="index.html" class="back-link">
+          <i class="fa-solid fa-arrow-left"></i>
+          Volver a mi cuenta
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
