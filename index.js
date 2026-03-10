@@ -32,7 +32,7 @@ const CATALOGO = [
     { id: "dulce-leche", nombre: "Dulce de Leche Colonial / Repostero", precio: "Ver en Tienda", desc: "¡SÍ TENEMOS! Es el mejor del mundo." }
 ];
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 let chatSession = model.startChat({
